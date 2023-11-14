@@ -306,3 +306,63 @@ Error de autenticación: Si un usuario intenta acceder a una página o realizar 
 Error de autorización: Si un usuario intenta realizar una acción que no está autorizada para realizar debido a su rol, el sistema debería mostrar un mensaje de error indicando que la acción no está autorizada y ofrecer la posibilidad de volver a la página anterior.
 
 Error de servidor: En caso de que se produzca un error interno en el servidor, como una excepción no controlada, el sistema debería mostrar un mensaje de error genérico indicando que se produjo un error y ofrecer la posibilidad de volver a intentarlo o contactar con el soporte técnico.
+
+# Historia 3 - Diseño de la interfaz. Bocetos
+Una vez tenemos claro las funcionalidades que debe realizar nuestra aplicación, comenzamos con el diseño de la interfaz.
+
+Este proceso incluye diseñar los bocetos, los wireframes y los mockups ,para acabar creando los prototipos con html.
+
+Sin duda, el primer paso, debe ser dibujar los bocetos, así que, busca un lápiz, una goma de borrar y un puñado de papel, ¡y manos a la obra!
+## Deseño de Bocetos
+INFO
+Recuerda que los bocetos son dibujos a mano alzada que representan ideas de diseño de manera rápida y no detallada. Los bocetos suelen ser utilizados al inicio del proceso de diseño para explorar diferentes ideas y soluciones de diseño de manera rápida y económica. Los bocetos son ideales para hacer borradores rápidos y para discutir ideas con colegas y clientes.
+## Home y menús usuarios
+![Ejemplo de imagen](src/IMG_5595.HEIC)
+Hemos didivido la interficie en 3 zonas, el encabezado (header), el cuerpo principal (main) y el pie de página (footer).
+
+En el header vamos a alojar una barra superior fija con: el logo y nombre de la web (que hará las veces de link a la página principal), un menú central genérico (para acceder a páginas públicas), un menú central específico (que será diferente en función del rol de usuario logueado), y un icono (avatar) que permitirá ver la imagen del usuario logueado y que hará de botón para desplegar otro menú, el menú de usuario (que tendrá diferentes items dependiendo de si la sesió está abierta o no y del tipo de rol que tenga el usuario logueado).
+El cuerpo (main) albergará el contenido de las páginas. Será la sección que vaya cambiando dependiendo de la página que carguemos. En la página home simplemente aparece una imagen de fondo y el nombre de la web.
+El header será meramente informativo.
+## Regitro de un usuario
+![Ejemplo de imagen](src/IMG_5596.HEIC)
+
+## Iniciar sesión
+![Ejemplo de imagen](src/IMG_5597.HEIC)
+
+## Editar mi perfil
+![Ejemplo de imagen](src/IMG_5598.HEIC)
+
+Editar perfil será una ventana modal, es decir, se mostrará la ventana y el fondo se volverá oscuro.
+
+Esta ventana de edición permitirá, además de modificar los datos del usuario, añadir una imagen de avatar. Por el momento, en esta primera versión, podremos añadir el link de una imagen que esté alojada en un servidor. En la siguiente versión (versión 1.1) actualizaremos esta ventana para que puedan subirse archivos (imágenes) al servidor.
+
+## Listado de todos los recintos
+![Ejemplo de imagen](src/IMG_5601.HEIC)
+![Ejemplo de imagen](src/IMG_5602.HEIC)
+
+En esta página podemos ver, en la pestaña izquierda, todos los recintos en forma de tabla. La pestaña derecha mostrará solo los recintos que ha subido el usuario que ha iniciado la sesión.
+
+Al hacer clic en cualquier parte de la fila se accede al detalle del recinto.
+
+También tenemos un buscador que permite buscar recintos por palabras clave en el nombre o descripción.
+
+Las celdas de encabezado de las tablas incluyen un icono (flecha hacia arriba o hacia abajo) que permitirá ordenar la tabla por la columna en concreto.
+
+## Listado de Mis reservas
+![Ejemplo de imagen](src/IMG_5603.HEIC)
+
+
+## Detalle de un recinto
+![Ejemplo de imagen](src/IMG_5604.HEIC)
+
+
+## Panel administración de recintos
+![Ejemplo de imagen](src/IMG_5599.HEIC)
+
+
+## Panel administración de usuarios
+![Ejemplo de imagen](src/IMG_5605.HEIC)
+Esta vista permite editar los datos de los usuarios. Por supuesto es solo accesible para los administradores.
+
+## Reserva 
+![Ejemplo de imagen](src/IMG_5607.HEIC)
