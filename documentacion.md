@@ -50,7 +50,7 @@ El diagrama de casos de uso es una herramienta valiosa para comunicar y comprend
 
 El diagrama de casos de uso para la versión 1.0 sería el siguiente:
 
-![casosdeuso](https://carrebola.github.io/vanillaPill/assets/images/diagramaCasosUso_1-3fc60e64208490df3bd2eb0f595cedbc.png)
+![casosdeuso](![](src%5CCaptura%20de%20pantalla%202023-11-14%20203406.png))
 
 
 Este diagrama refleja de forma resumida qué acciones se pueden llevar a cabo en nuestro aplicación dependiendo del rol del usuario.
