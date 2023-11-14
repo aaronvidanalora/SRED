@@ -50,8 +50,7 @@ El diagrama de casos de uso es una herramienta valiosa para comunicar y comprend
 
 El diagrama de casos de uso para la versión 1.0 sería el siguiente:
 
-![casosdeuso](![](src%5CCaptura%20de%20pantalla%202023-11-14%20203406.png))
-
+![](src%5CCaptura%20de%20pantalla%202023-11-14%20203406.png)
 
 Este diagrama refleja de forma resumida qué acciones se pueden llevar a cabo en nuestro aplicación dependiendo del rol del usuario.
 
