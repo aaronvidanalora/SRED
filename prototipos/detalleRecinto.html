@@ -75,26 +75,40 @@
             </nav>
         </header>
         <main>
-            <main>
-                <div class="container">
-                    <h1 class="mt-5 text-center">Registro</h1>
-                    <div class="m-5 mx-auto" style="max-width: 400px">
-                        <form action="" class="form border shadow-sm p-3">
-                            <label for="nombre" class="form-label">Nombre:</label>
-                            <input required id="nombre" type="text" class="form-control" />
-                            <label for="apellidos" class="form-label">Apellidos:</label>
-                            <input id="apellidos" type="text" class="form-control" />
-                            <label for="email" class="form-label">Email:</label>
-                            <input required id="email" type="text" class="form-control" />
-                            <label for="dni" class="form-label">DNI:</label>
-                            <input required id="dni" type="text" class="form-control" />
-                            <label for="pass" class="form-label mt-3">Contraseña:</label>
-                            <input required minlength="6" id="pass" type="password" class="form-control" />
-                            <a class="btn btn-primary w-100 mt-3" href="#">Enviar</a>
-                        </form>
+            <div class="container">
+                <h1 class="mt-5">Nombre del recinto</h1>
+                <div class="d-flex justify-content-end">
+                    <bottom class="btn btn-outline-secondary mt-5">
+                        <i class="bi bi-arrow-bar-left" style="font-size: 1em;"></i>
+                        Volver</bottom>
+                </div>
+                
+                <div class="row mt-2">
+                    <div class="col-12 col-md-4 mb-3">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM6NVcjixrj9jzHfub5ORbj4ssnu0mgpD8pw&usqp=CAU" alt="" class="img-fluid mt-3">
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <p>
+                            <p><strong>Nombre: </strong><span id="nombre">Pabellón Pepe</span></p>
+                            <p><strong>Propietario: </strong><span id="nombre">Pepe García</span></p>
+                            <p><strong>Capacidad: </strong><span id="nombre">3.000 personas</span></p>
+                            <p><strong>Ubicación: </strong><span id="nombre">Calle Pepito Grillo 12, Badalona</span></p>
+                            <p><strong>Deporte recomendado: </strong><span id="nombre">Deportes de contacto / Básquet</span></p>
+                            <p><strong>Descripción: </strong><span id="nombre">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam modi dicta iste debitis recusandae perspiciatis quae. Eius impedit saepe autem velit voluptate, odio sequi expedita nisi est molestiae quo quisquam!</span></p>
+                        </p>
                     </div>
                 </div>
-            </main>
+                <div
+                    class="container fixed-bottom d-flex justify-content-end"
+                    style="padding: 0px 0px 100px 0px"
+                >
+                    <a class="btn btn-success fs-5 shadow">Reservar</a>
+                </div>
+                
+            </div>
+        </main>
+        
+        
         <footer class="">
             <nav class="navbar bg-secondary fixed-bottom small">
                 <div class="container">
