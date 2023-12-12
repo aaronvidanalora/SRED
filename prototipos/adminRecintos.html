@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="./src/bootstrap.min.css">
+        <!-- Bootstrap icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+        />
+        <!-- Mis estilos personales  -->
+        <link rel="stylesheet" href="styles.css" />
+
+        <title>SRED</title>
+    </head>
+    
+    <body class="pt-5" style="overflow-x: hidden; padding-bottom: 100px">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <div class="container">
+                    <a class="navbar-brand d-flex mt-2" href="#"
+                        ><img
+                            src="./src/logo.jpg"
+                            alt=""
+                            width="50"
+                            height="30"
+                            class="d-inline-block align-text-top"
+                        />
+                    <p class="mx-3">SRED - Sistema Reserva Espacios Deportivos</p>
+                        </a
+                    >
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">Recintos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#">Sobre Nosotros</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <button class="ms-2 btn btn-success">
+                                    Iniciar sesión
+                                    <i class="bi bi-box-arrow-in-right"></i>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="ms-2 btn btn-light">
+                                    Regístrate
+                                    <i class="bi bi-box-arrow-in-right"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-5">Panel de administración</h1>
+                <!-- tabs -->
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item w-50">
+                                <a class="nav-link" aria-current="page" href="#">Usuarios</a>
+                            </li>
+                            <li class="nav-item w-50">
+                                <a class="nav-link active" href="#">Recintos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- tabla Recintos -->
+                <div class="border border-top-0 p-3">
+                    <!-- buscador -->
+                    <div class="row">
+                        <div class="d-flex col-12 col-md-6 mb-3">
+                            <div class="input-group flex-nowrap">
+                                <span class="input-group-text" id="addon-wrapping"
+                                    ><i class="bi bi-search"></i
+                                ></span>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Buscador"
+                                    aria-label="Username"
+                                    aria-describedby="addon-wrapping"
+                                />
+                                <span class="input-group-text" id="addon-wrapping"
+                                    ><i class="bi bi-x"></i
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- tabla Recintos -->
+                    <div class="col-12" style="overflow-x: auto">
+                        <table
+                            class="table table-hover align-middle mt-3"
+                            style="min-width: 1000px"
+                        >
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        Nombre <span><i class="bi bi-caret-down"></i></span>
+                                    </th>
+                                    <th>
+                                        Descripción <span><i class="bi bi-caret-up"></i></span>
+                                    </th>
+                                    
+                                   
+                                    <th>
+                                        Propietario <span><i class="bi bi-caret-up"></i></span>
+                                    </th>
+                                   
+                                    <th>
+                                        Estado <span><i class="bi bi-caret-up"></i></span>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tr>
+                                <td>
+                                    <div class="containerImagen">
+                                        <img width="50px" src="./src/logo.jpg" alt="" />
+                                    </div>
+                                </td>
+                                <td>Recinto ejemplo 1</td>
+                                <td>Ejemplo de web para centro fp</td>
+                                <td>Propietario 1</td>
+                                <td>Reservado</td>
+                                <td><i class="btn btn-outline-primary bi bi-pencil"></i></td>
+                                <td><i class="btn btn-outline-danger bi bi-trash3"></i></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="containerImagen">
+                                        <img width="50px" src="./src/logo.jpg" alt="" />
+                                    </div>
+                                </td>
+                                <td>Recinto ejemplo 1</td>
+                                <td>Ejemplo de web para centro fp</td>
+                                <td>Propietario 1</td>
+                                <td>Reservado</td>
+                                <td><i class="btn btn-outline-primary bi bi-pencil"></i></td>
+                                <td><i class="btn btn-outline-danger bi bi-trash3"></i></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="containerImagen">
+                                        <img width="50px" src="./src/logo.jpg" alt="" />
+                                    </div>
+                                </td>
+                                <td>Recinto ejemplo 1</td>
+                                <td>Ejemplo de web para centro fp</td>
+                                <td>Propietario 1</td>
+                                <td>Reservado</td>
+                                <td><i class="btn btn-outline-primary bi bi-pencil"></i></td>
+                                <td><i class="btn btn-outline-danger bi bi-trash3"></i></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="">
+            <nav class="navbar bg-secondary fixed-bottom small">
+                <div class="container">
+                    <a class="navbar-brand fs-6" href="http://www.fpllefia.com">
+                        <img
+                            src="./src/logo.jpg"
+                            alt="fpllefia"
+                            width="30"
+                            height="24"
+                            class="d-inline-block align-text-top"
+                        />
+                        FPLlefià
+                    </a>
+                    <span class="navbar-text">DAW - Asignatura de Recintos</span>
+                    <a href="#" class="nav-link">SRED GITHUB</a>
+                </div>
+            </nav>
+        </footer>
+
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
