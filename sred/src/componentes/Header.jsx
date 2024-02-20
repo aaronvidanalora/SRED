@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
-import Test from './Test';
+import SignIn from './SignIn';
 
 function Header() {
   return (
@@ -13,14 +13,14 @@ function Header() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/test">Test</Link>
+            <Link to="/signin">Login</Link>
           </li>
         </ul>
       </nav>
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </Router>
   );
