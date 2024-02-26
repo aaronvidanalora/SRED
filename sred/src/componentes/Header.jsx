@@ -9,6 +9,7 @@ import EditaRecinto from './EditaRecinto';
 import Reservar from './Reservar';
 import Recintos from './Recintos';
 import AdminUsuario from './AdminUsuario';
+import MisReservas from './MisReservas';
 
 function Header() {
   return (
@@ -43,7 +44,7 @@ function Header() {
             <Link to="/adminusuarios">Admin Usuarios</Link>
           </li>
           <li>
-            <Link to="/reservarecinto">Reservar Recinto</Link>
+            <Link to="/reservas">Mis Reservas</Link>
           </li>
         </ul>
       </nav>
@@ -58,7 +59,7 @@ function Header() {
         <Route path="/recintos" element={<Recintos />} />
         <Route path="/reservarecinto" element={<Reservar />} />
         <Route path="/adminusuarios" element={<AdminUsuario />} />
-        <Route path="/reservarecinto" element={<Reservar />} />
+        <Route path="/reservas" element={<MisReservas />} />
       </Routes>
     </Router>
   );

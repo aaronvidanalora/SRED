@@ -35,9 +35,9 @@ function EditaRecinto() {
               <input id="dep" type="text" className="form-control" value="Deportes de contacto, Baloncesto" />
               <label className="form-label mt-2" htmlFor="descripcion"><strong>Descripción: </strong></label>
               <textarea id="descripcion" className="form-control" rows="4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recusandae labore at voluptatem tempore incidunt distinctio eaque? Est aspernatur laudantium itaque ullam numquam autem dolor quia amet eum consectetur.</textarea>
-              <input type="submit" className="btn btn-success mt-3" value="Publicar" />
-              <input type="submit" className="btn btn-success mt-3" value="Actualizar" />
-              <input type="submit" className="btn btn-warning mt-3" value="Cancelar" />
+              <input type="submit" className="btn btn-success mt-3 me-2" value="Publicar" />
+              <input type="submit" className="btn btn-success mt-3 me-2" value="Actualizar" />
+              <input type="submit" className="btn btn-warning mt-3 me-2" value="Cancelar" />
               <input type="submit" className="btn btn-danger mt-3" value="Eliminar" />
             </form>
           </div>
