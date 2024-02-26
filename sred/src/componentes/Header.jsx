@@ -6,6 +6,9 @@ import SignUp from './SignUp';
 import DetalleRecinto from './DetalleRecinto';
 import AdminRecinto from './AdminRecinto';
 import EditaRecinto from './EditaRecinto';
+import Reservar from './Reservar';
+import Recintos from './Recintos';
+import AdminUsuario from './AdminUsuario';
 
 function Header() {
   return (
@@ -30,6 +33,18 @@ function Header() {
           <li>
             <Link to="/editarecinto">Edita Recinto</Link>
           </li>
+          <li>
+            <Link to="/recintos">Recintos</Link>
+          </li>
+          <li>
+            <Link to="/reservarecinto">Reservar Recinto</Link>
+          </li>
+          <li>
+            <Link to="/adminusuarios">Admin Usuarios</Link>
+          </li>
+          <li>
+            <Link to="/reservarecinto">Reservar Recinto</Link>
+          </li>
         </ul>
       </nav>
 
@@ -40,6 +55,10 @@ function Header() {
         <Route path="/detallerecinto" element={<DetalleRecinto />} />
         <Route path="/adminrecinto" element={<AdminRecinto />} />
         <Route path="/editarecinto" element={<EditaRecinto />} />
+        <Route path="/recintos" element={<Recintos />} />
+        <Route path="/reservarecinto" element={<Reservar />} />
+        <Route path="/adminusuarios" element={<AdminUsuario />} />
+        <Route path="/reservarecinto" element={<Reservar />} />
       </Routes>
     </Router>
   );

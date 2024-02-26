@@ -1,4 +1,5 @@
-
+import React from 'react';
+import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown } from 'react-icons/bi';
 
 function AdminRecinto() {
   return (
@@ -30,7 +31,7 @@ function AdminRecinto() {
             <div className="d-flex col-12 col-md-6 mb-3">
               <div className="input-group flex-nowrap">
                 <span className="input-group-text" id="addon-wrapping">
-                  <i className="bi bi-search"></i>
+                  <BiSearch />
                 </span>
                 <input
                   type="text"
@@ -40,7 +41,7 @@ function AdminRecinto() {
                   aria-describedby="addon-wrapping"
                 />
                 <span className="input-group-text" id="addon-wrapping">
-                  <i className="bi bi-x"></i>
+                  <BiX />
                 </span>
               </div>
             </div>
@@ -53,16 +54,16 @@ function AdminRecinto() {
                 <tr>
                   <th></th>
                   <th>
-                    Nombre <span><i className="bi bi-caret-down"></i></span>
+                    Nombre <span><BiCaretDown /></span>
                   </th>
                   <th>
-                    Descripción <span><i className="bi bi-caret-down"></i></span>
+                    Descripción <span><BiCaretDown /></span>
                   </th>
                   <th>
-                    Propietario <span><i className="bi bi-caret-down"></i></span>
+                    Propietario <span><BiCaretDown /></span>
                   </th>
                   <th>
-                    Estado <span><i className="bi bi-caret-down"></i></span>
+                    Estado <span><BiCaretDown /></span>
                   </th>
                   <th></th>
                   <th></th>
@@ -73,41 +74,41 @@ function AdminRecinto() {
                 <tr>
                   <td>
                     <div className="containerImagen">
-                      <img width="50px" src="./src/logo.jpg" alt="" />
+                      <img width="50px" src="./src/assets/logo.jpg" alt="" />
                     </div>
                   </td>
                   <td>Recinto ejemplo 1</td>
                   <td>Recinto Deportivo</td>
                   <td>Propietario 1</td>
                   <td>Reservado</td>
-                  <td><i className="btn btn-outline-primary bi bi-pencil"></i></td>
-                  <td><i className="btn btn-outline-danger bi bi-trash3"></i></td>
+                  <td><i className="btn btn-outline-primary"><BiPencil /></i></td>
+                  <td><i className="btn btn-outline-danger"><BiTrash /></i></td>
                 </tr>
                 <tr>
                   <td>
                     <div className="containerImagen">
-                      <img width="50px" src="./src/logo.jpg" alt="" />
+                      <img width="50px" src="./src/assets/logo.jpg" alt="" />
                     </div>
                   </td>
                   <td>Recinto ejemplo 1</td>
                   <td>Recinto Deportivo</td>
                   <td>Propietario 1</td>
                   <td>Reservado</td>
-                  <td><i className="btn btn-outline-primary bi bi-pencil"></i></td>
-                  <td><i className="btn btn-outline-danger bi bi-trash3"></i></td>
+                  <td><i className="btn btn-outline-primary"><BiPencil /></i></td>
+                  <td><i className="btn btn-outline-danger"><BiTrash /></i></td>
                 </tr>
                 <tr>
                   <td>
                     <div className="containerImagen">
-                      <img width="50px" src="./src/logo.jpg" alt="" />
+                      <img width="50px" src="./src/assets/logo.jpg" alt="" />
                     </div>
                   </td>
                   <td>Recinto ejemplo 1</td>
                   <td>Recinto Deportivo</td>
                   <td>Propietario 1</td>
                   <td>Reservado</td>
-                  <td><i className="btn btn-outline-primary bi bi-pencil"></i></td>
-                  <td><i className="btn btn-outline-danger bi bi-trash3"></i></td>
+                  <td><i className="btn btn-outline-primary"><BiPencil /></i></td>
+                  <td><i className="btn btn-outline-danger"><BiTrash /></i></td>
                 </tr>
               </tbody>
             </table>
