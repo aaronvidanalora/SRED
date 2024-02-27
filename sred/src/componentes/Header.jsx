@@ -9,7 +9,6 @@ import Reservar from './Reservar';
 import Recintos from './Recintos';
 import AdminUsuario from './AdminUsuario';
 import MisReservas from './MisReservas';
-import Test from './Test';
 
 function Header() {
   
@@ -27,7 +26,7 @@ function Header() {
                 height="30"
                 className="d-inline-block align-text-top"
               />
-              <p className="mx-3">SRED - Sistema Reserva Espacios Deportivos</p>
+              <p className="mx-3 text-bg-dark ">SRED - Sistema Reserva Espacios Deportivos</p>
             </Link>
             <button
               className="navbar-toggler"
@@ -45,13 +44,10 @@ function Header() {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
                 <li>
-                  <Link to="/test">test</Link>
+                  <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
                 </li>
                 <li>
-                  <Link to="/signin" className='nav-link text-bg-secondary bg-secondary rounded-3 px-3 me-3'>Login</Link>
-                </li>
-                <li>
-                  <Link to="/signup" className='nav-link text-bg-success bg-success rounded-3 px-3'>Registrarse</Link>
+                  <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
                 </li>
               </ul>
             </div>
@@ -59,7 +55,6 @@ function Header() {
         </nav>
       </header>
       <Routes>
-        <Route path="/test" element={<Test />} />
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
