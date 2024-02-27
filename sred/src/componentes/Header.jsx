@@ -40,6 +40,7 @@ function Header() {
               <span className="navbar-toggler-icon"></span>
             </button>
 
+            <Link to="/reservarecinto" className='nav-link text-bg-dark '>reservarecinto</Link>
             
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
@@ -58,12 +59,12 @@ function Header() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/detallerecinto" element={<DetalleRecinto />} />
-        <Route path="/adminrecinto" element={<AdminRecinto />} />
-        <Route path="/editarecinto" element={<EditaRecinto />} />
         <Route path="/recintos" element={<Recintos />} />
-        <Route path="/reservarecinto" element={<Reservar />} />
+        <Route path="/detallerecinto" element={<DetalleRecinto />} />
+        <Route path="/editarecinto" element={<EditaRecinto />} />
+        <Route path="/adminrecinto" element={<AdminRecinto />} />
         <Route path="/adminusuarios" element={<AdminUsuario />} />
+        <Route path="/reservarecinto" element={<Reservar />} />
         <Route path="/reservas" element={<MisReservas />} />
       </Routes>
     </Router>
