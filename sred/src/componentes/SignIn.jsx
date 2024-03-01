@@ -11,7 +11,7 @@ function SignIn() {
 
   const handleSignIn = async () => {
     try {
-      const { user, error } = await supabase.auth.signIn({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -20,7 +20,7 @@ function SignIn() {
         console.error('Error al iniciar sesión:', error.message);
         alert('Usuario o contraseña incorrectos');
       } else {
-        console.log('Usuario ha iniciado sesión correctamente:', user);
+        console.log('Usuario ha iniciado sesión correctamente:', data.user);
       }
     } catch (error) {
       console.error('Error general:', error.message);
