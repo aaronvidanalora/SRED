@@ -1,5 +1,6 @@
-import '../App.css';
-
+import React from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 function DetalleRecinto() {
   return (
@@ -7,10 +8,10 @@ function DetalleRecinto() {
       <div className="container">
         <h1 className="mt-5">Nombre del recinto</h1>
         <div className="d-flex justify-content-end">
-          <button className="btn btn-outline-secondary mt-5">
-            <i className="bi bi-arrow-bar-left" style={{ fontSize: '1em' }}></i>
+          <Link to="/recintos" className="btn btn-outline-secondary mt-5">
+            <FaArrowLeft style={{ fontSize: '1em' }} />
             Volver
-          </button>
+          </Link>
         </div>
         <div className="row mt-2">
           <div className="col-12 col-md-4 mb-3">
@@ -56,7 +57,9 @@ function DetalleRecinto() {
           className="container fixed-bottom d-flex justify-content-end"
           style={{ padding: '0px 0px 100px 0px' }}
         >
-          <a className="btn btn-success fs-5 shadow">Reservar</a>
+          <Link to="/reservarecinto" className="btn btn-success fs-5 shadow">
+            Reservar
+          </Link>
         </div>
       </div>
     </main>

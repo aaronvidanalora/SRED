@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Recinto() {
   return (
@@ -11,7 +12,9 @@ function Recinto() {
             <div className="card-body">
                 <h5 className="card-title">Ejemplo</h5>
                 <p className="card-text">Capacidad: Ejemplo<br />Ubicación: Ejemplo<br />Descripción: Ejemplo</p>
-                <a className="btn btn-sm btn-outline-primary" href="#">Ver Más</a>
+                <Link to="/detalleRecinto" className="btn btn-sm btn-outline-primary">
+                  Ver Más
+                </Link>
             </div>
             </div>
         </div>
