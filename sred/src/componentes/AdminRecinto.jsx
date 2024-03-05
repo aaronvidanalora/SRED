@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown } from 'react-icons/bi';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 function AdminRecinto() {
