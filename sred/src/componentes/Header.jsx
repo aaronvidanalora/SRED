@@ -40,8 +40,6 @@ function Header() {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-
-            <Link to="/reservarecinto" className='nav-link text-bg-dark '>reservarecinto</Link>
             
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">

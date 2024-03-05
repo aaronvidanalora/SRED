@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown } from 'react-icons/bi';
+import { Link, useParams } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
 
 function AdminRecinto() {
+
+  const [recintos, setRecintos] = useState([]);
+
+  useEffect(() => {
+    const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
+    const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // Hacer la consulta a la base de datos y actualizar el estado
+    async function fetchRecintos() {
+      const { data, error } = await supabase
+        .from('recintos')
+        .select('*');
+
+      if (error) {
+        console.error('Error al obtener datos de Supabase:', error);
+      } else {
+        setRecintos(data);
+      }
+    }
+
+    // Llama a la función para obtener los datos al cargar el componente
+    fetchRecintos();
+  }, []); // El segundo argumento vacío asegura que esto solo se ejecute una vez al montar el componente
+
   return (
     <main>
       <div className="container-fluid">
@@ -11,14 +39,14 @@ function AdminRecinto() {
           <div className="col-12">
             <ul className="nav nav-tabs">
               <li className="nav-item w-50">
-                <a className="nav-link" aria-current="page" href="#">
+                <Link to="/adminusuarios" className="nav-link">
                   Usuarios
-                </a>
+                </Link>
               </li>
               <li className="nav-item w-50">
-                <a className="nav-link active" href="#">
+                <Link to="/adminrecintos" className="nav-link active">
                   Recintos
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -62,54 +90,27 @@ function AdminRecinto() {
                   <th>
                     Propietario <span><BiCaretDown /></span>
                   </th>
-                  <th>
-                    Estado <span><BiCaretDown /></span>
-                  </th>
                   <th></th>
                   <th></th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr>
-                  <td>
-                    <div className="containerImagen">
-                      <img width="50px" src="./src/assets/logo.jpg" alt="" />
-                    </div>
-                  </td>
-                  <td>Recinto ejemplo 1</td>
-                  <td>Recinto Deportivo</td>
-                  <td>Propietario 1</td>
-                  <td>Reservado</td>
-                  <td><i className="btn btn-outline-primary"><BiPencil /></i></td>
-                  <td><i className="btn btn-outline-danger"><BiTrash /></i></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="containerImagen">
-                      <img width="50px" src="./src/assets/logo.jpg" alt="" />
-                    </div>
-                  </td>
-                  <td>Recinto ejemplo 1</td>
-                  <td>Recinto Deportivo</td>
-                  <td>Propietario 1</td>
-                  <td>Reservado</td>
-                  <td><i className="btn btn-outline-primary"><BiPencil /></i></td>
-                  <td><i className="btn btn-outline-danger"><BiTrash /></i></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="containerImagen">
-                      <img width="50px" src="./src/assets/logo.jpg" alt="" />
-                    </div>
-                  </td>
-                  <td>Recinto ejemplo 1</td>
-                  <td>Recinto Deportivo</td>
-                  <td>Propietario 1</td>
-                  <td>Reservado</td>
-                  <td><i className="btn btn-outline-primary"><BiPencil /></i></td>
-                  <td><i className="btn btn-outline-danger"><BiTrash /></i></td>
-                </tr>
+                {recintos.map((recinto) => (
+                    <tr key={recinto.id}>
+                      {/* Renderiza los datos de cada recinto aquí */}
+                      <td className="text-center">
+                        <div >
+                          <img width="80px" src={recinto.imagen} alt="" />
+                        </div>
+                      </td>
+                      <td>{recinto.nombre}</td>
+                      <td>{recinto.descripcion}</td>
+                      <td>{recinto.propietario}</td>
+                      <td className="text-center"><i className="btn btn-outline-primary"><BiPencil /></i></td>
+                      <td className="text-center"><i className="btn btn-outline-danger"><BiTrash /></i></td>
+                    </tr>
+                ))}
               </tbody>
             </table>
           </div>
