@@ -31,8 +31,7 @@ function AdminRecinto() {
   }, []); // El segundo argumento vacío asegura que esto solo se ejecute una vez al montar el componente
 
   return (
-    <main>
-      <div className="container-fluid">
+      <div className="container">
         <h1 className="mt-5">Panel de administración</h1>
         {/* Tabs */}
         <div className="row mt-5">
@@ -116,7 +115,6 @@ function AdminRecinto() {
           </div>
         </div>
       </div>
-    </main>
   );
 }
 
