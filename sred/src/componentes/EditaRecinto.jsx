@@ -1,4 +1,6 @@
-
+import React from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 function EditaRecinto() {
   return (
@@ -6,10 +8,10 @@ function EditaRecinto() {
       <div className="container">
         <h1 className="mt-5">Edita Recinto</h1>
         <div className="d-flex justify-content-end">
-          <button className="btn btn-outline-secondary mt-5">
-            <i className="bi bi-arrow-bar-left" style={{ fontSize: '1em' }}></i>
+          <Link to="/adminrecinto" className="btn btn-outline-secondary mt-5">
+            <FaArrowLeft style={{ fontSize: '1em' }} />
             Volver
-          </button>
+          </Link>
         </div>
 
         <div className="row mt-2">

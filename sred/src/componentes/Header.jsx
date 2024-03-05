@@ -1,4 +1,3 @@
-// Header.jsx
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import SignIn from './SignIn';
@@ -13,22 +12,23 @@ import MisReservas from './MisReservas';
 import RegistroRecintos from './RegistraRecintos';
 
 function Header() {
+  
   return (
     <>
-                <Router>
+    <Router>
       <header className='pb-5'>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
           <div className="container">
             <Link className="navbar-brand d-flex mt-2" to="/">
               <img
-                src="./src/assets//logo.jpg"
+                src="./src/assets/logo.jpg"
                 alt=""
                 width="50"
                 height="30"
                 className="d-inline-block align-text-top"
               />
-              <p className="mx-3">SRED - Sistema Reserva Espacios Deportivos</p>
-              </Link>
+              <p className="mx-3 text-bg-dark ">SRED - Sistema Reserva Espacios Deportivos</p>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -40,21 +40,17 @@ function Header() {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-
+            
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
                 <li>
-                  <Link to="/signin">Login</Link>
+                  <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
                 </li>
-              </ul>
-              <ul className="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
                 <li>
-                  <Link to="/signup">Registrarse</Link>
+                  <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
                 </li>
               </ul>
             </div>
-            
-
           </div>
         </nav>
       </header>
@@ -69,16 +65,15 @@ function Header() {
         <Route path="/reservarecinto" element={<Reservar />} />
         <Route path="/registrarecinto" element={<RegistroRecintos />} />
         <Route path="/adminusuarios" element={<AdminUsuario />} />
+        <Route path="/reservarecinto" element={<Reservar />} />
         <Route path="/reservas" element={<MisReservas />} />
       </Routes>
-      </Router>
+    </Router>
       {/* <nav>
         <ul>
           <li>
             <Link to="/">Home</Link>
           </li>
-          
-          
           <li>
             <Link to="/detallerecinto">Detalle Recinto</Link>
           </li>
@@ -102,9 +97,7 @@ function Header() {
           </li>
         </ul>
       </nav>
-
-      
-    </Router>  */}
+      </Router>  */}
     </>
   );
 }

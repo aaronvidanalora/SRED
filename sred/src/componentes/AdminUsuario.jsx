@@ -87,7 +87,7 @@ function AdminUsuario() {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className="container">
         <h1 className="mt-5">Panel de administración</h1>
         <div className="row mt-5">
           <div className="col-12">
@@ -98,7 +98,7 @@ function AdminUsuario() {
                 </Link>
               </li>
               <li className="nav-item w-50">
-                <Link to="/adminrecintos" className="nav-link active">
+                <Link to="/adminrecinto" className="nav-link active">
                   Recintos
                 </Link>
               </li>
