@@ -10,6 +10,7 @@ import Reservar from './Reservar';
 import Recintos from './Recintos';
 import AdminUsuario from './AdminUsuario';
 import MisReservas from './MisReservas';
+import RegistroRecintos from './RegistraRecintos';
 
 function Header() {
   return (
@@ -61,11 +62,12 @@ function Header() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/detallerecinto" element={<DetalleRecinto />} />
+        <Route path="/detalle-recinto/:id" element={<DetalleRecinto/>} />
         <Route path="/adminrecinto" element={<AdminRecinto />} />
         <Route path="/editarecinto" element={<EditaRecinto />} />
         <Route path="/recintos" element={<Recintos />} />
         <Route path="/reservarecinto" element={<Reservar />} />
+        <Route path="/registrarecinto" element={<RegistroRecintos />} />
         <Route path="/adminusuarios" element={<AdminUsuario />} />
         <Route path="/reservas" element={<MisReservas />} />
       </Routes>
