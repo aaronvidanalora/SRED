@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown } from 'react-icons/bi';
 import { createClient } from '@supabase/supabase-js';
+import {  Link } from 'react-router-dom';
+
+const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
+  const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 function AdminUsuario() {
   const [usuarios, setUsuarios] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const supabaseUrl = 'https://your-supabase-url.supabase.co';
-  const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-  const supabase = createClient(supabaseUrl, supabaseKey);
+  const [selectedRoles, setSelectedRoles] = useState({}); // State to track selected roles
+
+  
 
   useEffect(() => {
-    const fetchUsuarios = async () => {
+    const fetchData = async () => {
       try {
         const { data, error } = await supabase.from('usuarios').select();
         if (error) {
@@ -23,11 +28,61 @@ function AdminUsuario() {
       }
     };
 
-    fetchUsuarios();
-  }, []);
+    fetchData();
+  }, [supabase]);
 
-  const filteredUsuarios = usuarios.filter((usuario) =>
-    usuario.nombre.toLowerCase().includes(searchQuery.toLowerCase())
+  const handleDelete = async (id) => {
+    try {
+      const { error } = await supabase.from('usuarios').delete().eq('id', id);
+      if (error) {
+        console.error('Error deleting usuario:', error);
+      } else {
+        // Remove the deleted user from the state
+        setUsuarios((prevUsuarios) => prevUsuarios.filter((usuario) => usuario.id !== id));
+      }
+    } catch (error) {
+      console.error('Error deleting usuario:', error);
+    }
+  };
+
+  const handleRoleChange = async (id, event) => {
+    const newRole = event.target.value;
+  
+    console.log(`Handling role change for user ${id}. Selected role: ${selectedRoles[id]}. New role: ${newRole}`);
+  
+    // Check if the role has actually changed
+    if (selectedRoles[id] !== newRole) {
+      try {
+        const { error } = await supabase.from('usuarios').upsert([
+          {
+            id,
+            rol: newRole,
+            name: '', // Provide a non-null value for the "name" column
+          },
+        ]);
+        if (error) {
+          console.error('Error updating usuario role:', error);
+        } else {
+          // Update the role in the state
+          setSelectedRoles((prevRoles) => ({
+            ...prevRoles,
+            [id]: newRole,
+          }));
+        }
+      } catch (error) {
+        console.error('Error updating usuario role:', error);
+      }
+    }
+  };
+  
+  
+  
+  const filteredUsuarios = usuarios.filter(
+    (usuario) =>
+      usuario?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      usuario?.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      usuario?.rol?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      usuario?.dni?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -38,14 +93,14 @@ function AdminUsuario() {
           <div className="col-12">
             <ul className="nav nav-tabs">
               <li className="nav-item w-50">
-                <a className="nav-link active" aria-current="page" href="#">
+              <Link to="/adminusuarios" className="nav-link">
                   Usuarios
-                </a>
+                </Link>
               </li>
               <li className="nav-item w-50">
-                <a className="nav-link" href="#">
+                <Link to="/adminrecintos" className="nav-link active">
                   Recintos
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -62,7 +117,7 @@ function AdminUsuario() {
                   type="text"
                   className="form-control"
                   placeholder="Buscador"
-                  aria-label="Buscador"
+                  aria-label="Username"
                   aria-describedby="addon-wrapping"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -78,7 +133,6 @@ function AdminUsuario() {
             <table className="table table-striped table-bordered table-hover align-middle mt-3">
               <thead className="table-dark">
                 <tr>
-                  <th></th>
                   <th>
                     Nombre <span><BiCaretDown /></span>
                   </th>
@@ -89,7 +143,7 @@ function AdminUsuario() {
                     Rol <span><BiCaretDown /></span>
                   </th>
                   <th>
-                    Fecha <span><BiCaretDown /></span>
+                    ID <span><BiCaretDown /></span>
                   </th>
                   <th>
                     DNI <span><BiCaretDown /></span>
@@ -102,25 +156,29 @@ function AdminUsuario() {
               <tbody>
                 {filteredUsuarios.map((usuario) => (
                   <tr key={usuario.id}>
-                    <td>
-                      <div className="containerImagen">
-                        <img width="50px" src={usuario.imagen} alt="" />
-                      </div>
-                    </td>
-                    <td>{usuario.nombre}</td>
+                    <td>{usuario.name}</td>
                     <td>{usuario.email}</td>
-                    <td>{usuario.rol}</td>
-                    <td>{usuario.fecha}</td>
-                    <td>{usuario.dni}</td>
                     <td>
-                      <i className="btn btn-outline-primary">
-                        <BiPencil />
-                      </i>
+                      <select
+                        value={selectedRoles[usuario.id] || usuario.rol}
+                        onChange={(e) => handleRoleChange(usuario.id, e)}
+                        className="form-select"
+                      >
+                        <option value="registrado">Registrado</option>
+                        <option value="propietario">Propietario</option>
+                        <option value="admin">Admin</option>
+                      </select>
                     </td>
+                    <td>{usuario.id}</td>
+                    <td>{usuario.dni}</td>
+                    <td><i className="btn btn-outline-primary"><BiPencil /></i></td>
                     <td>
-                      <i className="btn btn-outline-danger">
+                      <button
+                        className="btn btn-outline-danger"
+                        onClick={() => handleDelete(usuario.id)}
+                      >
                         <BiTrash />
-                      </i>
+                      </button>
                     </td>
                   </tr>
                 ))}
