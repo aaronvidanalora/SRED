@@ -32,11 +32,11 @@ function SignUp() {
         .from('usuarios')
         .insert([
           {
-            nombre: nombre,
+            name: nombre,
             apellidos: apellidos,
             email: email,
             dni: dni,
-            rol: 'Registrado',
+            rol: 'registrado',
           },
         ]);
   
@@ -44,8 +44,9 @@ function SignUp() {
         console.error('Error al insertar usuario en la base de datos:', dbError.message);
         return;
       }
-  
-      console.log('Usuario registrado y añadido a la base de datos:', dbData);
+      
+      console.log('Usuario registrado y añadido a la base de datos:', data.user);
+      <Link to="/signin"></Link>
     } catch (error) {
       console.error('Error general:', error.message);
     }

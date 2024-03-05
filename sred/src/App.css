@@ -43,3 +43,10 @@
   color: #888;
 } */
 
+.recintos-img{
+  min-width: 100%;
+  object-fit: cover;
+  width: 380px;
+  height: 200px;
+  min-height: 100%;
+}
