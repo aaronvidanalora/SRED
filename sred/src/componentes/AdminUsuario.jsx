@@ -98,7 +98,7 @@ function AdminUsuario() {
                 </Link>
               </li>
               <li className="nav-item w-50">
-                <Link to="/adminrecintos" className="nav-link active">
+                <Link to="/adminrecinto" className="nav-link active">
                   Recintos
                 </Link>
               </li>
