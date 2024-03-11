@@ -106,8 +106,11 @@ function AdminRecinto() {
                       <td>{recinto.nombre}</td>
                       <td>{recinto.descripcion}</td>
                       <td>{recinto.propietario}</td>
-                      <td className="text-center"><i className="btn btn-outline-primary"><BiPencil /></i></td>
+                      <td className="text-center"> <Link to="/editarecinto"><i className="btn btn-outline-primary"><BiPencil /></i></Link></td>
                       <td className="text-center"><i className="btn btn-outline-danger"><BiTrash /></i></td>
+                     
+             
+     
                     </tr>
                 ))}
               </tbody>

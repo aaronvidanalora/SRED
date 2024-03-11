@@ -34,7 +34,7 @@ function DetalleRecinto() {
       <div className="container">
         <h1 className="mt-5">{recinto ? recinto.nombre : 'Cargando...'}</h1>
         <div className="d-flex justify-content-end">
-          <Link to="/" className="btn btn-outline-secondary mt-5">
+          <Link to="/recintos" className="btn btn-outline-secondary mt-5">
             <i className="bi bi-arrow-bar-left" style={{ fontSize: '1em' }}></i>
             Volver
           </Link>
@@ -73,7 +73,11 @@ function DetalleRecinto() {
           </div>
         )}
         <div className="container fixed-bottom d-flex justify-content-end" style={{ padding: '0px 0px 100px 0px' }}>
-          <a className="btn btn-success fs-5 shadow">Reservar</a>
+
+          <Link to="/reservarecinto" className="btn btn-success fs-5 shadow">
+            <i className="bi bi-arrow-bar-left" style={{ fontSize: '1em' }}></i>
+            Reservar
+          </Link>
         </div>
       </div>
     </main>
