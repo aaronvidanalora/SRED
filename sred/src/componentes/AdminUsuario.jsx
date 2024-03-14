@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown } from 'react-icons/bi';
 import { createClient } from '@supabase/supabase-js';
-import {  Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-  const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function AdminUsuario() {
   const [usuarios, setUsuarios] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedRoles, setSelectedRoles] = useState({}); // State to track selected roles
-
-  
+  const [selectedRoles, setSelectedRoles] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +35,6 @@ function AdminUsuario() {
       if (error) {
         console.error('Error deleting usuario:', error);
       } else {
-        // Remove the deleted user from the state
         setUsuarios((prevUsuarios) => prevUsuarios.filter((usuario) => usuario.id !== id));
       }
     } catch (error) {
@@ -47,10 +44,7 @@ function AdminUsuario() {
 
   const handleRoleChange = async (id, event) => {
     const newRole = event.target.value;
-  
-    console.log(`Handling role change for user ${id}. Selected role: ${selectedRoles[id]}. New role: ${newRole}`);
-  
-    // Check if the role has actually changed
+
     if (selectedRoles[id] !== newRole) {
       try {
         const { error } = await supabase.from('usuarios').upsert([
@@ -63,7 +57,6 @@ function AdminUsuario() {
         if (error) {
           console.error('Error updating usuario role:', error);
         } else {
-          // Update the role in the state
           setSelectedRoles((prevRoles) => ({
             ...prevRoles,
             [id]: newRole,
@@ -74,9 +67,7 @@ function AdminUsuario() {
       }
     }
   };
-  
-  
-  
+
   const filteredUsuarios = usuarios.filter(
     (usuario) =>
       usuario?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -93,7 +84,7 @@ function AdminUsuario() {
           <div className="col-12">
             <ul className="nav nav-tabs">
               <li className="nav-item w-50">
-              <Link to="/adminusuarios" className="nav-link">
+                <Link to="/adminusuarios" className="nav-link">
                   Usuarios
                 </Link>
               </li>
@@ -171,7 +162,12 @@ function AdminUsuario() {
                     </td>
                     <td>{usuario.id}</td>
                     <td>{usuario.dni}</td>
-                    <td><i className="btn btn-outline-primary"><BiPencil /></i></td>
+                    <td>
+                    <Link to={`/editarperfil/${usuario.id}`}>
+                      <button className="btn btn-outline-primary"><BiPencil /></button>
+                    </Link>
+
+                    </td>
                     <td>
                       <button
                         className="btn btn-outline-danger"

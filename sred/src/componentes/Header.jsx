@@ -10,6 +10,7 @@ import Recintos from './Recintos';
 import AdminUsuario from './AdminUsuario';
 import MisReservas from './MisReservas';
 import RegistroRecintos from './RegistraRecintos';
+import EditaPerfil from './EditaPerfil';
 
 function Header() {
   
@@ -65,8 +66,8 @@ function Header() {
         <Route path="/reservarecinto" element={<Reservar />} />
         <Route path="/registrarecinto" element={<RegistroRecintos />} />
         <Route path="/adminusuarios" element={<AdminUsuario />} />
-        <Route path="/reservarecinto" element={<Reservar />} />
         <Route path="/reservas" element={<MisReservas />} />
+        <Route path="/editarperfil/:id" element={<EditaPerfil/>} />
       </Routes>
     </Router>
       {/* <nav>
