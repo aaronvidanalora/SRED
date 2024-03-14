@@ -7,6 +7,7 @@ export const menuRol = () => {
     const supabase = createClient(supabaseUrl, supabaseKey)
   
     // query para saber el rol del usuario
+    
     // supabase.Rol es provisional
     switch(supabase.Rol){
         case 'anonimo':
@@ -37,7 +38,7 @@ export const menuRol = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
                         <li>
-                            <Link to="/signin" className='nav-link text-bg-dark me-3'>Recintos</Link>
+                            <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
                         </li>
                     </ul>
                 </div>
@@ -59,26 +60,26 @@ export const menuUsuario = () => {
             return (
                 <ul class="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                    <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <img src="./src/assets/react.svg" alt="" width="25" />
-                    </a>
-                    <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
-                        <li class="text-light text-end p-2 small">
-                            ${ls.getUsuario().email}
-                        </li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><Link to="/signin" class="dropdown-item">Mi perfil</Link></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><Link to="/signin" class="dropdown-item">Cerrar sesión</Link></li>
-                    </ul>
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <img src="./src/assets/react.svg" alt="" width="25" />
+                        </a>
+                        <ul class="dropdown-menu me-0" style="left: -100px; width: 100px">
+                            <li class="text-light text-end p-2 small">
+                                ${ls.getUsuario().email}
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><Link to="/signin" class="dropdown-item">Mi perfil</Link></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><Link to="/signin" class="dropdown-item">Cerrar sesión</Link></li>
+                        </ul>
                     </li>
-                </ul>            
+                </ul>
             )
         case 'propietario':
             return (
