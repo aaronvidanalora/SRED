@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function SignIn() {
   const navigate = useNavigate()
@@ -16,8 +16,10 @@ function SignIn() {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
-        password,
+        password
       });
+
+      console.log(data)
 
       if (error) {
         console.error('Error al iniciar sesión:', error.message);
@@ -77,9 +79,9 @@ function SignIn() {
               Iniciar sesión
             </button>
           </form>
-          <a className="d-block mt-5 btn btn-secondary mx-auto" href="#">
+          <Link to="/SignUp" className="d-block mt-5 btn btn-secondary mx-auto">
             ¿Eres nuevo? Regístrate
-          </a>
+          </Link>
         </div>
       </div>
     </>

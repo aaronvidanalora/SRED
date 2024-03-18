@@ -41,8 +41,8 @@ function Header() {
               <span className="navbar-toggler-icon"></span>
             </button>
             
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+            <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+              <ul className="navbar-nav mb-2 mb-lg-0">
                 <li>
                   <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
                 </li>

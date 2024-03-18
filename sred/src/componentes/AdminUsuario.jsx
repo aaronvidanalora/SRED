@@ -93,12 +93,12 @@ function AdminUsuario() {
           <div className="col-12">
             <ul className="nav nav-tabs">
               <li className="nav-item w-50">
-              <Link to="/adminusuarios" className="nav-link">
+                <Link to="/adminusuarios" className="nav-link active">
                   Usuarios
                 </Link>
               </li>
               <li className="nav-item w-50">
-                <Link to="/adminrecinto" className="nav-link active">
+                <Link to="/adminrecinto" className="nav-link">
                   Recintos
                 </Link>
               </li>
