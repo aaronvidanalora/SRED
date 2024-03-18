@@ -1,52 +1,67 @@
 import { createClient } from '@supabase/supabase-js';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export const menuRol = () => {
-    const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co'
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI'
-    const supabase = createClient(supabaseUrl, supabaseKey)
-  
-    // query para saber el rol del usuario
+const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI'
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+export const menuRol = async () => {
+    try {
+        const { data, error } = await supabase
+        .from('usuarios')
+        .select('rol')
+        .eq('name', 'Cristiano')
+
+        if (error) {
+          console.error('Error al obtener el rol del usuario:', error.message);
+          return null;
+        }
     
-    // supabase.Rol es provisional
-    switch(supabase.Rol){
-        case 'anonimo':
-            return (
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
-                        <li>
-                            <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
-                        </li>
-                        <li>
-                            <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
-                        </li>
-                    </ul>
-                </div>
-            )
-        case 'registrado':
-            return (
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
-                        <li>
-                            <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
-                        </li>
-                    </ul>
-                </div>
-            )
-        case 'propietario':
-            return (
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
-                        <li>
-                            <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
-                        </li>
-                    </ul>
-                </div>
-            )
-        case 'administrador':
-            return ('')
+        console.log(data[0].rol)
+
+        switch(data[0].rol){
+            case 'anonimo':
+                return (
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+                            <li>
+                                <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
+                            </li>
+                            <li>
+                                <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
+                            </li>
+                        </ul>
+                    </div>
+                )
+            case 'registrado':
+                return (
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+                            <li>
+                                <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
+                            </li>
+                        </ul>
+                    </div>
+                )
+            case 'propietario':
+                return (
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+                            <li>
+                                <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
+                            </li>
+                        </ul>
+                    </div>
+                )
+            case 'administrador':
+                return ('')
+        }
+    } catch (error) {
+        console.error('Error al obtener el rol del usuario:', error.message);
+        return null;
     }
-}
+};
+
 
 export const menuUsuario = () => {
     const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co'

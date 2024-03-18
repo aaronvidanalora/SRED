@@ -10,9 +10,13 @@ import Recintos from './Recintos';
 import AdminUsuario from './AdminUsuario';
 import MisReservas from './MisReservas';
 import RegistroRecintos from './RegistraRecintos';
+import { menuRol } from './menus/menus';
 
 function Header() {
-  
+  // para ver los console logs de menuRol
+  menuRol()
+  // document.querySelector('div donde van los uls').innerHTML = menuRol() // no es definitivo
+
   return (
     <>
     <Router>
