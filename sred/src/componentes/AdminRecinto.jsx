@@ -3,15 +3,15 @@ import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
-function AdminRecinto() {
+const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
+const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
+function AdminRecinto() {
   const [recintos, setRecintos] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-    const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Hacer la consulta a la base de datos y actualizar el estado
     async function fetchRecintos() {
@@ -29,6 +29,14 @@ function AdminRecinto() {
     // Llama a la función para obtener los datos al cargar el componente
     fetchRecintos();
   }, []); // El segundo argumento vacío asegura que esto solo se ejecute una vez al montar el componente
+  
+  const filteredRecintos = recintos.filter(
+    (recinto) =>
+      recinto?.imagen?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recinto?.nombre?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recinto?.descripcion?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recinto?.propietario?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
       <div className="container">
@@ -63,9 +71,11 @@ function AdminRecinto() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Buscador"
-                  aria-label="Username"
+                  placeholder="Buscar"
+                  aria-label="Recinto"
                   aria-describedby="addon-wrapping"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <span className="input-group-text" id="addon-wrapping">
                   <BiX />
@@ -95,7 +105,7 @@ function AdminRecinto() {
               </thead>
 
               <tbody>
-                {recintos.map((recinto) => (
+                {filteredRecintos.map((recinto) => (
                     <tr key={recinto.id}>
                       {/* Renderiza los datos de cada recinto aquí */}
                       <td className="text-center">
