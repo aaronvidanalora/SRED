@@ -3,14 +3,15 @@ import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
+const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
+const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 function AdminRecinto() {
   const [recintos, setRecintos] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-    const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
     async function fetchRecintos() {
       const { data, error } = await supabase
@@ -25,25 +26,15 @@ function AdminRecinto() {
     }
 
     fetchRecintos();
-  }, []);
-
-  const handleDeleteRecinto = async (recintoId) => {
-    const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-    const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-    
-    const supabase = createClient(supabaseUrl, supabaseKey);
-    const { error } = await supabase
-      .from('recintos')
-      .delete()
-      .eq('id', recintoId);
-
-    if (error) {
-      console.error('Error al eliminar recinto:', error.message);
-    } else {
-      // Si la eliminación es exitosa, actualiza el estado para reflejar los cambios
-      setRecintos(recintos.filter(recinto => recinto.id !== recintoId));
-    }
-  };
+  }, []); // El segundo argumento vacío asegura que esto solo se ejecute una vez al montar el componente
+  
+  const filteredRecintos = recintos.filter(
+    (recinto) =>
+      recinto?.imagen?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recinto?.nombre?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recinto?.descripcion?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recinto?.propietario?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="container">
@@ -129,6 +120,24 @@ function AdminRecinto() {
                     <button className="btn btn-outline-danger" onClick={() => handleDeleteRecinto(recinto.id)}><BiTrash /></button>
                   </td>
                 </tr>
+              ))}
+            </tbody>
+
+            <tbody>
+              {filteredRecintos.map((recinto) => (
+                  <tr key={recinto.id}>
+                    {/* Renderiza los datos de cada recinto aquí */}
+                    <td className="text-center">
+                      <div >
+                        <img width="80px" src={recinto.imagen} alt="" />
+                      </div>
+                    </td>
+                    <td>{recinto.nombre}</td>
+                    <td>{recinto.descripcion}</td>
+                    <td>{recinto.propietario}</td>
+                    <td className="text-center"><i className="btn btn-outline-primary"><BiPencil /></i></td>
+                    <td className="text-center"><i className="btn btn-outline-danger"><BiTrash /></i></td>
+                  </tr>
               ))}
             </tbody>
           </table>

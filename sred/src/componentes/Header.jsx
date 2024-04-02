@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import SignIn from './SignIn';
@@ -10,10 +11,32 @@ import Recintos from './Recintos';
 import AdminUsuario from './AdminUsuario';
 import MisReservas from './MisReservas';
 import RegistroRecintos from './RegistraRecintos';
-import EditaPerfil from './EditaPerfil';
+import MenuRol, { MenuUsuario } from './menus/Menus';
 
 function Header() {
-  
+
+  const [role, setRole] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const userResult = await MenuUsuario();
+      setUserData(userResult);
+    }
+
+    // async function fetchRole() {
+    //   const roleResult = await MenuRol();
+    //   setRole(roleResult);
+    // }
+
+    fetchData();
+    // fetchRole();
+
+    return () => {};
+  }, []);
+
+  console.log(userData)
+
   return (
     <>
     <Router>
@@ -42,15 +65,60 @@ function Header() {
               <span className="navbar-toggler-icon"></span>
             </button>
             
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
-                <li>
-                  <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
-                </li>
-                <li>
-                  <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
+            <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+              {role === 'anonimo' && (
+                <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+                  <li>
+                    <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
+                  </li>
+                </ul>
+              )}
+              {role === 'registrado' && (
+                <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+                  <li>
+                    <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
+                  </li>
+                </ul>
+              )}
+              {role === 'propietario' && (
+                <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+                  <li>
+                    <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
+                  </li>
+                </ul>
+              )}
+            </div>
+            <div>
+              <ul className="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+                <li className="nav-item dropdown">
+                  <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  >
+                    <img src="/vite.svg" alt="" width="25" />  {/* aqui ira la url del usuario 'userData.img o .url' */}
+                  </a>
+                  <ul className="dropdown-menu me-0">
+                      <li className="p-2 small">HOLAAA</li> {/* {userData.name} */}
+                      <li><hr className="dropdown-divider" /></li>
+                      {userData.rol === 'administrador' && (
+                          <>
+                            <li><Link to="/" className="dropdown-item">Administrador de Usuarios</Link></li>
+                            <li><Link to="/" className="dropdown-item">Administrador de Recintos</Link></li>
+                          </>
+                      )}
+                      <li><Link to="/perfil" className="dropdown-item">Mi perfil</Link></li>
+                      {/* <li><hr className="dropdown-divider" /></li> */}
+                      <li><Link to="/logout" className="dropdown-item">Cerrar sesión</Link></li>
+                  </ul>
                 </li>
               </ul>
+
             </div>
           </div>
         </nav>
@@ -70,35 +138,6 @@ function Header() {
         <Route path="/editarperfil/:id" element={<EditaPerfil/>} />
       </Routes>
     </Router>
-      {/* <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/detallerecinto">Detalle Recinto</Link>
-          </li>
-          <li>
-            <Link to="/adminrecinto">Admin Recinto</Link>
-          </li>
-          <li>
-            <Link to="/editarecinto">Edita Recinto</Link>
-          </li>
-          <li>
-            <Link to="/recintos">Recintos</Link>
-          </li>
-          <li>
-            <Link to="/reservarecinto">Reservar Recinto</Link>
-          </li>
-          <li>
-            <Link to="/adminusuarios">Admin Usuarios</Link>
-          </li>
-          <li>
-            <Link to="/reservas">Mis Reservas</Link>
-          </li>
-        </ul>
-      </nav>
-      </Router>  */}
     </>
   );
 }
