@@ -24,13 +24,13 @@ function Header() {
       setUserData(userResult);
     }
 
-    async function fetchRole() {
-      const roleResult = await MenuRol();
-      setRole(roleResult);
-    }
+    // async function fetchRole() {
+    //   const roleResult = await MenuRol();
+    //   setRole(roleResult);
+    // }
 
     fetchData();
-    fetchRole();
+    // fetchRole();
 
     return () => {};
   }, []);
@@ -101,10 +101,10 @@ function Header() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   >
-                    <img src="./vite.svg" alt="" width="25" />  {/* aqui ira la url del usuario 'userData.img o .url' */}
+                    <img src="/vite.svg" alt="" width="25" />  {/* aqui ira la url del usuario 'userData.img o .url' */}
                   </a>
                   <ul className="dropdown-menu me-0">
-                      <li className="p-2 small">{userData.name}</li>
+                      <li className="p-2 small">HOLAAA</li> {/* {userData.name} */}
                       <li><hr className="dropdown-divider" /></li>
                       {userData.rol === 'administrador' && (
                           <>

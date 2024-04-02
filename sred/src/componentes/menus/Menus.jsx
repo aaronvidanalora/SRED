@@ -44,7 +44,7 @@ export async function MenuUsuario() {
           console.error('Error al obtener el rol del usuario:', error.message);
           return null;
         }
-
+        console.log(data)
         return data[0]
 
     } catch (error) {
