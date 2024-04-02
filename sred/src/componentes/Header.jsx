@@ -61,7 +61,7 @@ function Header() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/detalle-recinto/:id" element={<DetalleRecinto/>} />
         <Route path="/adminrecinto" element={<AdminRecinto />} />
-        <Route path="/editarecinto" element={<EditaRecinto />} />
+        <Route path="/editarecinto/:id" element={<EditaRecinto />} />
         <Route path="/recintos" element={<Recintos />} />
         <Route path="/reservarecinto" element={<Reservar />} />
         <Route path="/registrarecinto" element={<RegistroRecintos />} />
