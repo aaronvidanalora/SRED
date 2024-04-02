@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-const supabaseKey = 'YOUR_SUPABASE_KEY'; // Reemplaza esto con tu clave Supabase
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI'; // Reemplaza esto con tu clave Supabase
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function EditaPerfil() {
@@ -89,10 +89,7 @@ function EditaPerfil() {
                 <label htmlFor="email" className="form-label">Email:</label>
                 <input required id="email" type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
-              <div className="mb-3">
-                <label htmlFor="rol" className="form-label">Rol:</label>
-                <input id="rol" type="text" className="form-control" value={rol} onChange={(e) => setRol(e.target.value)} />
-              </div>
+              
               <div className="mb-3">
                 <label htmlFor="pass" className="form-label">Contraseña:</label>
                 <input required minLength="6" id="pass" type="password" className="form-control" value={contrasena} onChange={(e) => setContrasena(e.target.value)} />

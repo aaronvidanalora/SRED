@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
 
 function EditaRecinto() {
+  const { id } = useParams(); // Obtener el ID del recinto de los parámetros de la URL
+  const [recinto, setRecinto] = useState(null);
+
+  useEffect(() => {
+    const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
+    const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    async function fetchRecinto() {
+      try {
+        const { data, error } = await supabase.from('recintos').select().eq('id', id).single();
+        if (error) {
+          console.error('Error fetching recinto:', error);
+        } else {
+          setRecinto(data);
+        }
+      } catch (error) {
+        console.error('Error fetching recinto:', error);
+      }
+    }
+
+    fetchRecinto();
+  }, [id]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRecinto((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí puedes agregar la lógica para enviar los datos actualizados al servidor
+  };
+
   return (
     <main>
       <div className="container">
@@ -16,28 +54,73 @@ function EditaRecinto() {
 
         <div className="row mt-2">
           <div className="col-12 col-md-4 pt-2 mb-3">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM6NVcjixrj9jzHfub5ORbj4ssnu0mgpD8pw&usqp=CAU" alt="" className="img-fluid" />
-            <label className="form-label mt-3" htmlFor="img"><strong>URL imágen: </strong></label>
-            <input type="text" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM6NVcjixrj9jzHfub5ORbj4ssnu0mgpD8pw&usqp=CAU" className="form-control mt-1" />
+            <img src={recinto?.imagen} alt="" className="img-fluid" />
+            <label className="form-label mt-3" htmlFor="img"><strong>URL imagen: </strong></label>
+            <input
+              type="text"
+              name="imagen"
+              value={recinto?.imagen || ''}
+              className="form-control mt-1"
+              onChange={handleChange}
+            />
           </div>
           <div className="col-12 col-md-8">
-            <form action="" className="form">
+            <form onSubmit={handleSubmit} className="form">
               <label className="form-label" htmlFor="nombre"><strong>Nombre: </strong></label>
-              <input id="nombre" type="text" value="Nombre Autor" className="form-control" />
+              <input
+                id="nombre"
+                type="text"
+                name="nombre"
+                value={recinto?.nombre || ''}
+                className="form-control"
+                onChange={handleChange}
+              />
               <label className="form-label mt-2" htmlFor="propietario"><strong>Propietario: </strong></label>
-              <select id="propietario" className="form-control">
-                <option value="pepe">Pepe García</option>
-                <option value="carlos">Carlos Arrebola</option>
-              </select>
+              <input
+                id="propietario"
+                type="text"
+                name="propietario"
+                value={recinto?.propietario || ''}
+                className="form-control"
+                onChange={handleChange}
+              />
               <label className="form-label mt-2" htmlFor="cap"><strong>Capacidad: </strong></label>
-              <input id="cap" type="text" className="form-control" value="3.000"/>
+              <input
+                id="cap"
+                type="text"
+                name="capacidad"
+                value={recinto?.capacidad || ''}
+                className="form-control"
+                onChange={handleChange}
+              />
               <label className="form-label mt-2" htmlFor="ubi"><strong>Ubicación: </strong></label>
-              <input id="ubi" type="text" className="form-control" value="Calle Pepito Grillo 12, Badalona" />
+              <input
+                id="ubi"
+                type="text"
+                name="ubicacion"
+                value={recinto?.ubicacion || ''}
+                className="form-control"
+                onChange={handleChange}
+              />
               <label className="form-label mt-2" htmlFor="dep"><strong>Deportes: </strong></label>
-              <input id="dep" type="text" className="form-control" value="Deportes de contacto, Baloncesto" />
+              <input
+                id="dep"
+                type="text"
+                name="deportes"
+                value={recinto?.deportes || ''}
+                className="form-control"
+                onChange={handleChange}
+              />
               <label className="form-label mt-2" htmlFor="descripcion"><strong>Descripción: </strong></label>
-              <textarea id="descripcion" className="form-control" rows="4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, sunt? Recusandae labore at voluptatem tempore incidunt distinctio eaque? Est aspernatur laudantium itaque ullam numquam autem dolor quia amet eum consectetur.</textarea>
-              <input type="submit" className="btn btn-success mt-3 me-2" value="Publicar" />
+              <textarea
+                id="descripcion"
+                name="descripcion"
+                className="form-control"
+                rows="4"
+                value={recinto?.descripcion || ''}
+                onChange={handleChange}
+              />
+
               <input type="submit" className="btn btn-success mt-3 me-2" value="Actualizar" />
               <input type="submit" className="btn btn-warning mt-3 me-2" value="Cancelar" />
               <input type="submit" className="btn btn-danger mt-3" value="Eliminar" />
