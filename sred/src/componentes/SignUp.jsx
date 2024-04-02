@@ -46,7 +46,8 @@ function SignUp() {
       }
       
       console.log('Usuario registrado y añadido a la base de datos:', data.user);
-      <Link to="/signin"></Link>
+      	
+    <Redirect to="/login" />   
     } catch (error) {
       console.error('Error general:', error.message);
     }
