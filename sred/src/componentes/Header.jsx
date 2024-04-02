@@ -11,12 +11,13 @@ import Recintos from './Recintos';
 import AdminUsuario from './AdminUsuario';
 import MisReservas from './MisReservas';
 import RegistroRecintos from './RegistraRecintos';
+import EditaPerfil from './EditaPerfil';
 import MenuRol, { MenuUsuario } from './menus/Menus';
 
 function Header() {
 
-  const [role, setRole] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({})
+  const [role, setRole] = useState({})
 
   useEffect(() => {
     async function fetchData() {
@@ -24,18 +25,17 @@ function Header() {
       setUserData(userResult);
     }
 
-    // async function fetchRole() {
-    //   const roleResult = await MenuRol();
-    //   setRole(roleResult);
-    // }
+    async function fetchRole() {
+      const roleResult = await MenuRol();
+      setRole(roleResult);
+    }
 
     fetchData();
-    // fetchRole();
+    fetchRole();
 
     return () => {};
   }, []);
 
-  console.log(userData)
 
   return (
     <>
@@ -66,7 +66,7 @@ function Header() {
             </button>
             
             <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
-              {role === 'anonimo' && (
+              {role === '' && (
                 <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
                   <li>
                     <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
@@ -96,20 +96,20 @@ function Header() {
                 <li className="nav-item dropdown">
                   <a
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  href="/perfil"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   >
-                    <img src="/vite.svg" alt="" width="25" />  {/* aqui ira la url del usuario 'userData.img o .url' */}
+                    <img src={userData.imagen || ''} alt="" width="40" className='rounded-circle me-2' /> {/* {userData.imagen} */}
                   </a>
                   <ul className="dropdown-menu me-0">
-                      <li className="p-2 small">HOLAAA</li> {/* {userData.name} */}
-                      <li><hr className="dropdown-divider" /></li>
-                      {userData.rol === 'administrador' && (
+                      <li className="p-2 ps-3">{userData.name || ''}</li> {/* {userData.name} */}
+                      <li><hr className="dropdown-divider"/></li>
+                      { userData.rol === 'admin' && (
                           <>
-                            <li><Link to="/" className="dropdown-item">Administrador de Usuarios</Link></li>
-                            <li><Link to="/" className="dropdown-item">Administrador de Recintos</Link></li>
+                            <li><Link to="/adminusuarios" className="dropdown-item">Administrador de Usuarios</Link></li>
+                            <li><Link to="/adminrecinto" className="dropdown-item">Administrador de Recintos</Link></li>
                           </>
                       )}
                       <li><Link to="/perfil" className="dropdown-item">Mi perfil</Link></li>
@@ -135,7 +135,7 @@ function Header() {
         <Route path="/registrarecinto" element={<RegistroRecintos />} />
         <Route path="/adminusuarios" element={<AdminUsuario />} />
         <Route path="/reservas" element={<MisReservas />} />
-        <Route path="/editarperfil/:id" element={<EditaPerfil/>} />
+        <Route path="/editarperfil/:id" element={<EditaPerfil />} />
       </Routes>
     </Router>
     </>

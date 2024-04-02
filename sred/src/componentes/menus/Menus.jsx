@@ -10,7 +10,8 @@ export default async function MenuRol(){
         const { data, error } = await supabase
         .from('usuarios')
         .select('rol')
-        .eq('name', 'Adrian')
+        .eq('email', 'riveranavarreteraul@fpllefia.com')
+        // añadir que sea en el caso del usuario que este logueado no el mail, que es un caso provisional el de ahora
 
         if (error) {
           console.error('Error al obtener el rol del usuario:', error.message);
@@ -31,24 +32,26 @@ export default async function MenuRol(){
         console.error('Error al obtener el rol del usuario:', error.message);
         return null;
     }
-};
+}
 
 export async function MenuUsuario() {
     try {
         const { data, error } = await supabase
         .from('usuarios')
-        .select('rol, name')
-        .eq('email', 'aaronvidana@fpllefia.com')
+        .select('rol, name, imagen')
+        .eq('email', 'riveranavarreteraul@fpllefia.com')
+        // añadir que sea en el caso del usuario que este logueado no el mail, que es un caso provisional el de ahora
 
         if (error) {
           console.error('Error al obtener el rol del usuario:', error.message);
           return null;
         }
-        console.log(data)
+
+        console.log(data[0])
         return data[0]
 
     } catch (error) {
         console.error('Error al obtener el rol del usuario:', error.message);
         return null;
     }
-};
+}

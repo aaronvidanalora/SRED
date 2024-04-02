@@ -37,7 +37,7 @@ function Recinto() {
                 <img
                   src={recinto.imagen}
                   alt={recinto.nombre}
-                  class="recintos-img"
+                  className="recintos-img"
                   style={{ maxWidth: '100%', objectFit: 'cover', width: '380px', height: '200px;' }}
                 />
               </div>
