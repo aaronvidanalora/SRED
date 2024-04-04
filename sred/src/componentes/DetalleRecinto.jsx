@@ -18,7 +18,6 @@ function DetalleRecinto() {
         if (error) {
           console.error('Error fetching data:', error);
         } else {
-          console.log('Data:', data);
           setRecinto(data);
         }
       } catch (error) {
@@ -74,7 +73,7 @@ function DetalleRecinto() {
         )}
         <div className="container fixed-bottom d-flex justify-content-end" style={{ padding: '0px 0px 100px 0px' }}>
 
-          <Link to="/reservarecinto" className="btn btn-success fs-5 shadow">
+          <Link to={`/reservarecinto/${id}`} className="btn btn-success fs-5 shadow">
             <i className="bi bi-arrow-bar-left" style={{ fontSize: '1em' }}></i>
             Reservar
           </Link>

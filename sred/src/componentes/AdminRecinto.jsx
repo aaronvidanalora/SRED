@@ -107,7 +107,7 @@ function AdminRecinto() {
               </tr>
             </thead>
 
-            <tbody>
+            {/* <tbody>
               {recintos.map((recinto) => (
                 <tr key={recinto.id}>
                   <td className="text-center">
@@ -133,7 +133,7 @@ function AdminRecinto() {
                   </td>
                 </tr>
               ))}
-            </tbody>
+            </tbody> */}
 
             <tbody>
               {filteredRecintos.map((recinto) => (

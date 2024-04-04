@@ -15,7 +15,6 @@ function Recinto() {
         if (error) {
           console.error('Error fetching data:', error);
         } else {
-          console.log('Data:', data);
           setRecintos(data || []);
         }
       } catch (error) {
@@ -50,10 +49,9 @@ function Recinto() {
                     Descripción: {recinto.descripcion}
                   </p>
                   <Link to={`/detalle-recinto/${recinto.id}`} className="recinto-link">
-
-                <button className="btn btn-sm btn-outline-primary">
-                  Ver Más
-                </button>
+                    <button className="btn btn-sm btn-outline-primary">
+                      Ver Más
+                    </button>
                 </Link>
                 </div>
               </div>
