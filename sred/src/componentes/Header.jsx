@@ -15,7 +15,6 @@ import EditaPerfil from './EditaPerfil';
 import MenuRol, { MenuUsuario } from './menus/Menus';
 
 function Header() {
-
   const [userData, setUserData] = useState({})
   const [role, setRole] = useState({})
 
@@ -45,7 +44,7 @@ function Header() {
           <div className="container">
             <Link className="navbar-brand d-flex mt-2" to="/">
               <img
-                src="./src/assets/logo.jpg"
+                src="/logo.jpg"
                 alt=""
                 width="50"
                 height="30"
@@ -67,7 +66,7 @@ function Header() {
             
             <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
               {role === '' && (
-                <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+                <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
                   <li>
                     <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
                   </li>
@@ -77,14 +76,14 @@ function Header() {
                 </ul>
               )}
               {role === 'registrado' && (
-                <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+                <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
                   <li>
                     <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
                   </li>
                 </ul>
               )}
               {role === 'propietario' && (
-                <ul className="navbar-nav d-flex justify-content-end mx-auto mb-2 mb-lg-0">
+                <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
                   <li>
                     <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
                   </li>
@@ -101,7 +100,7 @@ function Header() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   >
-                    <img src={userData.imagen || ''} alt="" width="40" className='rounded-circle me-2' /> {/* {userData.imagen} */}
+                    <img src={userData.imagen || ''} alt="" width="45" height="45" className='rounded-circle me-2 ' /> {/* {userData.imagen} */}
                   </a>
                   <ul className="dropdown-menu me-0">
                       <li className="p-2 ps-3">{userData.name || ''}</li> {/* {userData.name} */}
@@ -127,13 +126,13 @@ function Header() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/detalle-recinto/:id" element={<DetalleRecinto/>} />
         <Route path="/adminrecinto" element={<AdminRecinto />} />
-        <Route path="/editarecinto" element={<EditaRecinto />} />
-        <Route path="/recintos" element={<Recintos />} />
-        <Route path="/reservarecinto" element={<Reservar />} />
-        <Route path="/registrarecinto" element={<RegistroRecintos />} />
         <Route path="/adminusuarios" element={<AdminUsuario />} />
+        <Route path="/recintos" element={<Recintos />} />
+        <Route path="/detalle-recinto/:id" element={<DetalleRecinto/>} />
+        <Route path="/editarecinto" element={<EditaRecinto />} />
+        <Route path="/registrarecinto" element={<RegistroRecintos />} />
+        <Route path="/reservarecinto" element={<Reservar />} />
         <Route path="/reservas" element={<MisReservas />} />
         <Route path="/editarperfil/:id" element={<EditaPerfil />} />
       </Routes>
