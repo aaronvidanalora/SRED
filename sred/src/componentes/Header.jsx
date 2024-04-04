@@ -135,6 +135,7 @@ function Header() {
         <Route path="/reservarecinto" element={<Reservar />} />
         <Route path="/reservas" element={<MisReservas />} />
         <Route path="/editarperfil/:id" element={<EditaPerfil />} />
+        <Route path="/editarecinto/:id" element={<EditaRecinto />} />
       </Routes>
     </Router>
     </>

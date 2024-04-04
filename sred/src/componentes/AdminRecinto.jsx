@@ -90,11 +90,18 @@ function AdminRecinto() {
                   Nombre <span><BiCaretDown /></span>
                 </th>
                 <th>
-                  Descripción <span><BiCaretDown /></span>
+                Propietario <span><BiCaretDown /></span>
                 </th>
                 <th>
-                  Propietario <span><BiCaretDown /></span>
+                Capacidad <span><BiCaretDown /></span>
                 </th>
+                <th>
+                Ubicacion <span><BiCaretDown /></span>
+                </th>
+                <th>
+                  Deportes <span><BiCaretDown /></span>
+                </th>
+               
                 <th></th>
                 <th></th>
               </tr>
@@ -109,13 +116,18 @@ function AdminRecinto() {
                     </div>
                   </td>
                   <td>{recinto.nombre}</td>
-                  <td>{recinto.descripcion}</td>
                   <td>{recinto.propietario}</td>
+                  <td>{recinto.capacidad}</td>
+                  <td>{recinto.ubicacion}</td>
+                  <td>{recinto.deportes}</td>
+                 
+                  
                   <td className="text-center">
-                    <Link to="/editarecinto">
-                      <button className="btn btn-outline-primary"><BiPencil /></button>
-                    </Link>
-                  </td>
+                  <Link to={`/editarecinto/${recinto.id}`}>
+                    <button className="btn btn-outline-primary"><BiPencil /></button>
+                  </Link>
+                </td>
+
                   <td className="text-center">
                     <button className="btn btn-outline-danger" onClick={() => handleDeleteRecinto(recinto.id)}><BiTrash /></button>
                   </td>
