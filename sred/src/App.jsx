@@ -1,6 +1,6 @@
 // App.jsx
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+// import './App.css';
 import Header from './componentes/Header';
 // import { createClient } from '@supabase/supabase-js'
 
