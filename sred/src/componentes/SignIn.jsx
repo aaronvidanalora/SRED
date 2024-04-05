@@ -1,37 +1,72 @@
 import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useNavigate, Link } from 'react-router-dom';
+import MenuRol from './menus/Menus';
 
 function SignIn() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co'
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI'
-  const supabase = createClient(supabaseUrl, supabaseKey)
+  const [userRole, setUserRole] = useState(null); // Estado para almacenar el rol del usuario
+  const [emailRegistro, setEmailRegistro] = useState(null); // Estado para almacenar el rol del usuario
+
+  const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
   const handleSignIn = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
-        password
+        password,
       });
-
-      console.log(data)
-
+  
+      console.log(data);
+  
       if (error) {
         console.error('Error al iniciar sesión:', error.message);
         alert('Usuario o contraseña incorrectos');
       } else {
-        navigate('/recintos')
+        navigate('/recintos');
         console.log('Usuario ha iniciado sesión correctamente:', data.user);
+        localStorage.setItem('login', data.user.email);
+        setEmailRegistro(data.user.email);
+        const userRoleData = await fetchUserRole(data.user.email); // Espera a que se complete fetchUserRole
+        const userRole = userRoleData?.rol || null; // Obtiene el rol del usuario
+        
       }
     } catch (error) {
       console.error('Error general:', error.message);
     }
   };
+  
+  
+  // Función para obtener el rol del usuario
+  const fetchUserRole = async (email) => {
+    try {
+      const { data, error } = await supabase
+        .from('usuarios')
+        .select('rol')
+        .eq('email', email);
+  
+      if (error) {
+        console.error('Error al obtener el rol del usuario:', error.message);
+        setUserRole(null); // Establece el estado del rol en null si hay un error
+        return;
+      }
+  
+      // Establece el estado del rol del usuario
+      const userRole = data[0]?.rol || null;
+      console.log(userRole);
+      setUserRole(userRole);
+      localStorage.setItem('rol', userRole); // Guarda el rol después de que se haya actualizado
+    } catch (error) {
+      console.error('Error al obtener el rol del usuario:', error.message);
+      setUserRole(null); // Establece el estado del rol en null si hay un error
+    }
+  };
+
 
   return (
     <>
@@ -39,7 +74,9 @@ function SignIn() {
         <h1 className="mt-5 text-center">Inicia sesión</h1>
         <div className="m-5 mx-auto" style={{ maxWidth: '400px' }}>
           <form className="form border shadow-sm p-3">
-            <label htmlFor="email" className="form-label">Email:</label>
+            <label htmlFor="email" className="form-label">
+              Email:
+            </label>
             <input
               required
               id="email"
@@ -47,7 +84,9 @@ function SignIn() {
               className="form-control"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <label htmlFor="pass" className="form-label mt-3">Contraseña:</label>
+            <label htmlFor="pass" className="form-label mt-3">
+              Contraseña:
+            </label>
             <input
               required
               minLength="6"
