@@ -65,7 +65,7 @@ function Header() {
             </button>
             
             <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
-              {role === '' && (
+              {userData === undefined && (
                 <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
                   <li>
                     <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
@@ -90,35 +90,38 @@ function Header() {
                 </ul>
               )}
             </div>
+            {userData != undefined &&(
             <div>
-              <ul className="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
-                <li className="nav-item dropdown">
-                  <a
-                  className="nav-link dropdown-toggle"
-                  href="/perfil"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  >
-                    <img src={userData.imagen || ''} alt="" width="45" height="45" className='rounded-circle me-2 ' /> {/* {userData.imagen} */}
-                  </a>
-                  <ul className="dropdown-menu me-0">
-                      <li className="p-2 ps-3">{userData.name || ''}</li> {/* {userData.name} */}
-                      <li><hr className="dropdown-divider"/></li>
-                      { userData.rol === 'admin' && (
-                          <>
-                            <li><Link to="/adminusuarios" className="dropdown-item">Administrador de Usuarios</Link></li>
-                            <li><Link to="/adminrecinto" className="dropdown-item">Administrador de Recintos</Link></li>
-                          </>
-                      )}
-                      <li><Link to="/perfil" className="dropdown-item">Mi perfil</Link></li>
-                      {/* <li><hr className="dropdown-divider" /></li> */}
-                      <li><Link to="/logout" className="dropdown-item">Cerrar sesión</Link></li>
-                  </ul>
-                </li>
-              </ul>
+            <ul className="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
+              <li className="nav-item dropdown">
+                <a
+                className="nav-link dropdown-toggle"
+                href="/perfil"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >
+                  <img src={userData.imagen || ''} alt="" width="45" height="45" className='rounded-circle me-2 ' /> {/* {userData.imagen} */}
+                </a>
+                <ul className="dropdown-menu me-0">
+                    <li className="p-2 ps-3">{userData.name || ''}</li> {/* {userData.name} */}
+                    <li><hr className="dropdown-divider"/></li>
+                    { userData.rol === 'admin' && (
+                        <>
+                          <li><Link to="/adminusuarios" className="dropdown-item">Administrador de Usuarios</Link></li>
+                          <li><Link to="/adminrecinto" className="dropdown-item">Administrador de Recintos</Link></li>
+                        </>
+                    )}
+                    <li><Link to="/perfil" className="dropdown-item">Mi perfil</Link></li>
+                    {/* <li><hr className="dropdown-divider" /></li> */}
+                    <li><Link to="/logout" className="dropdown-item">Cerrar sesión</Link></li>
+                </ul>
+              </li>
+            </ul>
 
-            </div>
+          </div>
+
+            )}
           </div>
         </nav>
       </header>
