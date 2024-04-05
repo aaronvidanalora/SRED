@@ -6,15 +6,17 @@ import { createClient } from '@supabase/supabase-js';
 function EditaRecinto() {
   const { id } = useParams(); // Obtener el ID del recinto de los parámetros de la URL
   const [recinto, setRecinto] = useState(null);
+  const [supabase, setSupabase] = useState(null); // Variable de estado para supabase
 
   useEffect(() => {
     const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
     const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    const client = createClient(supabaseUrl, supabaseKey);
+    setSupabase(client); // Asignar supabase a la variable de estado
 
     async function fetchRecinto() {
       try {
-        const { data, error } = await supabase.from('recintos').select().eq('id', id).single();
+        const { data, error } = await client.from('recintos').select().eq('id', id).single();
         if (error) {
           console.error('Error fetching recinto:', error);
         } else {
@@ -36,11 +38,53 @@ function EditaRecinto() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para enviar los datos actualizados al servidor
+    try {
+      const { data, error } = await supabase
+        .from('recintos')
+        .update({
+          nombre: recinto.nombre,
+          propietario: recinto.propietario,
+          capacidad: recinto.capacidad,
+          ubicacion: recinto.ubicacion,
+          deportes: recinto.deportes,
+          descripcion: recinto.descripcion,
+        })
+        .eq('id', id);
+  
+      if (error) {
+        console.error('Error actualizando recinto:', error.message);
+      } else {
+        console.log('Recinto actualizado exitosamente:', data);
+        // Redirige a /adminrecinto después de la actualización
+        window.location.href = '/adminrecinto'; // Redirigir utilizando window.location.href
+      }
+    } catch (error) {
+      console.error('Error actualizando recinto:', error.message);
+    }
   };
 
+  const handleDelete = async () => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar este recinto?')) {
+      try {
+        const { error } = await supabase
+          .from('recintos')
+          .delete()
+          .eq('id', id);
+
+        if (error) {
+          console.error('Error al eliminar recinto:', error.message);
+        } else {
+          // Redirige a /adminrecinto después de eliminar el recinto
+          window.location.href = '/adminrecinto';
+        }
+      } catch (error) {
+        console.error('Error al eliminar recinto:', error.message);
+      }
+    }
+  };
+  
   return (
     <main>
       <div className="container">
@@ -123,7 +167,7 @@ function EditaRecinto() {
 
               <input type="submit" className="btn btn-success mt-3 me-2" value="Actualizar" />
               <input type="submit" className="btn btn-warning mt-3 me-2" value="Cancelar" />
-              <input type="submit" className="btn btn-danger mt-3" value="Eliminar" />
+              <button type="button" className="btn btn-danger mt-3" onClick={handleDelete}>Eliminar</button>
             </form>
           </div>
         </div>

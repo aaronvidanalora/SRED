@@ -9,7 +9,7 @@ export default async function MenuRol(){
         const { data, error } = await supabase
         .from('usuarios')
         .select('rol')
-        .eq('email', 'riveranavarreteraul@fpllefia.com')
+        .eq('email', 'daf@fpllefia.com')
         // añadir que sea en el caso del usuario que este logueado no el mail, que es un caso provisional el de ahora
 
         if (error) {
@@ -38,7 +38,7 @@ export async function MenuUsuario() {
         const { data, error } = await supabase
         .from('usuarios')
         .select('rol, name, imagen')
-        .eq('email', 'riveranavarreteraul@fpllefia.com')
+        .eq('email', 'fas@fpllefia.com')
         // añadir que sea en el caso del usuario que este logueado no el mail, que es un caso provisional el de ahora
 
         if (error) {
