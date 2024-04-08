@@ -56,11 +56,45 @@ function AdminRecinto() {
   return (
     <div className="container">
       <h1 className="mt-5">Panel de administración</h1>
-      {/* Resto del código... */}
-      {/* Tabla Recintos */}
+      <div className="row mt-5">
+        <div className="col-12">
+          <ul className="nav nav-tabs">
+            <li className="nav-item w-50">
+              <Link to="/adminusuarios" className="nav-link active">
+                Usuarios
+              </Link>
+            </li>
+            <li className="nav-item w-50">
+              <Link to="/adminrecinto" className="nav-link">
+                Recintos
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <div className="border border-top-0 p-3">
-        {/* Resto del código... */}
-        {/* Tabla Recintos */}
+        <div className="row">
+          <div className="d-flex col-12 col-md-6 mb-3">
+            <div className="input-group flex-nowrap">
+              <span className="input-group-text" id="addon-wrapping">
+                <BiSearch />
+              </span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Buscar"
+                aria-label="Usuario"
+                aria-describedby="addon-wrapping"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <span className="input-group-text" id="addon-wrapping">
+                <BiX />
+              </span>
+            </div>
+          </div>
+        </div>
         <div className="col-12" style={{ overflowX: 'auto' }}>
           <table className="table table-striped table-bordered table-hover align-middle mt-3">
             <thead className="table-dark">
