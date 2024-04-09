@@ -54,7 +54,6 @@ function EditaPerfil() {
       if (error) {
         console.error('Error actualizando usuario:', error);
       } else {
-        console.log('Usuario actualizado:', data);
         // Redirigir al usuario a la página de administración después de la actualización
         window.location.href = '/adminusuarios';
       }

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useNavigate, Link } from 'react-router-dom';
-import MenuRol from './menus/Menus';
+import { useUserRole } from './Context'; // Importar el contexto
 
 function SignIn() {
   const navigate = useNavigate();
+  const { setUserRole } = useUserRole(); // Obtener la función para establecer el rol del usuario desde el contexto
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userRole, setUserRole] = useState(null); // Estado para almacenar el rol del usuario
-  const [emailRegistro, setEmailRegistro] = useState(null); // Estado para almacenar el rol del usuario
 
   const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
@@ -21,52 +20,42 @@ function SignIn() {
         email,
         password,
       });
-  
-      console.log(data);
-  
+
+
       if (error) {
         console.error('Error al iniciar sesión:', error.message);
         alert('Usuario o contraseña incorrectos');
       } else {
         navigate('/recintos');
-        console.log('Usuario ha iniciado sesión correctamente:', data.user);
         localStorage.setItem('login', data.user.email);
-        setEmailRegistro(data.user.email);
-        const userRoleData = await fetchUserRole(data.user.email); // Espera a que se complete fetchUserRole
-        const userRole = userRoleData?.rol || null; // Obtiene el rol del usuario
-        
+        const userRoleData = await fetchUserRole(data.user.email);
+        const userRole = userRoleData?.rol || null;
+        localStorage.setItem('rol', userRole);
+        setUserRole(userRole); 
       }
     } catch (error) {
       console.error('Error general:', error.message);
     }
   };
-  
-  
-  // Función para obtener el rol del usuario
+
   const fetchUserRole = async (email) => {
     try {
       const { data, error } = await supabase
         .from('usuarios')
         .select('rol')
         .eq('email', email);
-  
+
       if (error) {
         console.error('Error al obtener el rol del usuario:', error.message);
-        setUserRole(null); // Establece el estado del rol en null si hay un error
-        return;
+        return null;
       }
-  
-      // Establece el estado del rol del usuario
-      const userRole = data[0]?.rol || null;
-      console.log(userRole);
-      setUserRole(userRole);
-      localStorage.setItem('rol', userRole); // Guarda el rol después de que se haya actualizado
+
+      return data[0];
     } catch (error) {
       console.error('Error al obtener el rol del usuario:', error.message);
-      setUserRole(null); // Establece el estado del rol en null si hay un error
+      return null;
     }
   };
-
 
   return (
     <>

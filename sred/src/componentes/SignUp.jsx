@@ -28,7 +28,6 @@ function SignUp() {
         return;
       }
   
-      console.log('Usuario después del registro:', data);
   
       // Create an entry in the 'usuarios' table only if the signup is successful
       const { data: dbData, error: dbError } = await supabase
@@ -48,7 +47,6 @@ function SignUp() {
         return;
       }
       
-      console.log('Usuario registrado y añadido a la base de datos:', data.user);
       navigate('/signin')
     } catch (error) {
       console.error('Error general:', error.message);

@@ -18,7 +18,6 @@ function DetalleRecinto() {
         if (error) {
           console.error('Error fetching data:', error);
         } else {
-          console.log('Data:', data);
           setRecinto(data);
         }
       } catch (error) {
