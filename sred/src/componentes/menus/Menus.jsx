@@ -52,3 +52,23 @@ export async function MenuUsuario() {
         return null;
     }
 }
+
+export async function HandleId() {
+    try {
+        const email = localStorage.getItem('login');
+        const { data, error } = await supabase
+            .from('usuarios')
+            .select('id')
+            .eq('email', email);
+
+        if (error) {
+            console.error('Error al obtener los datos del usuario:', error.message);
+            return '';
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error al obtener los datos del usuario:', error.message);
+        return null;
+    }
+}

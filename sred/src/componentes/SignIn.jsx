@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useNavigate, Link } from 'react-router-dom';
-import { useUserRole } from './Context'; // Importar el contexto
+import { useUserRole , useUserId} from './Context'; // Importar el contexto
+import { HandleId } from './menus/Menus';
 
 function SignIn() {
   const navigate = useNavigate();
   const { setUserRole } = useUserRole(); // Obtener la función para establecer el rol del usuario desde el contexto
+  const { setUserId } = useUserId(); // Obtener la función para establecer el rol del usuario desde el contexto
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,12 +28,19 @@ function SignIn() {
         console.error('Error al iniciar sesión:', error.message);
         alert('Usuario o contraseña incorrectos');
       } else {
+        console.log(data)
         navigate('/recintos');
         localStorage.setItem('login', data.user.email);
         const userRoleData = await fetchUserRole(data.user.email);
+        const userIdData = await HandleId(data.user.email);
+        console.log(userIdData)
+        const userId = userIdData[0].id || null
+        console.log(userId)
         const userRole = userRoleData?.rol || null;
         localStorage.setItem('rol', userRole);
-        setUserRole(userRole); 
+        localStorage.setItem('id', userId);
+        setUserRole(userRole);
+        setUserId(userId) 
       }
     } catch (error) {
       console.error('Error general:', error.message);

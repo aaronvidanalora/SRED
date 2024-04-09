@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react'; // Agrega 'useContext' a los import de React
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
 import SignIn from './SignIn';
@@ -10,16 +10,17 @@ import Reservar from './Reservar';
 import Recintos from './Recintos';
 import AdminUsuario from './AdminUsuario';
 import MisReservas from './MisReservas';
-import RegistroRecintos from './RegistraRecintos';
 import EditaPerfil from './EditaPerfil';
 import MenuRol, { MenuUsuario } from './menus/Menus';
-import { useUserRole } from './Context'
+import { useUserRole } from './Context'; 
+import { useUserId } from './Context'; 
+import AñadirRecinto from './añadirRecinto';
 
 function Header() {
   const [userData, setUserData] = useState({});
   const [role, setRole] = useState({});
   const { userRole } = useUserRole(); 
-
+  const { userId } = useUserId()
   useEffect(() => {
     const fetchData = async () => {
       const userResult = await MenuUsuario();
@@ -46,6 +47,7 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem('login');
     localStorage.removeItem('rol');
+    localStorage.removeItem('id');
   };
 
   return (
@@ -99,6 +101,9 @@ function Header() {
                     <li>
                       <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
                     </li>
+                    <li>
+                    <Link to="/nuevorecinto" className='nav-link text-bg-dark me-3'>Añadir Recinto</Link>
+                    </li>
                   </ul>
                 )}
               </div>
@@ -124,7 +129,7 @@ function Header() {
                                 <li><Link to="/adminrecinto" className="dropdown-item">Administrador de Recintos</Link></li>
                               </>
                           )}
-                          <li><Link to="/perfil" className="dropdown-item">Mi perfil</Link></li>
+                          <li><Link to={`/editarperfil/${userId}`} className="dropdown-item">Mi perfil</Link></li>
                           <li><Link to="/signin" onClick={handleLogout} className="dropdown-item">Cerrar sesión</Link></li>
                       </ul>
                     </li>
@@ -143,9 +148,9 @@ function Header() {
           <Route path="/recintos" element={<Recintos />} />
           <Route path="/detalle-recinto/:id" element={<DetalleRecinto/>} />
           <Route path="/editarecinto" element={<EditaRecinto />} />
-          <Route path="/registrarecinto" element={<RegistroRecintos />} />
           <Route path="/reservarecinto" element={<Reservar />} />
           <Route path="/reservas" element={<MisReservas />} />
+          <Route path="/nuevorecinto" element={<AñadirRecinto />} />
           <Route path="/editarperfil/:id" element={<EditaPerfil />} />
           <Route path="/editarecinto/:id" element={<EditaRecinto />} />
         </Routes>
