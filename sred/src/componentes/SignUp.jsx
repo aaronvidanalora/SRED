@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 function SignUp() {
+  const navigate = useNavigate();
+
   const [nombre, setNombre] = useState('');
   const [apellidos, setApellidos] = useState('');
   const [email, setEmail] = useState('');
@@ -25,7 +28,6 @@ function SignUp() {
         return;
       }
   
-      console.log('Usuario después del registro:', data);
   
       // Create an entry in the 'usuarios' table only if the signup is successful
       const { data: dbData, error: dbError } = await supabase
@@ -45,8 +47,7 @@ function SignUp() {
         return;
       }
       
-      console.log('Usuario registrado y añadido a la base de datos:', data.user);
-      <Link to="/signin"></Link>
+      navigate('/signin')
     } catch (error) {
       console.error('Error general:', error.message);
     }

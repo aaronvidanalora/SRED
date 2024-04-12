@@ -26,7 +26,7 @@ function Recintos() {
         <div className="d-xl-block">
           <div className="row mb-5">
             <Recinto/>
-            </div>
+          </div>
         </div>
         
       </div>

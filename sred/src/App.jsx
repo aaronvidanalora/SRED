@@ -1,7 +1,8 @@
 // App.jsx
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+// import './App.css';
 import Header from './componentes/Header';
+import { UserRoleProvider } from './componentes/Context';
 // import { createClient } from '@supabase/supabase-js'
 
 // const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co'
@@ -13,7 +14,9 @@ import Header from './componentes/Header';
 function App() {
   return (
     <>
+    <UserRoleProvider>
       <Header />
+    </UserRoleProvider>
     </>
   );
 }

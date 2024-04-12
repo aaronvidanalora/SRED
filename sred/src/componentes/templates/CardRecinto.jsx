@@ -15,7 +15,6 @@ function Recinto() {
         if (error) {
           console.error('Error fetching data:', error);
         } else {
-          console.log('Data:', data);
           setRecintos(data || []);
         }
       } catch (error) {
@@ -37,8 +36,8 @@ function Recinto() {
                 <img
                   src={recinto.imagen}
                   alt={recinto.nombre}
-                  class="recintos-img"
-                  style={{ maxWidth: '100%', objectFit: 'cover', width: '380px', height: '200px;' }}
+                  className="recintos-img"
+                  style={{ maxWidth: '100%', objectFit: 'cover', width: '380px', height: '200px' }}
                 />
               </div>
               <div className="col-8">
@@ -50,10 +49,9 @@ function Recinto() {
                     Descripción: {recinto.descripcion}
                   </p>
                   <Link to={`/detalle-recinto/${recinto.id}`} className="recinto-link">
-
-                <button className="btn btn-sm btn-outline-primary">
-                  Ver Más
-                </button>
+                    <button className="btn btn-sm btn-outline-primary">
+                      Ver Más
+                    </button>
                 </Link>
                 </div>
               </div>

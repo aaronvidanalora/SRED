@@ -4,13 +4,13 @@ import { createClient } from '@supabase/supabase-js';
 import { Link } from 'react-router-dom';
 
 const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
+const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function AdminUsuario() {
   const [usuarios, setUsuarios] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedRoles, setSelectedRoles] = useState({});
+  const [selectedRoles, setSelectedRoles] = useState({}); // State to track selected roles
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +67,7 @@ function AdminUsuario() {
       }
     }
   };
-
+  
   const filteredUsuarios = usuarios.filter(
     (usuario) =>
       usuario?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -84,12 +84,12 @@ function AdminUsuario() {
           <div className="col-12">
             <ul className="nav nav-tabs">
               <li className="nav-item w-50">
-                <Link to="/adminusuarios" className="nav-link">
+                <Link to="/adminusuarios" className="nav-link active">
                   Usuarios
                 </Link>
               </li>
               <li className="nav-item w-50">
-                <Link to="/adminrecinto" className="nav-link active">
+                <Link to="/adminrecinto" className="nav-link">
                   Recintos
                 </Link>
               </li>
@@ -107,8 +107,8 @@ function AdminUsuario() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Buscador"
-                  aria-label="Username"
+                  placeholder="Buscar"
+                  aria-label="Usuario"
                   aria-describedby="addon-wrapping"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
