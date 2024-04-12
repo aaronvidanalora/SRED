@@ -49,10 +49,9 @@ function Recinto() {
                     Descripción: {recinto.descripcion}
                   </p>
                   <Link to={`/detalle-recinto/${recinto.id}`} className="recinto-link">
-
-                <button className="btn btn-sm btn-outline-primary">
-                  Ver Más
-                </button>
+                    <button className="btn btn-sm btn-outline-primary">
+                      Ver Más
+                    </button>
                 </Link>
                 </div>
               </div>
