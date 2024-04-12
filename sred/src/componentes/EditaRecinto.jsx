@@ -98,7 +98,7 @@ function EditaRecinto() {
 
         <div className="row mt-2">
           <div className="col-12 col-md-4 pt-2 mb-3">
-            <img src={recinto?.imagen} alt="" className="img-fluid" />
+            <img src={recinto?.imagen} alt="" className="img-fluid d-block " />
             <label className="form-label mt-3" htmlFor="img"><strong>URL imagen: </strong></label>
             <input
               type="text"

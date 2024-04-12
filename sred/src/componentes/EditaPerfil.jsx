@@ -13,7 +13,6 @@ function EditaPerfil() {
   const [apellidos, setApellidos] = useState('');
   const [dni, setDni] = useState('');
   const [email, setEmail] = useState('');
-  const [contrasena, setContrasena] = useState('');
   const [rol, setRol] = useState('');
   const [imagenUrl, setImagenUrl] = useState('');
 
@@ -89,10 +88,7 @@ function EditaPerfil() {
                 <label htmlFor="email" className="form-label">Email:</label>
                 <input required id="email" type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
-              <div className="mb-3">
-                <label htmlFor="pass" className="form-label">Contraseña:</label>
-                <input required minLength="6" id="pass" type="password" className="form-control" value={contrasena} onChange={(e) => setContrasena(e.target.value)} />
-              </div>
+              
               <div className="mb-3">
                 <button type="submit" className="btn btn-success me-2">Actualizar</button>
                 <Link to="/adminusuarios" className="btn btn-outline-dark">Volver</Link>
