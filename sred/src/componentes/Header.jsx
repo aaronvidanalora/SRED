@@ -14,7 +14,7 @@ import EditaPerfil from './EditaPerfil';
 import MenuRol, { MenuUsuario } from './menus/Menus';
 import { useUserRole } from './Context'; 
 import { useUserId } from './Context'; 
-import AñadirRecinto from './añadirRecinto';
+import AñadirRecinto from './AñadirRecinto';
 
 function Header() {
   const [userData, setUserData] = useState({});

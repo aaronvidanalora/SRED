@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { BiArrowBack } from 'react-icons/bi';
-
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useUserId } from './Context';
 
 const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
 const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
@@ -12,6 +12,7 @@ const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function Reservar() {
+  const { userId } = useUserId();
   const navigate = useNavigate()
   const { id } = useParams();
   const [recinto, setRecinto] = useState(null);
@@ -19,7 +20,7 @@ function Reservar() {
   const [formData, setFormData] = useState({
     selectedEntrada: "08:00",
     selectedSalida: "09:00",
-    selectedFecha: new Date(), // Establecer la fecha por defecto como la fecha actual
+    selectedFecha: new Date(),
   });
 
   useEffect(() => {
@@ -59,20 +60,6 @@ function Reservar() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Insertar datos en la tabla de Supabase
-      console.log('formData', formData);
-      // console.log('formData', formData); MIRAR DATOS USUARIO
-      console.log('recinto', recinto);
-
-      // const groupData = {
-      //   recintoID: recinto.id,
-      //   nameRecinto: recinto.nombre,
-      //   horaEntrada: formData.selectedEntrada,
-      //   horaSalida: formData.selectedSalida,
-      //   userID: 22,
-      //   date: formData.selectedFecha,
-      // }
-  
       const { data, error } = await supabase
       .from('reservas')
       .insert([
@@ -81,7 +68,7 @@ function Reservar() {
           nameRecinto: recinto.nombre,
           entrada: formData.selectedEntrada,
           salida: formData.selectedSalida,
-          userID: 22,
+          userID: userId, // cambiar por id del usuario logueado
           fechaReserva: formData.selectedFecha,
         }
       ])
@@ -92,7 +79,6 @@ function Reservar() {
         throw error;
       }
       console.log('Datos insertados correctamente:', data);
-      // Limpiar el formulario después de la inserción exitosa
     } catch (error) {
       console.error('Error al insertar datos:', error.message);
     }
