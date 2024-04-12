@@ -33,10 +33,10 @@ function SignIn() {
         localStorage.setItem('login', data.user.email);
         const userRoleData = await fetchUserRole(data.user.email);
         const userIdData = await HandleId(data.user.email);
-        console.log(userIdData)
         const userId = userIdData[0].id || null
-        console.log(userId)
+        console.log('ID', userId)
         const userRole = userRoleData?.rol || null;
+        console.log('ROL', userRole)
         localStorage.setItem('rol', userRole);
         localStorage.setItem('id', userId);
         setUserRole(userRole);
