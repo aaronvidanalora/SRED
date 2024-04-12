@@ -54,8 +54,8 @@ function EditaPerfil() {
       if (error) {
         console.error('Error actualizando usuario:', error);
       } else {
-        console.log('Usuario actualizado:', data);
-        // Puedes redirigir al usuario a otra página después de la actualización si es necesario
+        // Redirigir al usuario a la página de administración después de la actualización
+        window.location.href = '/adminusuarios';
       }
     } catch (error) {
       console.error('Error actualizando usuario:', error);
@@ -89,7 +89,6 @@ function EditaPerfil() {
                 <label htmlFor="email" className="form-label">Email:</label>
                 <input required id="email" type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
-              
               <div className="mb-3">
                 <label htmlFor="pass" className="form-label">Contraseña:</label>
                 <input required minLength="6" id="pass" type="password" className="form-control" value={contrasena} onChange={(e) => setContrasena(e.target.value)} />
