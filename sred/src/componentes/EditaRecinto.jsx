@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 function EditaRecinto() {
+  const navigate = useNavigate()
   const { id } = useParams(); // Obtener el ID del recinto de los parámetros de la URL
   const [recinto, setRecinto] = useState(null);
   const [supabase, setSupabase] = useState(null); // Variable de estado para supabase
@@ -58,6 +59,7 @@ function EditaRecinto() {
       } else {
         console.log('Recinto actualizado exitosamente:', data);
         // Redirige a /adminrecinto después de la actualización
+        navigate('/adminrecinto')
         window.location.href = '/adminrecinto'; // Redirigir utilizando window.location.href
       }
     } catch (error) {
