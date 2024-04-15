@@ -140,7 +140,12 @@ function Header() {
           </nav>
         </header>
         <Routes>
+        {userData !== undefined && (
+          <Route path="/" element={<Recintos />} />
+        )}
+        {userData == undefined && (
           <Route path="/" element={<Home />} />
+        )}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/adminrecinto" element={<AdminRecinto />} />
