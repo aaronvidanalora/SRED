@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 function AñadirRecinto() {
+  const navigate = useNavigate()
   const [recinto, setRecinto] = useState({
     nombre: '',
     propietario: '',
@@ -32,7 +33,8 @@ function AñadirRecinto() {
       } else {
         console.log('Recinto añadido exitosamente:', data);
         // Redirige a /adminrecinto después de la inserción
-        window.location.href = '/recintos';
+        navigate('/recintos')
+        // window.location.href = '/recintos';
       }
     } catch (error) {
       console.error('Error al añadir recinto:', error.message);
@@ -53,7 +55,7 @@ function AñadirRecinto() {
         <div className="row mt-2">
           <div className="col-12 col-md-4 pt-2 mb-3">
             <img src={recinto.imagen} alt="" className="img-fluid" />
-            <label className="form-label mt-3" htmlFor="img"><strong>URL imagen: </strong></label>
+            <label className="form-label mt-3 d-block" htmlFor="img"><strong>URL imagen: </strong></label>
             <input
               type="text"
               name="imagen"
