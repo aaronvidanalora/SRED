@@ -13,6 +13,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 function Reservar() {
   const { userId } = useUserId();
+  const emailLogin = localStorage.getItem('login')
   const navigate = useNavigate()
   const { id } = useParams();
   const [recinto, setRecinto] = useState(null);
@@ -27,12 +28,12 @@ function Reservar() {
     const fetchData = async () => {
 
       try {
-        const { data, error } = await supabase.from('recintos').select().eq('id', id).single();
+        const { data: dataRecinto, error } = await supabase.from('recintos').select().eq('id', id).single();
 
         if (error) {
           console.error('Error fetching data:', error);
         } else {
-          setRecinto(data);
+          setRecinto(dataRecinto);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -69,8 +70,9 @@ function Reservar() {
           nameRecinto: recinto.nombre,
           entrada: formData.selectedEntrada,
           salida: formData.selectedSalida,
-          userID: userId, // cambiar por id del usuario logueado
+          userID: userId,
           fechaReserva: formData.selectedFecha,
+          email: emailLogin
         }
       ])
       .select()
@@ -154,7 +156,7 @@ function Reservar() {
               </div>
               )}
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Cerrar</button>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Ver mis reservas</button>
               </div>
             </div>
           </div>
