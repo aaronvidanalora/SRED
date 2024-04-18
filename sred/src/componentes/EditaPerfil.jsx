@@ -53,8 +53,8 @@ function EditaPerfil() {
       if (error) {
         console.error('Error actualizando usuario:', error);
       } else {
-        // Redirigir al usuario a la página de administración después de la actualización
-        window.location.href = '/adminusuarios';
+        history.goBack();
+
       }
     } catch (error) {
       console.error('Error actualizando usuario:', error);
@@ -91,7 +91,7 @@ function EditaPerfil() {
               
               <div className="mb-3">
                 <button type="submit" className="btn btn-success me-2">Actualizar</button>
-                <Link to="/adminusuarios" className="btn btn-outline-dark">Volver</Link>
+                <Link to="/" className="btn btn-outline-dark">Volver</Link> {/* Redirigir a la página principal en lugar de /adminusuarios */}
               </div>
             </form>
           </div>
