@@ -152,7 +152,6 @@ function Header() {
           <Route path="/adminusuarios" element={<AdminUsuario />} />
           <Route path="/recintos" element={<Recintos />} />
           <Route path="/detalle-recinto/:id" element={<DetalleRecinto/>} />
-          <Route path="/editarecinto" element={<EditaRecinto />} />
           <Route path="/reservarecinto/:id" element={<Reservar />} />
           <Route path="/reservas" element={<MisReservas />} />
           <Route path="/nuevorecinto" element={<AñadirRecinto />} />
