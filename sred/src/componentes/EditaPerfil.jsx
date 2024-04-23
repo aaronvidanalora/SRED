@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from './supabase/Supabase';
 
 function EditaPerfil() {
   const { id } = useParams();
@@ -53,8 +49,7 @@ function EditaPerfil() {
       if (error) {
         console.error('Error actualizando usuario:', error);
       } else {
-        history.goBack();
-
+        history.back()
       }
     } catch (error) {
       console.error('Error actualizando usuario:', error);
@@ -91,7 +86,7 @@ function EditaPerfil() {
               
               <div className="mb-3">
                 <button type="submit" className="btn btn-success me-2">Actualizar</button>
-                <Link to="/" className="btn btn-outline-dark">Volver</Link> {/* Redirigir a la página principal en lugar de /adminusuarios */}
+                <div onClick={() => history.back()} className="btn btn-outline-dark">Volver</div> {/* Redirigir a la página principal en lugar de /adminusuarios */}
               </div>
             </form>
           </div>
