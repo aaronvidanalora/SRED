@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { BiArrowBack } from 'react-icons/bi';
@@ -13,6 +13,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 function Reservar() {
   const { userId } = useUserId();
+  const emailLogin = localStorage.getItem('login')
   const navigate = useNavigate()
   const { id } = useParams();
   const [recinto, setRecinto] = useState(null);
@@ -27,11 +28,12 @@ function Reservar() {
     const fetchData = async () => {
 
       try {
-        const { data, error } = await supabase.from('recintos').select().eq('id', id).single();
+        const { data: dataRecinto, error } = await supabase.from('recintos').select().eq('id', id).single();
+
         if (error) {
           console.error('Error fetching data:', error);
         } else {
-          setRecinto(data);
+          setRecinto(dataRecinto);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -68,8 +70,9 @@ function Reservar() {
           nameRecinto: recinto.nombre,
           entrada: formData.selectedEntrada,
           salida: formData.selectedSalida,
-          userID: userId, // cambiar por id del usuario logueado
+          userID: userId,
           fechaReserva: formData.selectedFecha,
+          email: emailLogin
         }
       ])
       .select()
@@ -153,28 +156,30 @@ function Reservar() {
               </div>
               )}
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Cerrar</button>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Ver mis reservas</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className='mt-5 container mx-auto'>
-        <hr />
-        <p className='py-3'>El <strong>Camp Nou</strong>, ubicado en Barcelona, España, es el estadio más grande de Europa y un ícono del fútbol mundial. Con capacidad para más de 99,000 espectadores. Reservar este magnífico recinto es garantía de una experiencia inolvidable, ofrece instalaciones de primera clase para eventos deportivos, entrenamientos y competiciones internacionales. Su atmósfera única, marcada por la pasión de los aficionados, lo convierte en un lugar excepcional para vivir la emoción del fútbol en su máximo esplendor.</p>
-        <div className='d-flex justify-content-evenly m-4'>
-          <div>
-            <img src="https://www.civitatis.com/f/espana/barcelona/camp-nou-experience-589x392.jpg" alt="" className="img-fluid" width="300"/>
-          </div>
-          <div className='px-4 border-start border-end border-3'>
-            <img src="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/04/17/15871251270783.jpg" alt="" className="img-fluid" width="350"/>
-          </div>
-          <div>
-          {/* width="300" */}
-            <img src="https://cdn.getyourguide.com/img/location/d97462d66c031fd3.jpeg/99.jpg" alt="" className="img-fluid" width="400"/>
-          </div>
+      {recinto && recinto.info && recinto.imagen2 && recinto.imagen3 && recinto.imagen4 && (
+        <div className='mt-5 container mx-auto'>
+          <hr />
+            <p className='py-3' dangerouslySetInnerHTML={{__html: recinto.info.replace(recinto.nombre, `<strong>${recinto.nombre}</strong>`)} || ''}></p>
+            <div className='d-flex justify-content-evenly m-4'>
+              <div style={{ maxWidth: '300px', maxHeight: '200px' }}>
+                <img src={recinto.imagen2} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
+              </div>
+              <div className='px-4 border-start border-end border-3' style={{ maxWidth: '400px', maxHeight: '200px' }}>
+                <img src={recinto.imagen3} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
+              </div>
+              <div style={{ maxWidth: '300px', maxHeight: '200px' }}>
+                <img src={recinto.imagen4} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
+              </div>
+            </div>
         </div>
-      </div>
+      )}
+
     </div>
   );
 }

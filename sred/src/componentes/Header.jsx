@@ -15,6 +15,7 @@ import MenuRol, { MenuUsuario } from './menus/Menus';
 import { useUserRole } from './Context'; 
 import { useUserId } from './Context'; 
 import AñadirRecinto from './AñadirRecinto';
+import ErrorPage from './Error';
 
 function Header() {
   const [userData, setUserData] = useState({});
@@ -152,12 +153,14 @@ function Header() {
           <Route path="/adminusuarios" element={<AdminUsuario />} />
           <Route path="/recintos" element={<Recintos />} />
           <Route path="/detalle-recinto/:id" element={<DetalleRecinto/>} />
-          <Route path="/editarecinto" element={<EditaRecinto />} />
           <Route path="/reservarecinto/:id" element={<Reservar />} />
           <Route path="/reservas" element={<MisReservas />} />
           <Route path="/nuevorecinto" element={<AñadirRecinto />} />
           <Route path="/editarperfil/:id" element={<EditaPerfil />} />
           <Route path="/editarecinto/:id" element={<EditaRecinto />} />
+
+           {/* Ruta para la página de error 404 */}
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
     </>
