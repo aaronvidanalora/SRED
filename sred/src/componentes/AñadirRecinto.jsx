@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 function AñadirRecinto() {
@@ -32,9 +32,7 @@ function AñadirRecinto() {
         console.error('Error al añadir recinto:', error.message);
       } else {
         console.log('Recinto añadido exitosamente:', data);
-        // Redirige a /adminrecinto después de la inserción
-        navigate('/recintos')
-        // window.location.href = '/recintos';
+        navigate('/adminrecintos')
       }
     } catch (error) {
       console.error('Error al añadir recinto:', error.message);

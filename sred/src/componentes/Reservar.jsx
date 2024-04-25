@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
 import { BiArrowBack } from 'react-icons/bi';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useUserId } from './Context';
-
-const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from './supabase/Supabase';
 
 function Reservar() {
+  const navigate = useNavigate()
+  
   const { userId } = useUserId();
   const emailLogin = localStorage.getItem('login')
-  const navigate = useNavigate()
   const { id } = useParams();
   const [recinto, setRecinto] = useState(null);
 
@@ -45,12 +41,24 @@ function Reservar() {
 
   
   const handleChange = (name, value) => {
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    if (name === "selectedEntrada") {
+      // Si el nombre es "selectedEntrada", actualiza también la hora de salida
+      const horasSalida = horasEntrada.slice(horasEntrada.indexOf(value) + 1);
+      const newSalida = horasSalida.length > 0 ? horasSalida[0] : formData.selectedSalida;
+      setFormData({
+        ...formData,
+        selectedEntrada: value,
+        selectedSalida: newSalida, // Actualiza la hora de salida
+      });
+    } else {
+      // Si no es la hora de entrada, simplemente actualiza el estado
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
-
+  
   const horasEntrada = [
     '08:00', '09:00', '10:00', '11:00', '12:00',
     '16:00', '17:00', '18:00', '19:00', '20:00'
@@ -76,16 +84,16 @@ function Reservar() {
         }
       ])
       .select()
-    
       
       if (error) {
         throw error;
       }
+
       console.log('Datos insertados correctamente:', data);
     } catch (error) {
       console.error('Error al insertar datos:', error.message);
     }
-  };
+  }
   
   const modalSubmit = async (e) => {
     e.preventDefault()
@@ -142,6 +150,7 @@ function Reservar() {
             <div className='col-6'><img src={recinto.imagen} alt={recinto.nombre} className="img-fluid mt-3 rounded-4 border border-4 shadow"/></div>
           )}
         </div>
+
         {/* Modal */}
         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog">
@@ -161,6 +170,7 @@ function Reservar() {
             </div>
           </div>
         </div>
+
       </div>
       {recinto && recinto.info && recinto.imagen2 && recinto.imagen3 && recinto.imagen4 && (
         <div className='mt-5 container mx-auto'>
