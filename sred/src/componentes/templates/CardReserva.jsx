@@ -9,7 +9,7 @@ function Reserva({ reserva, deleteReservas }) {
     const [modalData, setModalData] = useState({
         selectedEntrada: reserva.entrada,
         selectedSalida: reserva.salida,
-        selectedFecha: new Date(),
+        selectedFecha: new Date(reserva.fechaReserva),
     });
     
     const handleChange = (name, value) => {
@@ -39,7 +39,10 @@ function Reserva({ reserva, deleteReservas }) {
 
     const modalSubmit = async (e) => {
         e.preventDefault()
-        navigate('/reservas')
+
+        // funcion que actualiza la reserva
+
+        // navigate('/reservas')
     }
     
 
@@ -47,7 +50,7 @@ function Reserva({ reserva, deleteReservas }) {
         <>
             <div className="col-12 border d-flex align-items-center justify-content-center text-center mt-3">
                 <div className="col-3">
-                    <img src={reserva.recintoImagen} alt="recinto" className="w-100" />
+                    <img src={reserva.recintoImagen} alt={reserva.recintoImagen} className="w-100" />
                 </div>
                 <div className="col-3 fs-4">{reserva.nameRecinto}</div>
                 <div className="col-3">
@@ -83,6 +86,9 @@ function Reserva({ reserva, deleteReservas }) {
                                             dateFormat="dd/MM/yyyy"
                                             onChange={(date) => handleChange("selectedFecha", date)}
                                         />
+                                        <div className='ms-5 border border-2 rounded-3 '>
+                                            <img src={reserva.recintoImagen} alt={reserva.recintoImagen} className='img-fluid shadow-lg rounded-2' />
+                                        </div>
                                     </div>
                                     <div className="col-12 d-flex">
                                         <div className="col-4">
@@ -93,7 +99,7 @@ function Reserva({ reserva, deleteReservas }) {
                                                 ))}
                                             </select>
                                         </div>
-                                        <div className="offset-4 col-4">
+                                        <div className="offset-2 col-4">
                                             <label htmlFor="salida" className="h5 mt-5">Hora de salida</label>
                                                 <select name="selectedSalida" id="salida" className="form-control" onChange={(e) => handleChange("selectedSalida", e.target.value)} value={modalData.selectedSalida}>
                                                 {horasSalida.map(hora => (

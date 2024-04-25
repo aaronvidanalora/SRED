@@ -47,17 +47,17 @@ function MisReservas() {
 
     const handleDeleteReserva = async (reservaId) => {
         try {
-            const { error } = await supabase
-                .from('reservas')
-                .delete()
-                .eq('id', reservaId);
+            // const { error } = await supabase
+            //     .from('reservas')
+            //     .delete()
+            //     .eq('id', reservaId);
 
-            if (error) {
-                console.error('Error al eliminar reserva:', error.message);
-            } else {
-                setReservas(reservas.filter(reserva => reserva.id !== reservaId))
-                console.log('reserva eliminada');
-            }
+            // if (error) {
+            //     console.error('Error al eliminar reserva:', error.message);
+            // } else {
+            //     setReservas(reservas.filter(reserva => reserva.id !== reservaId))
+            //     console.log('reserva eliminada');
+            // }
         } catch (error) {
             console.error('Error al eliminar recinto:', error.message);
         }
