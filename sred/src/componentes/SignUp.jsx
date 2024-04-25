@@ -75,7 +75,7 @@ function SignUp() {
             <label htmlFor="pass" className="form-label mt-3">Contraseña:</label>
             <input required minLength="6" id="pass" type="password" className="form-control" onChange={(e) => setPassword(e.target.value)} />
 
-            <button type="button" className="btn btn-primary w-100 mt-3" onClick={handleSignUp}>
+            <button type="button" className="btn btn-primary bg-gradient w-100 mt-3" onClick={handleSignUp}>
               Enviar
             </button>
           </form>

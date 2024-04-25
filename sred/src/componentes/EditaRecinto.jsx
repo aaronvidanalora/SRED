@@ -167,9 +167,9 @@ function EditaRecinto() {
                 onChange={handleChange}
               />
 
-              <input type="submit" className="btn btn-success mt-3 me-2" value="Actualizar" />
-              <input type="submit" className="btn btn-warning mt-3 me-2" value="Cancelar" />
-              <button type="button" className="btn btn-danger mt-3" onClick={handleDelete}>Eliminar</button>
+              <input type="submit" className="btn btn-success bg-gradient mt-3 me-2" value="Actualizar" />
+              <input type="submit" className="btn btn-warning bg-gradient mt-3 me-2" value="Cancelar" />
+              <button type="button" className="btn btn-danger bg-gradient mt-3" onClick={handleDelete}>Eliminar</button>
             </form>
           </div>
         </div>

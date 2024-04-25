@@ -141,7 +141,7 @@ function Reservar() {
               </div>
             </div>
             
-            <button type="submit" className="btn btn-success mt-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="submit" className="btn btn-success bg-gradient mt-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Reservar
             </button>
           </form>
@@ -165,7 +165,7 @@ function Reservar() {
               </div>
               )}
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Ver mis reservas</button>
+                <button type="button" className="btn btn-secondary bg-gradient" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Ver mis reservas</button>
               </div>
             </div>
           </div>

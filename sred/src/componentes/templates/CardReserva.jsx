@@ -41,7 +41,7 @@ function Reserva({ reserva, deleteReservas }) {
         e.preventDefault()
 
         // funcion que actualiza la reserva
-
+        console.log('modalData', modalData);
         // navigate('/reservas')
     }
     
@@ -60,7 +60,7 @@ function Reserva({ reserva, deleteReservas }) {
                 <div className="col-3 d-flex justify-content-center">
                     <div className='me-3'>
                         {/* hacer editar reserva */}
-                        <button className="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalEditar">Editar</button> 
+                        <button className="btn btn-success bg-gradient" data-bs-toggle="modal" data-bs-target="#exampleModalEditar">Editar</button> 
                     </div>
                     <div>
                         <button className="btn btn-outline-danger" onClick={() => deleteReservas(reserva.id)}><BiTrash /></button>
@@ -72,7 +72,7 @@ function Reserva({ reserva, deleteReservas }) {
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={(e) => {modalSubmit(e)}}></button>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         {reserva && (
                             <div className="modal-body">
@@ -80,9 +80,9 @@ function Reserva({ reserva, deleteReservas }) {
                                     <div className="d-flex align-items-center justify-content-center ">
                                         <label htmlFor="fecha" className="h5 mt-2 me-3">Fecha</label>
                                         <DatePicker
-                                            selected={reserva.fechaReserva}
+                                            selected={modalData.selectedFecha}
                                             className="form-control w-auto "
-                                            minDate={new Date()}
+                                            minDate={new Date(reserva.fechaReserva)}
                                             dateFormat="dd/MM/yyyy"
                                             onChange={(date) => handleChange("selectedFecha", date)}
                                         />
@@ -115,8 +115,7 @@ function Reserva({ reserva, deleteReservas }) {
                             </div>
                         )}
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Confirmar reserva</button>
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-success bg-gradient" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Confirmar reserva</button>
                         </div>
                     </div>
                 </div>

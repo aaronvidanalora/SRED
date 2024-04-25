@@ -119,8 +119,8 @@ function AñadirRecinto() {
                 onChange={handleChange}
               />
 
-              <input type="submit" className="btn btn-success mt-3 me-2" value="Añadir" />
-              <div onClick={() => history.back()} className="btn btn-warning mt-3 me-2">Cancelar</div>
+              <input type="submit" className="btn btn-success bg-gradient mt-3 me-2" value="Añadir" />
+              <div onClick={() => history.back()} className="btn btn-warning bg-gradient mt-3 me-2">Cancelar</div>
             </form>
           </div>
         </div>

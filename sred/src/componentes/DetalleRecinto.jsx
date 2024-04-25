@@ -74,7 +74,7 @@ function DetalleRecinto() {
         )}
         <div className="container fixed-bottom d-flex justify-content-end" style={{ padding: '0px 0px 100px 0px' }}>
 
-          <Link to={`/reservarecinto/${id}`} className="btn btn-success fs-5 shadow d-flex align-items-center">
+          <Link to={`/reservarecinto/${id}`} className="btn btn-success bg-gradient fs-5 shadow d-flex align-items-center">
             Reservar
             <BiCalendarPlus style={{ fontSize: '1em', marginLeft: '10px' }}></BiCalendarPlus>
           </Link>
