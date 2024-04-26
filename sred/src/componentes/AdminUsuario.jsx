@@ -220,7 +220,7 @@ function AdminUsuario() {
                     </td>
                     <td>
                       <button
-                        className="btn btn-outline-danger"
+                        className="shadow btn btn-outline-danger"
                         onClick={() => handleDelete(usuario.id)}
                       >
                         <BiTrash />
