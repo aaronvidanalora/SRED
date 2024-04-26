@@ -92,7 +92,7 @@ function EditaRecinto() {
       <div className="container">
         <h1 className="mt-5">Edita Recinto</h1>
         <div className="d-flex justify-content-end">
-          <Link to="/adminrecinto" className="btn btn-outline-secondary mt-5">
+          <Link to="/adminrecinto" className="shadow btn btn-outline-secondary mt-5">
             <FaArrowLeft style={{ fontSize: '1em' }} />
             Volver
           </Link>
@@ -167,9 +167,9 @@ function EditaRecinto() {
                 onChange={handleChange}
               />
 
-              <input type="submit" className="btn btn-success bg-gradient mt-3 me-2" value="Actualizar" />
-              <input type="submit" className="btn btn-warning bg-gradient mt-3 me-2" value="Cancelar" />
-              <button type="button" className="btn btn-danger bg-gradient mt-3" onClick={handleDelete}>Eliminar</button>
+              <input type="submit" className="shadow btn btn-success bg-gradient mt-3 me-2" value="Actualizar" />
+              <input type="submit" className="shadow btn btn-warning bg-gradient mt-3 me-2" value="Cancelar" />
+              <button type="button" className="shadow btn btn-danger bg-gradient mt-3" onClick={handleDelete}>Eliminar</button>
             </form>
           </div>
         </div>

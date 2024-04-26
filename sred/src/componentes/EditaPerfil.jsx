@@ -85,8 +85,8 @@ function EditaPerfil() {
               </div>
               
               <div className="mb-3">
-                <button type="submit" className="btn btn-success bg-gradient me-2">Actualizar</button>
-                <div onClick={() => history.back()} className="btn btn-outline-dark">Volver</div> {/* Redirigir a la página principal en lugar de /adminusuarios */}
+                <button type="submit" className="shadow btn btn-success bg-gradient me-2">Actualizar</button>
+                <div onClick={() => history.back()} className="shadow btn btn-outline-dark">Volver</div> {/* Redirigir a la página principal en lugar de /adminusuarios */}
               </div>
             </form>
           </div>

@@ -164,13 +164,13 @@ function AdminUsuario() {
                     <td>{usuario.dni}</td>
                     <td>
                     <Link to={`/editarperfil/${usuario.id}`}>
-                      <button className="btn btn-outline-primary"><BiPencil /></button>
+                      <button className="shadow btn btn-outline-primary"><BiPencil /></button>
                     </Link>
 
                     </td>
                     <td>
                       <button
-                        className="btn btn-outline-danger"
+                        className="shadow btn btn-outline-danger"
                         onClick={() => handleDelete(usuario.id)}
                       >
                         <BiTrash />

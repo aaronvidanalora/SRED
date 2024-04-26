@@ -43,8 +43,8 @@ function Reservar() {
   const handleChange = (name, value) => {
     if (name === "selectedEntrada") {
       // Si el nombre es "selectedEntrada", actualiza también la hora de salida
-      const horasSalida = horasEntrada.slice(horasEntrada.indexOf(value) + 1);
-      const newSalida = horasSalida.length > 0 ? horasSalida[0] : formData.selectedSalida;
+      const horasSalidaSelected = horasEntrada.slice(horasEntrada.indexOf(value) + 1);
+      const newSalida = horasSalidaSelected.length > 0 ? horasSalidaSelected[0] : formData.selectedSalida;
       setFormData({
         ...formData,
         selectedEntrada: value,
@@ -103,7 +103,7 @@ function Reservar() {
   return (
     <div className="container mx-auto">
       <div className="d-flex align-items-center">
-        <Link to={`/detalle-recinto/${id}`} className="btn btn-outline-secondary mt-5">
+        <Link to={`/detalle-recinto/${id}`} className="shadow btn btn-outline-secondary mt-5">
           <BiArrowBack style={{ fontSize: '1em', marginRight: '5px' }} />
           Volver
         </Link>
@@ -141,7 +141,7 @@ function Reservar() {
               </div>
             </div>
             
-            <button type="submit" className="btn btn-success bg-gradient mt-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="submit" className="shadow btn btn-success bg-gradient mt-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Reservar
             </button>
           </form>
@@ -165,7 +165,7 @@ function Reservar() {
               </div>
               )}
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary bg-gradient" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Ver mis reservas</button>
+                <button type="button" className="shadow btn btn-secondary bg-gradient" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Ver mis reservas</button>
               </div>
             </div>
           </div>

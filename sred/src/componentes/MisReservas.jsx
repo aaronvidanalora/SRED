@@ -20,17 +20,17 @@ function MisReservas() {
                 }
         
                 const promises = reservasData.map(async reserva => {
-                const { data: recintoData, error: recintoError } = await supabase
-                    .from('recintos')
-                    .select('imagen')
-                    .eq('id', reserva.recintoID)
-                    .single();
-        
-                if (recintoError) {
-                    throw recintoError;
-                }
-        
-                return { ...reserva, recintoImagen: recintoData.imagen };
+                    const { data: recintoData, error: recintoError } = await supabase
+                        .from('recintos')
+                        .select('imagen')
+                        .eq('id', reserva.recintoID)
+                        .single();
+            
+                    if (recintoError) {
+                        throw recintoError;
+                    }
+            
+                    return { ...reserva, recintoImagen: recintoData.imagen };
                 });
         
                 const reservasConImagen = await Promise.all(promises);
@@ -47,17 +47,17 @@ function MisReservas() {
 
     const handleDeleteReserva = async (reservaId) => {
         try {
-            // const { error } = await supabase
-            //     .from('reservas')
-            //     .delete()
-            //     .eq('id', reservaId);
+            const { error } = await supabase
+                .from('reservas')
+                .delete()
+                .eq('id', reservaId);
 
-            // if (error) {
-            //     console.error('Error al eliminar reserva:', error.message);
-            // } else {
-            //     setReservas(reservas.filter(reserva => reserva.id !== reservaId))
-            //     console.log('reserva eliminada');
-            // }
+            if (error) {
+                console.error('Error al eliminar reserva:', error.message);
+            } else {
+                setReservas(reservas.filter(reserva => reserva.id !== reservaId))
+                console.log('reserva eliminada');
+            }
         } catch (error) {
             console.error('Error al eliminar recinto:', error.message);
         }
@@ -69,7 +69,7 @@ function MisReservas() {
                 <div className="col-12 py-3">
                     <h2 className="text-center">Mis reservas</h2>
                 </div>
-                <div className="col-12 border p-3">
+                <div className="col-12 border rounded shadow p-4">
                     {reservas.map(reserva => (
                         <Reserva key={reserva.id} reserva={reserva} deleteReservas={handleDeleteReserva}/>
                     ))}

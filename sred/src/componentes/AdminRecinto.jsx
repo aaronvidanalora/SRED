@@ -135,11 +135,11 @@ function AdminRecinto() {
                   <td>{recinto.deportes}</td>
                   <td className="text-center">
                     <Link to={`/editarecinto/${recinto.id}`}>
-                      <button className="btn btn-outline-primary"><BiPencil /></button>
+                      <button className="shadow btn btn-outline-primary"><BiPencil /></button>
                     </Link>
                   </td>
                   <td className="text-center">
-                    <button className="btn btn-outline-danger" onClick={() => handleDeleteRecinto(recinto.id)}><BiTrash /></button>
+                    <button className="shadow btn btn-outline-danger" onClick={() => handleDeleteRecinto(recinto.id)}><BiTrash /></button>
                   </td>
                 </tr>
               ))}
