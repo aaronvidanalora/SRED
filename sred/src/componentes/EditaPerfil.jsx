@@ -4,6 +4,7 @@ import { supabase } from './supabase/Supabase';
 
 function EditaPerfil() {
   const { id } = useParams();
+
   const [usuario, setUsuario] = useState(null);
   const [nombre, setNombre] = useState('');
   const [apellidos, setApellidos] = useState('');
@@ -41,22 +42,24 @@ function EditaPerfil() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const timestamp = new Date().getTime(); // Obtener el timestamp actual en milisegundos
-      const imageName = `user_${id}_${timestamp}`; // Generar un nombre de archivo único
+      let imageUrl = usuario.imagen; // Conservar la imagen existente por defecto
 
-      const { data: fileData, error: fileError } = await supabase.storage.from('usuarios').upload(imageName, imagenFile, {
-        cacheControl: '3600', // opcional: establece la duración de la caché en segundos
-      });
+      if (imagenFile) {
+        const timestamp = new Date().getTime();
+        const imageName = `user_${id}_${timestamp}`;
 
-      if (fileError) {
-        console.error('Error uploading image:', fileError);
-        return;
+        const { data: fileData, error: fileError } = await supabase.storage.from('usuarios').upload(imageName, imagenFile, {
+          cacheControl: '3600',
+        });
+
+        if (fileError) {
+          console.error('Error uploading image:', fileError);
+          return;
+        }
+
+        imageUrl = `${supabase.storageUrl}/object/public/usuarios/${imageName}`;
       }
 
-      // Obtener la URL de la imagen cargada
-      const imageUrl = `${supabase.storageUrl}/object/public/usuarios/${imageName}`; // Corregir la ruta de la imagen
-
-      // Actualizar la fila de usuario con la URL de la imagen cargada
       const { error } = await supabase
         .from('usuarios')
         .update({ imagen: imageUrl, name: nombre, apellidos, dni, email, rol })
@@ -65,7 +68,7 @@ function EditaPerfil() {
       if (error) {
         console.error('Error updating usuario:', error);
       } else {
-        window.location.reload(); // Recargar la página después de la actualización
+        window.location.reload();
       }
     } catch (error) {
       console.error('Error updating usuario:', error);
@@ -99,17 +102,14 @@ function EditaPerfil() {
                 <label htmlFor="email" className="form-label">Email:</label>
                 <input required id="email" type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
-              
               <div className="mb-3">
                 <label htmlFor="imagen" className="form-label">Seleccionar imagen:</label>
                 <input id="imagen" type="file" accept="image/*" className="form-control" onChange={handleImagenChange} />
               </div>
-
               <div className="mb-3">
                 <button type="submit" className="btn btn-success bg-gradient me-2">Actualizar</button>
-                <div onClick={() => history.back()} className="btn btn-outline-dark">Volver</div> 
+                <button type="button" onClick={() => window.history.back()} className="btn btn-outline-dark">Volver</button>
               </div>
-              
             </form>
           </div>
         </div>
