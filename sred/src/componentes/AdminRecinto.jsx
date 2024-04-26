@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown } from 'react-icons/bi';
+import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown, BiCaretUp } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
@@ -10,6 +10,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 function AdminRecinto() {
   const [recintos, setRecintos] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
 
   useEffect(() => {
     async function fetchRecintos() {
@@ -26,14 +27,6 @@ function AdminRecinto() {
 
     fetchRecintos();
   }, []); // El segundo argumento vacío asegura que esto solo se ejecute una vez al montar el componente
-  
-  const filteredRecintos = recintos.filter(
-    (recinto) =>
-      recinto?.imagen?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      recinto?.nombre?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      recinto?.descripcion?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      recinto?.propietario?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   const handleDeleteRecinto = async (recintoId) => {
     try {
@@ -52,6 +45,49 @@ function AdminRecinto() {
       console.error('Error al eliminar recinto:', error.message);
     }
   };
+
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getClassNamesFor = (name) => {
+    if (!sortConfig) {
+      return;
+    }
+    return sortConfig.key === name ? sortConfig.direction : undefined;
+  };
+
+  const sortedRecintos = [...recintos].sort((a, b) => {
+    if (sortConfig.direction === 'ascending') {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return -1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return 1;
+      }
+      return 0;
+    } else {
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return -1;
+      }
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return 1;
+      }
+      return 0;
+    }
+  });
+
+  const filteredRecintos = sortedRecintos.filter(
+    (recinto) =>
+      recinto?.imagen?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recinto?.nombre?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recinto?.descripcion?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recinto?.propietario?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="container">
@@ -100,20 +136,20 @@ function AdminRecinto() {
             <thead className="table-dark">
               <tr>
                 <th></th>
-                <th>
-                  Nombre <span><BiCaretDown /></span>
+                <th onClick={() => requestSort('nombre')}>
+                  Nombre <span>{getClassNamesFor('nombre') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
                 </th>
-                <th>
-                Propietario <span><BiCaretDown /></span>
+                <th onClick={() => requestSort('propietario')}>
+                Propietario <span>{getClassNamesFor('propietario') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
                 </th>
-                <th>
-                Capacidad <span><BiCaretDown /></span>
+                <th onClick={() => requestSort('capacidad')}>
+                Capacidad <span>{getClassNamesFor('capacidad') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
                 </th>
-                <th>
-                Ubicacion <span><BiCaretDown /></span>
+                <th onClick={() => requestSort('ubicacion')}>
+                Ubicacion <span>{getClassNamesFor('ubicacion') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
                 </th>
-                <th>
-                  Deportes <span><BiCaretDown /></span>
+                <th onClick={() => requestSort('deportes')}>
+                  Deportes <span>{getClassNamesFor('deportes') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
                 </th>
                 <th></th>
                 <th></th>
@@ -150,6 +186,5 @@ function AdminRecinto() {
     </div>
   );
 }
-
 
 export default AdminRecinto;

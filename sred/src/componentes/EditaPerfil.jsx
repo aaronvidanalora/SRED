@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { supabase } from './supabase/Supabase';
 
 function EditaPerfil() {
   const { id } = useParams();
+
   const [usuario, setUsuario] = useState(null);
   const [nombre, setNombre] = useState('');
   const [apellidos, setApellidos] = useState('');
   const [dni, setDni] = useState('');
   const [email, setEmail] = useState('');
   const [rol, setRol] = useState('');
-  const [imagenUrl, setImagenUrl] = useState('');
+  const [imagenFile, setImagenFile] = useState(null);
 
   useEffect(() => {
     const fetchUsuario = async () => {
@@ -25,7 +26,6 @@ function EditaPerfil() {
           setDni(data.dni || '');
           setEmail(data.email || '');
           setRol(data.rol || '');
-          setImagenUrl(data.imagen || '');
         }
       } catch (error) {
         console.error('Error fetching usuario:', error);
@@ -36,23 +36,42 @@ function EditaPerfil() {
   }, [id]);
 
   const handleImagenChange = (event) => {
-    setImagenUrl(event.target.value);
+    setImagenFile(event.target.files[0]);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data, error } = await supabase
+      let imageUrl = usuario.imagen; // Conservar la imagen existente por defecto
+
+      if (imagenFile) {
+        const timestamp = new Date().getTime();
+        const imageName = `user_${id}_${timestamp}`;
+
+        const { data: fileData, error: fileError } = await supabase.storage.from('usuarios').upload(imageName, imagenFile, {
+          cacheControl: '3600',
+        });
+
+        if (fileError) {
+          console.error('Error uploading image:', fileError);
+          return;
+        }
+
+        imageUrl = `${supabase.storageUrl}/object/public/usuarios/${imageName}`;
+      }
+
+      const { error } = await supabase
         .from('usuarios')
-        .update({ name: nombre, apellidos, dni, email, rol, imagen: imagenUrl })
+        .update({ imagen: imageUrl, name: nombre, apellidos, dni, email, rol })
         .eq('id', id);
+
       if (error) {
-        console.error('Error actualizando usuario:', error);
+        console.error('Error updating usuario:', error);
       } else {
-        history.back()
+        window.location.reload();
       }
     } catch (error) {
-      console.error('Error actualizando usuario:', error);
+      console.error('Error updating usuario:', error);
     }
   };
 
@@ -83,19 +102,15 @@ function EditaPerfil() {
                 <label htmlFor="email" className="form-label">Email:</label>
                 <input required id="email" type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
-              
               <div className="mb-3">
-                <button type="submit" className="shadow btn btn-success bg-gradient me-2">Actualizar</button>
-                <div onClick={() => history.back()} className="shadow btn btn-outline-dark">Volver</div> {/* Redirigir a la página principal en lugar de /adminusuarios */}
+                <label htmlFor="imagen" className="form-label">Seleccionar imagen:</label>
+                <input id="imagen" type="file" accept="image/*" className="form-control" onChange={handleImagenChange} />
+              </div>
+              <div className="mb-3">
+                <button type="submit" className="btn btn-success bg-gradient me-2">Actualizar</button>
+                <button type="button" onClick={() => window.history.back()} className="btn btn-outline-dark">Volver</button>
               </div>
             </form>
-          </div>
-          <div className="col-md-6">
-            <div className="mb-3 d-flex flex-column align-items-center">
-              <img src={imagenUrl} alt="" className="img-fluid mb-3" style={{ width: '350px', height: '350px', objectFit: 'cover' }} />
-              <label htmlFor="imagen" className="form-label">URL imagen:</label>
-              <input id="imagen" type="url" className="form-control" value={imagenUrl} onChange={handleImagenChange} />
-            </div>
           </div>
         </div>
       </div>
