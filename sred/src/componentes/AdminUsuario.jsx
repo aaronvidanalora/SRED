@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown } from 'react-icons/bi';
+import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown, BiCaretUp } from 'react-icons/bi';
 import { createClient } from '@supabase/supabase-js';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 function AdminUsuario() {
   const [usuarios, setUsuarios] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedRoles, setSelectedRoles] = useState({}); // State to track selected roles
+  const [selectedRoles, setSelectedRoles] = useState({});
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,8 +68,43 @@ function AdminUsuario() {
       }
     }
   };
-  
-  const filteredUsuarios = usuarios.filter(
+
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getClassNamesFor = (name) => {
+    if (!sortConfig) {
+      return;
+    }
+    return sortConfig.key === name ? sortConfig.direction : undefined;
+  };
+
+  const sortedUsuarios = [...usuarios].sort((a, b) => {
+    if (sortConfig.direction === 'ascending') {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return -1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return 1;
+      }
+      return 0;
+    } else {
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return -1;
+      }
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return 1;
+      }
+      return 0;
+    }
+  });
+
+  const filteredUsuarios = sortedUsuarios.filter(
     (usuario) =>
       usuario?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       usuario?.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -125,19 +161,21 @@ function AdminUsuario() {
               <thead className="table-dark">
                 <tr>
                   <th>
-                    Nombre <span><BiCaretDown /></span>
                   </th>
-                  <th>
-                    Email <span><BiCaretDown /></span>
+                  <th onClick={() => requestSort('name')}>
+                    Nombre <span>{getClassNamesFor('name') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
                   </th>
-                  <th>
-                    Rol <span><BiCaretDown /></span>
+                  <th onClick={() => requestSort('email')}>
+                    Email <span>{getClassNamesFor('email') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
                   </th>
-                  <th>
-                    ID <span><BiCaretDown /></span>
+                  <th onClick={() => requestSort('rol')}>
+                    Rol <span>{getClassNamesFor('rol') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
                   </th>
-                  <th>
-                    DNI <span><BiCaretDown /></span>
+                  <th onClick={() => requestSort('id')}>
+                    ID <span>{getClassNamesFor('id') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
+                  </th>
+                  <th onClick={() => requestSort('dni')}>
+                    DNI <span>{getClassNamesFor('dni') === 'ascending' ? <BiCaretUp /> : <BiCaretDown />}</span>
                   </th>
                   <th></th>
                   <th></th>
@@ -147,6 +185,19 @@ function AdminUsuario() {
               <tbody>
                 {filteredUsuarios.map((usuario) => (
                   <tr key={usuario.id}>
+                    <td>
+                      <img
+                        src={usuario.imagen}
+                        alt="Imagen de perfil"
+                        className="avatar"
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                          borderRadius: '50%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </td>
                     <td>{usuario.name}</td>
                     <td>{usuario.email}</td>
                     <td>
@@ -163,10 +214,9 @@ function AdminUsuario() {
                     <td>{usuario.id}</td>
                     <td>{usuario.dni}</td>
                     <td>
-                    <Link to={`/editarperfil/${usuario.id}`}>
-                      <button className="btn btn-outline-primary"><BiPencil /></button>
-                    </Link>
-
+                      <Link to={`/editarperfil/${usuario.id}`}>
+                        <button className="btn btn-outline-primary"><BiPencil /></button>
+                      </Link>
                     </td>
                     <td>
                       <button

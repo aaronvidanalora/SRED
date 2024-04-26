@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useUserRole , useUserId} from './Context'; // Importar el contexto
 import { HandleId } from './menus/Menus';
+import { supabase } from './supabase/Supabase';
 
 function SignIn() {
   const navigate = useNavigate();
@@ -12,9 +12,6 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-  const supabase = createClient(supabaseUrl, supabaseKey);
 
   const handleSignIn = async () => {
     try {
@@ -29,16 +26,22 @@ function SignIn() {
         alert('Usuario o contraseña incorrectos');
       } else {
         console.log(data)
+
         navigate('/recintos');
+
         localStorage.setItem('login', data.user.email);
+        
         const userRoleData = await fetchUserRole(data.user.email);
         const userIdData = await HandleId(data.user.email);
         const userId = userIdData[0].id || null
         console.log('ID', userId)
+
         const userRole = userRoleData?.rol || null;
         console.log('ROL', userRole)
+
         localStorage.setItem('rol', userRole);
         localStorage.setItem('id', userId);
+
         setUserRole(userRole);
         setUserId(userId) 
       }

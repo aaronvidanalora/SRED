@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 function AñadirRecinto() {
@@ -32,9 +32,7 @@ function AñadirRecinto() {
         console.error('Error al añadir recinto:', error.message);
       } else {
         console.log('Recinto añadido exitosamente:', data);
-        // Redirige a /adminrecinto después de la inserción
-        navigate('/recintos')
-        // window.location.href = '/recintos';
+        navigate('/adminrecintos')
       }
     } catch (error) {
       console.error('Error al añadir recinto:', error.message);
@@ -46,10 +44,10 @@ function AñadirRecinto() {
       <div className="container">
         <h1 className="mt-5">Añadir Recinto</h1>
         <div className="d-flex justify-content-end">
-          <Link to="/adminrecinto" className="btn btn-outline-secondary mt-5">
+          <div onClick={() => history.back()} className="btn btn-outline-secondary mt-5">
             <FaArrowLeft style={{ fontSize: '1em' }} />
             Volver
-          </Link>
+          </div>
         </div>
 
         <div className="row mt-2">
@@ -122,7 +120,7 @@ function AñadirRecinto() {
               />
 
               <input type="submit" className="btn btn-success mt-3 me-2" value="Añadir" />
-              <Link to="/adminrecinto" className="btn btn-warning mt-3 me-2">Cancelar</Link>
+              <div onClick={() => history.back()} className="btn btn-warning mt-3 me-2">Cancelar</div>
             </form>
           </div>
         </div>
