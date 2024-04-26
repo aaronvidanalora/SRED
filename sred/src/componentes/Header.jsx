@@ -119,7 +119,14 @@ function Header() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                       >
-                        <img src={userData.imagen || ''} alt={userData.imagen || ''} width="45" height="45" className='rounded-circle me-2 ' />
+                        <img src={userData.imagen || ''} alt={userData.imagen || ''} className="me-1"
+                          style={{
+                            width: '45px',
+                            height: '45px',
+                            borderRadius: '50%',
+                            objectFit: 'cover',
+                          }}
+                        />
                       </a>
                       <ul className="dropdown-menu me-0">
                           <li className="p-2 ps-3">{userData.name || ''} <span className='small fst-italic fw-light'>({userRole})</span></li>

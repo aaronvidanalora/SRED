@@ -113,13 +113,13 @@ function SignIn() {
             </a>
             <button
               type="button"
-              className="btn btn-primary w-100 mt-3"
+              className="shadow btn btn-primary bg-gradient w-100 mt-3"
               onClick={handleSignIn}
             >
               Iniciar sesión
             </button>
           </form>
-          <Link to="/SignUp" className="d-block mt-5 btn btn-secondary mx-auto">
+          <Link to="/SignUp" className="d-block mt-5 shadow btn btn-secondary bg-gradient mx-auto">
             ¿Eres nuevo? Regístrate
           </Link>
         </div>

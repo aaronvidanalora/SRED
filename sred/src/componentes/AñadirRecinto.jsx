@@ -115,7 +115,9 @@ function AñadirRecinto() {
       <div className="container">
         <h1 className="mt-5">Añadir Recinto</h1>
         <div className="d-flex justify-content-end">
-          <div onClick={() => window.history.back()} className="btn btn-outline-secondary mt-5"> {/* Utilizar window.history.back() para volver atrás */}
+
+          <div onClick={() => history.back()} className="shadow btn btn-outline-secondary mt-5">
+
             <FaArrowLeft style={{ fontSize: '1em' }} />
             Volver
           </div>
@@ -207,6 +209,7 @@ function AñadirRecinto() {
                 value={recinto.info}
                 onChange={handleChange}
               />
+
 
               <input type="submit" className="btn btn-success mt-3 me-2" value="Añadir" />
               <div onClick={() => window.history.back()} className="btn btn-warning mt-3 me-2">Cancelar</div>

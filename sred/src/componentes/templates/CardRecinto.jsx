@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Asegúrate de importar Link desde react-router-dom
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from '../supabase/Supabase';
 
 function Recinto() {
   const [recintos, setRecintos] = useState([]);
@@ -23,23 +19,23 @@ function Recinto() {
       }
     };
 
-    // Llama a fetchData solo cuando el componente se monta
     fetchData();
-  }, []); // El array vacío asegura que se ejecute solo después del montaje inicial
+  }, []);
 
   return (
     <div id="recintos">
       {recintos.map((recinto) => (
         <div key={recinto.id} className="col-12 mb-5">
-          <div className="card">
+          <div className="card rounded-3 shadow-sm">
             <div className="d-flex row g-0">
               <div className="col-4">
                 <img
                   src={recinto.imagen}
                   alt={recinto.nombre}
-                  className="recintos-img"
-                  style={{ maxWidth: '100%', objectFit: 'cover', width: '380px', height: '200px' }}
-                />
+                  className="rounded-start-2 " 
+                  style={{ minWidth: '100%', minHeight: '100%', objectFit: 'cover', width: '380px', height: '200px' }}
+                  />
+                {/* className="recintos-img" */}
               </div>
               <div className="col-8">
                 <div className="card-body">
@@ -50,7 +46,7 @@ function Recinto() {
                     Descripción: {recinto.descripcion}
                   </p>
                   <Link to={`/detalle-recinto/${recinto.id}`} className="recinto-link">
-                    <button className="btn btn-sm btn-outline-primary">
+                    <button className="shadow btn btn-sm btn-outline-primary ">
                       Ver Más
                     </button>
                 </Link>
