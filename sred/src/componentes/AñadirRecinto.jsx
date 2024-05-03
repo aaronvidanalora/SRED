@@ -112,18 +112,17 @@ function AñadirRecinto() {
 
   return (
     <main>
-      <div className="container">
-        <h1 className="mt-5">Añadir Recinto</h1>
+      <div className="container mb-4">
+        <h1 className="mt-0 mt-lg-5 ">Añadir Recinto</h1>
         <div className="d-flex justify-content-end">
-
-          <div onClick={() => history.back()} className="shadow btn btn-outline-secondary mt-5">
+          <div onClick={() => window.history.back()} className="btn btn-outline-secondary mt-lg-5 mt-2"> {/* Utilizar window.history.back() para volver atrás */}
 
             <FaArrowLeft style={{ fontSize: '1em' }} />
             Volver
           </div>
         </div>
 
-        <div className="row mt-2">
+        <div className="row mt-0 mt-lg-2">
           <div className="col-12 col-md-4 pt-2 mb-3">
             <img src={recinto.imagen} alt="" className="img-fluid" />
             <label className="form-label mt-3 d-block" htmlFor="img"><strong>Seleccionar imagen: </strong></label>

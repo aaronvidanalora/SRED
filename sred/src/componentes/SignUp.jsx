@@ -57,7 +57,7 @@ function SignUp() {
   return (
     <>
       <div className="container">
-        <h1 className="mt-5 text-center">Registro</h1>
+        <h1 className="mt-2 mt-lg-5  text-center">Registro</h1>
         <div className="m-5 mx-auto" style={{ maxWidth: '400px' }}>
           <form className="form border shadow-sm p-3">
             <label htmlFor="nombre" className="form-label">Nombre:</label>
