@@ -5,6 +5,7 @@ function Recintos() {
   return (
     <>
     <div className="container">
+
       <h1 className="mt-1 mt-lg-5">Todos los Recintos</h1>
       <div className="row mt-3 mt-lg-5">
         <div className="col-12">
@@ -23,8 +24,9 @@ function Recintos() {
           </div>
         </div>
 
+
         <div className="d-xl-block">
-          <div className="row mb-5">
+          <div className="row mb-5 ">
             <Recinto/>
           </div>
         </div>
