@@ -48,13 +48,13 @@ function Reserva({ reserva, deleteReservas }) {
 
     return (
         <>
-            <div className="col-12 border d-flex align-items-center justify-content-center text-center mt-3">
-                <div className="col-3">
-                    <img src={reserva.recintoImagen} alt={reserva.recintoImagen} className="w-100" />
+            <div className=" row pt-4 pb-4 border d-flex align-items-center justify-content-center text-center mt-3">
+                <div className="col-lg-3 col-12">
+                    <img src={reserva.recintoImagen} alt={reserva.recintoImagen} className="w-100 col-12 " />
                 </div>
-                <div className="col-3 fs-4">{reserva.nameRecinto}</div>
-                <div className="col-3">
-                    <div className='fs-5 pb-3'>{reserva.fechaReserva}</div>
+                <div className="col-lg-3 col-12 fs-4">{reserva.nameRecinto}</div>
+                <div className="col-lg-3">
+                    <div className='fs-5 pb-lg-3'>{reserva.fechaReserva}</div>
                     <div className='fw-semibold '>{reserva.entrada} / {reserva.salida}</div>
                 </div>
                 <div className="col-3 d-flex justify-content-center">

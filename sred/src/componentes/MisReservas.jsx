@@ -64,7 +64,7 @@ function MisReservas() {
     }
 
     return (
-        <div className="container p-4 ">
+        <div className="container p-lg-4 ">
             <div className="row">
                 <div className="col-12 py-3">
                     <h2 className="text-center">Mis reservas</h2>

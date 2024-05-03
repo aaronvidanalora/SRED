@@ -33,7 +33,7 @@ function Recinto() {
         <div key={recinto.id} className="col-12 mb-5">
           <div className="card">
             <div className="d-flex row g-0">
-              <div className="col-4">
+              <div className="col-lg-4 col-12">
                 <img
                   src={recinto.imagen}
                   alt={recinto.nombre}

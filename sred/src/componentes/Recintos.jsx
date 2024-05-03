@@ -5,8 +5,8 @@ function Recintos() {
   return (
     <>
     <div className="container">
-      <h1 className="mt-5">Todos los Recintos</h1>
-      <div className="row mt-5">
+      <h1 className="mt-1 mt-lg-5">Todos los Recintos</h1>
+      <div className="row mt-3 mt-lg-5">
         <div className="col-12">
           <ul className="nav nav-tabs">
             {/* Resto del código del nav-tabs */}

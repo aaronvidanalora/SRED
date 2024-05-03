@@ -89,10 +89,10 @@ function EditaRecinto() {
   
   return (
     <main>
-      <div className="container">
-        <h1 className="mt-5">Edita Recinto</h1>
+      <div className="container mb-4">
+        <h1 className="mt-lg-5 p">Edita Recinto</h1>
         <div className="d-flex justify-content-end">
-          <Link to="/adminrecinto" className="btn btn-outline-secondary mt-5">
+          <Link to="/adminrecinto" className="btn btn-outline-secondary mt-lg-5">
             <FaArrowLeft style={{ fontSize: '1em' }} />
             Volver
           </Link>

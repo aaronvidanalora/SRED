@@ -32,9 +32,9 @@ function DetalleRecinto() {
   return (
     <main>
       <div className="container">
-        <h1 className="mt-5">{recinto ? recinto.nombre : 'Cargando...'}</h1>
+        <h1 className="mt-lg-5 mt-0">{recinto ? recinto.nombre : 'Cargando...'}</h1>
         <div className="d-flex justify-content-end">
-          <Link to="/recintos" className="btn btn-outline-secondary mt-5">
+          <Link to="/recintos" className="btn btn-outline-secondary mt-lg-5 mt-0">
             <BiArrowBack style={{ fontSize: '1em', marginRight: '5px' }} />
             Volver
           </Link>
@@ -72,7 +72,7 @@ function DetalleRecinto() {
             </div>
           </div>
         )}
-        <div className="container fixed-bottom d-flex justify-content-end" style={{ padding: '0px 0px 100px 0px' }}>
+        <div className="container fixed-bottom d-flex justify-content-end" style={{ padding: '0px 4px 150px 0px' }}>
 
           <Link to={`/reservarecinto/${id}`} className="btn btn-success fs-5 shadow d-flex align-items-center">
             Reservar

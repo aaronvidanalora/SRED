@@ -81,7 +81,7 @@ function EditaPerfil() {
 
   return (
     <main>
-      <div className="container mt-5">
+      <div className="container mt-lg-5 mt-0">
         <h1>Edición de perfil</h1>
         <div className="row">
           <div className="col-md-6">
