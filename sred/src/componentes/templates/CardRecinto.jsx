@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Asegúrate de importar Link desde react-router-dom
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from '../supabase/Supabase';
 
 function Recinto() {
   const [recintos, setRecintos] = useState([]);
@@ -37,11 +33,11 @@ function Recinto() {
                 <img
                   src={recinto.imagen}
                   alt={recinto.nombre}
-                  className="recintos-img"
-                  style={{ maxWidth: '100%', objectFit: 'cover', width: '380px', height: '200px' }}
+                  className="rounded-2 "
+                  style={{ objectFit: 'cover', width: '100%', height: '200px' }}
                 />
               </div>
-              <div className="col-8">
+              <div className="col-lg-8">
                 <div className="card-body">
                   <h5 className="card-title">{recinto.nombre}</h5>
                   <p className="card-text">
@@ -49,7 +45,7 @@ function Recinto() {
                     Ubicación: {recinto.ubicacion}<br />
                     Descripción: {recinto.descripcion}
                   </p>
-                  <Link to={`/detalle-recinto/${recinto.id}`} className="recinto-link">
+                  <Link to={`/detalle-recinto/${recinto.id}`} className="d-lg-block d-flex justify-content-end text-decoration-none ">
                     <button className="btn btn-sm btn-outline-primary">
                       Ver Más
                     </button>

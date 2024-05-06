@@ -56,20 +56,20 @@ function SignUp() {
 
   return (
     <>
-      <div className="container">
-        <h1 className="mt-2 mt-lg-5  text-center">Registro</h1>
+      <div className="container text-light">
+        <h1 className="mt-2 mt-lg-5 text-center">Registro</h1>
         <div className="m-5 mx-auto" style={{ maxWidth: '400px' }}>
-          <form className="form border shadow-sm p-3">
+          <form className="form border rounded-3 shadow-sm p-3">
             <label htmlFor="nombre" className="form-label">Nombre:</label>
             <input required id="nombre" type="text" className="form-control" onChange={(e) => setNombre(e.target.value)} />
 
-            <label htmlFor="apellidos" className="form-label">Apellidos:</label>
+            <label htmlFor="apellidos" className="form-label mt-3">Apellidos:</label>
             <input id="apellidos" type="text" className="form-control" onChange={(e) => setApellidos(e.target.value)} />
 
-            <label htmlFor="email" className="form-label">Email:</label>
+            <label htmlFor="email" className="form-label mt-3">Email:</label>
             <input required id="email" type="text" className="form-control" onChange={(e) => setEmail(e.target.value)} />
 
-            <label htmlFor="dni" className="form-label">DNI:</label>
+            <label htmlFor="dni" className="form-label mt-3">DNI:</label>
             <input required id="dni" type="text" className="form-control" onChange={(e) => setDNI(e.target.value)} />
 
             <label htmlFor="pass" className="form-label mt-3">Contraseña:</label>

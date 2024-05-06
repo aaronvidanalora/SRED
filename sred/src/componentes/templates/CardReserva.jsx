@@ -65,23 +65,26 @@ function Reserva({ reserva, deleteReservas }) {
 
     return (
         <>
-
-            <div className=" row pt-4 pb-4 border d-flex align-items-center justify-content-center text-center mt-3">
-                <div className="col-lg-3 col-12">
-                    <img src={reserva.recintoImagen} alt={reserva.recintoImagen} className="w-100 col-12 " />
-
+            <div className="row rounded-2 d-flex align-items-center justify-content-center text-center bg-white my-4 mx-3 pb-3 p-lg-0">
+                <div className="col-lg-3 col-12 p-0">
+                    <img 
+                        src={reserva.recintoImagen}
+                        alt={reserva.recintoImagen}
+                        className="rounded-2"
+                        style={{ objectFit: 'cover', width: '100%', height: '180px' }} 
+                    />
                 </div>
-                <div className="col-lg-3 col-12 fs-4">{reserva.nameRecinto}</div>
-                <div className="col-lg-3">
+                <div className="col-lg-3 col-12 fs-4 mt-3 m-lg-0">{reserva.nameRecinto}</div>
+                <div className="col-lg-3 my-3 m-lg-0">
                     <div className='fs-5 pb-lg-3'>{reserva.fechaReserva}</div>
                     <div className='fw-semibold '>{reserva.entrada} / {reserva.salida}</div>
                 </div>
-                <div className="col-3 d-flex justify-content-evenly">
+                <div className="col-lg-3 col-6 d-flex justify-content-evenly">
                     <div>
                         <button className="shadow btn btn-success bg-gradient" data-bs-toggle="modal" data-bs-target="#exampleModalEditar">Editar</button> 
                     </div>
                     <div>
-                        <button className="shadow btn btn-outline-danger" onClick={() => deleteReservas(reserva.id)}><BiTrash /></button>
+                        <button className="shadow btn btn-danger bg-gradient" onClick={() => deleteReservas(reserva.id)}><BiTrash /></button>
                     </div>
                 </div>
             </div>
@@ -136,7 +139,6 @@ function Reserva({ reserva, deleteReservas }) {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }

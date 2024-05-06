@@ -69,7 +69,7 @@ function MisReservas() {
                 <div className="col-12 py-3">
                     <h2 className="text-center">Mis reservas</h2>
                 </div>
-                <div className="col-12 border rounded shadow p-4">
+                <div className="col-12">
                     {reservas.map(reserva => (
                         <Reserva key={reserva.id} reserva={reserva} deleteReservas={handleDeleteReserva}/>
                     ))}

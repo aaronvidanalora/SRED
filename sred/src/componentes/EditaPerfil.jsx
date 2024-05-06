@@ -80,41 +80,39 @@ function EditaPerfil() {
   }
 
   return (
-    <main>
-      <div className="container mt-lg-5 mt-0">
-        <h1>Edición de perfil</h1>
-        <div className="row">
-          <div className="col-md-6">
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label htmlFor="nombre" className="form-label">Nombre:</label>
-                <input required id="nombre" type="text" className="form-control" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="apellidos" className="form-label">Apellidos:</label>
-                <input id="apellidos" type="text" className="form-control" value={apellidos} onChange={(e) => setApellidos(e.target.value)} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="dni" className="form-label">DNI:</label>
-                <input id="dni" type="text" className="form-control" value={dni} onChange={(e) => setDni(e.target.value)} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">Email:</label>
-                <input required id="email" type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="imagen" className="form-label">Seleccionar imagen:</label>
-                <input id="imagen" type="file" accept="image/*" className="form-control" onChange={handleImagenChange} />
-              </div>
-              <div className="mb-3">
-                <button type="submit" className="btn btn-success bg-gradient me-2">Actualizar</button>
-                <button type="button" onClick={() => window.history.back()} className="btn btn-outline-dark">Volver</button>
-              </div>
-            </form>
-          </div>
+    <div className="container mt-lg-5 mt-0 text-light ">
+      <h1>Edición de perfil</h1>
+      <div className="row">
+        <div className="col-md-6">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="nombre" className="form-label">Nombre:</label>
+              <input required id="nombre" type="text" className="form-control" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="apellidos" className="form-label">Apellidos:</label>
+              <input id="apellidos" type="text" className="form-control" value={apellidos} onChange={(e) => setApellidos(e.target.value)} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="dni" className="form-label">DNI:</label>
+              <input id="dni" type="text" className="form-control" value={dni} onChange={(e) => setDni(e.target.value)} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email:</label>
+              <input required id="email" type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="imagen" className="form-label">Seleccionar imagen:</label>
+              <input id="imagen" type="file" accept="image/*" className="form-control" onChange={handleImagenChange} />
+            </div>
+            <div className="mb-3">
+              <button type="submit" className="btn btn-success bg-gradient me-2">Actualizar</button>
+              <button type="button" onClick={() => window.history.back()} className="btn btn-dark bg-gradient">Volver</button>
+            </div>
+          </form>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 

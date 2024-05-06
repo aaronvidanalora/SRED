@@ -118,14 +118,14 @@ function AdminUsuario() {
         <h1 className="mt-5">Panel de administración</h1>
         <div className="row mt-5">
           <div className="col-12">
-            <ul className="nav nav-tabs">
+            <ul className="nav nav-tabs bg-secondary bg-gradient rounded-top-2">
               <li className="nav-item w-50">
-                <Link to="/adminusuarios" className="nav-link active">
+                <Link to="/adminusuarios" className="nav-link active rounded-0 rounded-top-2">
                   Usuarios
                 </Link>
               </li>
               <li className="nav-item w-50">
-                <Link to="/adminrecinto" className="nav-link">
+                <Link to="/adminrecinto" className="nav-link rounded-0 text-light rounded-top-2">
                   Recintos
                 </Link>
               </li>
@@ -133,7 +133,7 @@ function AdminUsuario() {
           </div>
         </div>
 
-        <div className="border border-top-0 p-3">
+        <div className="border border-top-0 rounded-bottom-2 p-3">
           <div className="row">
             <div className="d-flex col-12 col-md-6 mb-3">
               <div className="input-group flex-nowrap">
@@ -188,7 +188,7 @@ function AdminUsuario() {
                     <td>
                       <img
                         src={usuario.imagen}
-                        alt="Imagen de perfil"
+                        alt={usuario.imagen}
                         className="avatar"
                         style={{
                           width: '40px',

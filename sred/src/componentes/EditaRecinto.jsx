@@ -88,95 +88,91 @@ function EditaRecinto() {
   };
   
   return (
-    <main>
-      <div className="container mb-4">
-        <h1 className="mt-lg-5 p">Edita Recinto</h1>
-        <div className="d-flex justify-content-end">
+    <div className="container mb-4 text-light">
+      <h1 className="mt-lg-5 p">Edita Recinto</h1>
+      <div className="d-flex justify-content-end">
+        <Link to="/adminrecinto" className="btn btn-secondary bg-gradient">
+          <FaArrowLeft style={{ fontSize: '1em', marginRight: '5px' }} />
+          Volver
+        </Link>
+      </div>
 
-          <Link to="/adminrecinto" className="btn btn-outline-secondary mt-lg-5">
-
-            <FaArrowLeft style={{ fontSize: '1em' }} />
-            Volver
-          </Link>
+      <div className="row mt-2">
+        <div className="col-12 col-md-4 pt-2 mb-3">
+          <img src={recinto?.imagen} alt="" className="img-fluid d-block rounded-4" />
+          <label className="form-label mt-3" htmlFor="img"><strong>URL imagen: </strong></label>
+          <input
+            type="text"
+            name="imagen"
+            value={recinto?.imagen || ''}
+            className="form-control mt-1"
+            onChange={handleChange}
+          />
         </div>
-
-        <div className="row mt-2">
-          <div className="col-12 col-md-4 pt-2 mb-3">
-            <img src={recinto?.imagen} alt="" className="img-fluid d-block " />
-            <label className="form-label mt-3" htmlFor="img"><strong>URL imagen: </strong></label>
+        <div className="col-12 col-md-8">
+          <form onSubmit={handleSubmit} className="form">
+            <label className="form-label" htmlFor="nombre"><strong>Nombre: </strong></label>
             <input
+              id="nombre"
               type="text"
-              name="imagen"
-              value={recinto?.imagen || ''}
-              className="form-control mt-1"
+              name="nombre"
+              value={recinto?.nombre || ''}
+              className="form-control"
               onChange={handleChange}
             />
-          </div>
-          <div className="col-12 col-md-8">
-            <form onSubmit={handleSubmit} className="form">
-              <label className="form-label" htmlFor="nombre"><strong>Nombre: </strong></label>
-              <input
-                id="nombre"
-                type="text"
-                name="nombre"
-                value={recinto?.nombre || ''}
-                className="form-control"
-                onChange={handleChange}
-              />
-              <label className="form-label mt-2" htmlFor="propietario"><strong>Propietario: </strong></label>
-              <input
-                id="propietario"
-                type="text"
-                name="propietario"
-                value={recinto?.propietario || ''}
-                className="form-control"
-                onChange={handleChange}
-              />
-              <label className="form-label mt-2" htmlFor="cap"><strong>Capacidad: </strong></label>
-              <input
-                id="cap"
-                type="text"
-                name="capacidad"
-                value={recinto?.capacidad || ''}
-                className="form-control"
-                onChange={handleChange}
-              />
-              <label className="form-label mt-2" htmlFor="ubi"><strong>Ubicación: </strong></label>
-              <input
-                id="ubi"
-                type="text"
-                name="ubicacion"
-                value={recinto?.ubicacion || ''}
-                className="form-control"
-                onChange={handleChange}
-              />
-              <label className="form-label mt-2" htmlFor="dep"><strong>Deportes: </strong></label>
-              <input
-                id="dep"
-                type="text"
-                name="deportes"
-                value={recinto?.deportes || ''}
-                className="form-control"
-                onChange={handleChange}
-              />
-              <label className="form-label mt-2" htmlFor="descripcion"><strong>Descripción: </strong></label>
-              <textarea
-                id="descripcion"
-                name="descripcion"
-                className="form-control"
-                rows="4"
-                value={recinto?.descripcion || ''}
-                onChange={handleChange}
-              />
+            <label className="form-label mt-2" htmlFor="propietario"><strong>Propietario: </strong></label>
+            <input
+              id="propietario"
+              type="text"
+              name="propietario"
+              value={recinto?.propietario || ''}
+              className="form-control"
+              onChange={handleChange}
+            />
+            <label className="form-label mt-2" htmlFor="cap"><strong>Capacidad: </strong></label>
+            <input
+              id="cap"
+              type="text"
+              name="capacidad"
+              value={recinto?.capacidad || ''}
+              className="form-control"
+              onChange={handleChange}
+            />
+            <label className="form-label mt-2" htmlFor="ubi"><strong>Ubicación: </strong></label>
+            <input
+              id="ubi"
+              type="text"
+              name="ubicacion"
+              value={recinto?.ubicacion || ''}
+              className="form-control"
+              onChange={handleChange}
+            />
+            <label className="form-label mt-2" htmlFor="dep"><strong>Deportes: </strong></label>
+            <input
+              id="dep"
+              type="text"
+              name="deportes"
+              value={recinto?.deportes || ''}
+              className="form-control"
+              onChange={handleChange}
+            />
+            <label className="form-label mt-2" htmlFor="descripcion"><strong>Descripción: </strong></label>
+            <textarea
+              id="descripcion"
+              name="descripcion"
+              className="form-control"
+              rows="4"
+              value={recinto?.descripcion || ''}
+              onChange={handleChange}
+            />
 
-              <input type="submit" className="shadow btn btn-success bg-gradient mt-3 me-2" value="Actualizar" />
-              <input type="submit" className="shadow btn btn-warning bg-gradient mt-3 me-2" value="Cancelar" />
-              <button type="button" className="shadow btn btn-danger bg-gradient mt-3" onClick={handleDelete}>Eliminar</button>
-            </form>
-          </div>
+            <input type="submit" className="shadow btn btn-success bg-gradient mt-3 me-2" value="Actualizar" />
+            <input type="submit" className="shadow btn btn-warning bg-gradient mt-3 me-2" value="Cancelar" />
+            <button type="button" className="shadow btn btn-danger bg-gradient mt-3" onClick={handleDelete}>Eliminar</button>
+          </form>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 
