@@ -66,3 +66,17 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+/* header nav{
+  background-image: url('./assets/bg-header-1.jfif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+} */
+
+body {
+  background-image: url('./assets/bg-black-ryw-opacity.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

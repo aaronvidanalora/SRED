@@ -55,7 +55,7 @@ function Header() {
     <>
       <Router>
         <header className='pb-5'>
-          <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+          <nav className="navbar navbar-expand-lg fixed-top">
             <div className="container">
               <Link className="navbar-brand d-flex mt-2" to="/">
                 <img
@@ -65,7 +65,7 @@ function Header() {
                   height="30"
                   className="d-inline-block align-text-top"
                 />
-                <p className="mx-3 text-bg-dark ">SRED - Sistema Reserva Espacios Deportivos</p>
+                <p className="mx-3 text-light">SRED - Sistema Reserva Espacios Deportivos</p>
               </Link>
               <button
                 className="navbar-toggler"
@@ -83,27 +83,27 @@ function Header() {
                 {userData === undefined && (
                   <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
                     <li>
-                      <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
+                      <Link to="/signin" className='nav-link me-3 text-light'>Login</Link>
                     </li>
                     <li>
-                      <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
+                      <Link to="/signup" className='nav-link text-light'>Registrarse</Link>
                     </li>
                   </ul>
                 )}
                 {userRole == 'registrado' && (
                   <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
                     <li>
-                      <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
+                      <Link to="/reservas" className='nav-link me-3 text-light'>Reservas</Link>
                     </li>
                   </ul>
                 )}
                 {userRole === 'propietario' && (
                   <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
                     <li>
-                      <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
+                      <Link to="/recintos" className='nav-link me-3 text-light'>Recintos</Link>
                     </li>
                     <li>
-                    <Link to="/nuevorecinto" className='nav-link text-bg-dark me-3'>Añadir Recinto</Link>
+                    <Link to="/nuevorecinto" className='nav-link me-3 text-light'>Añadir Recinto</Link>
                     </li>
                   </ul>
                 )}
@@ -113,7 +113,7 @@ function Header() {
                   <ul className="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
                     <li className="nav-item dropdown">
                       <a
-                      className="nav-link dropdown-toggle"
+                      className="nav-link dropdown-toggle text-light"
                       href="/perfil"
                       role="button"
                       data-bs-toggle="dropdown"
