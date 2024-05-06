@@ -55,9 +55,10 @@ function Header() {
     <>
       <Router>
         <header className='pb-5'>
-          <nav className="navbar navbar-expand-lg fixed-top">
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div className="container">
-              <Link className="navbar-brand d-flex mt-2" to="/">
+            
+              <Link className="navbar-brand d-flex mt-2 me-lg-auto" to="/"> {/* Alinea el logo y el título a la izquierda en pantallas grandes */}
                 <img
                   src="/logo.jpg"
                   alt=""
@@ -65,7 +66,7 @@ function Header() {
                   height="30"
                   className="d-inline-block align-text-top"
                 />
-                <p className="mx-3 text-light">SRED - Sistema Reserva Espacios Deportivos</p>
+                <p className="mx-3 text-bg-dark d-none d-lg-block ">SRED - Sistema Reserva Espacios Deportivos</p>
               </Link>
               <button
                 className="navbar-toggler"
@@ -78,75 +79,66 @@ function Header() {
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
-              
-              <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+              <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 {userData === undefined && (
-                  <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
+                  <ul className="navbar-nav mb-2 mb-lg-0">
                     <li>
-                      <Link to="/signin" className='nav-link me-3 text-light'>Login</Link>
+                      <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
                     </li>
                     <li>
-                      <Link to="/signup" className='nav-link text-light'>Registrarse</Link>
+                      <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
                     </li>
                   </ul>
                 )}
                 {userRole == 'registrado' && (
-                  <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
+                  <ul className="navbar-nav mb-2 mb-lg-0">
                     <li>
-                      <Link to="/reservas" className='nav-link me-3 text-light'>Reservas</Link>
+                      <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
                     </li>
                   </ul>
                 )}
                 {userRole === 'propietario' && (
-                  <ul className="navbar-nav d-flex justify-content-end mb-2 mb-lg-0">
+                  <ul className="navbar-nav mb-2 mb-lg-0">
                     <li>
-                      <Link to="/recintos" className='nav-link me-3 text-light'>Recintos</Link>
+                      <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
                     </li>
                     <li>
-                    <Link to="/nuevorecinto" className='nav-link me-3 text-light'>Añadir Recinto</Link>
+                      <Link to="/nuevorecinto" className='nav-link text-bg-dark me-3'>Añadir Recinto</Link>
+                    </li>
+                  </ul>
+                )}
+                {userData !== undefined && (
+                  <ul className="navbar-nav mb-2 mb-lg-0">
+                    <li className="nav-item dropdown">
+                      <a
+                        className="nav-link dropdown-toggle"
+                        href="/perfil"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <img src={userData.imagen || ''} alt={userData.imagen || ''} width="45" height="45" className='rounded-circle me-2 ' />
+                      </a>
+                      <ul className="dropdown-menu me-0">
+                        <li className="p-2 ps-3">{userData.name || ''} <span className='small fst-italic fw-light'>({userRole})</span></li>
+                        <li><hr className="dropdown-divider" /></li>
+                        {userRole === 'admin' && (
+                          <>
+                            <li><Link to="/adminusuarios" className="dropdown-item">Administrador de Usuarios</Link></li>
+                            <li><Link to="/adminrecinto" className="dropdown-item">Administrador de Recintos</Link></li>
+                          </>
+                        )}
+                        <li><Link to={`/editarperfil/${userId}`} className="dropdown-item">Mi perfil</Link></li>
+                        <li><Link to="/signin" onClick={handleLogout} className="dropdown-item">Cerrar sesión</Link></li>
+                      </ul>
                     </li>
                   </ul>
                 )}
               </div>
-              {userData !== undefined && (
-                <div>
-                  <ul className="navbar-nav ms-auto me-2 mb-2 mb-lg-0">
-                    <li className="nav-item dropdown">
-                      <a
-                      className="nav-link dropdown-toggle text-light"
-                      href="/perfil"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      >
-                        <img src={userData.imagen || ''} alt={userData.imagen || ''} className="me-1"
-                          style={{
-                            width: '45px',
-                            height: '45px',
-                            borderRadius: '50%',
-                            objectFit: 'cover',
-                          }}
-                        />
-                      </a>
-                      <ul className="dropdown-menu me-0">
-                          <li className="p-2 ps-3">{userData.name || ''} <span className='small fst-italic fw-light'>({userRole})</span></li>
-                          <li><hr className="dropdown-divider"/></li>
-                          { userRole === 'admin' && (
-                              <>
-                                <li><Link to="/adminusuarios" className="dropdown-item">Administrador de Usuarios</Link></li>
-                                <li><Link to="/adminrecinto" className="dropdown-item">Administrador de Recintos</Link></li>
-                              </>
-                          )}
-                          <li><Link to={`/editarperfil/${userId}`} className="dropdown-item">Mi perfil</Link></li>
-                          <li><Link to="/signin" onClick={handleLogout} className="dropdown-item">Cerrar sesión</Link></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-              )}
             </div>
           </nav>
         </header>
+
         <Routes>
         {userData !== undefined && (
           <Route path="/" element={<Recintos />} />

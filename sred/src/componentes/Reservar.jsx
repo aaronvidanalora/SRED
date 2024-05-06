@@ -110,7 +110,7 @@ function Reservar() {
       </div>
       <div className="col-12 ">
         <div className="row mt-4 ">
-          <form action="" className="col-6 d-flex flex-column p-5" onSubmit={handleSubmit}> {/* onSubmit={handleSubmit} */} 
+          <form action="" className="col-lg-6 d-flex flex-column p-5" onSubmit={handleSubmit}> {/* onSubmit={handleSubmit} */} 
             <div className="d-flex align-items-center ">
               <label htmlFor="fecha" className="h4 mt-2 me-3">Fecha</label>
               <DatePicker
@@ -147,7 +147,7 @@ function Reservar() {
           </form>
 
           {recinto && (
-            <div className='col-6'><img src={recinto.imagen} alt={recinto.nombre} className="img-fluid mt-3 rounded-4 border border-4 shadow"/></div>
+            <div className='col-lg-6 col-12'><img src={recinto.imagen} alt={recinto.nombre} className="img-fluid mt-3 rounded-4 border border-4 shadow"/></div>
           )}
         </div>
 
@@ -174,20 +174,21 @@ function Reservar() {
       </div>
       {recinto && recinto.info && recinto.imagen2 && recinto.imagen3 && recinto.imagen4 && (
         <div className='mt-5 container mx-auto'>
-          <hr />
-            <p className='py-3' dangerouslySetInnerHTML={{__html: recinto.info.replace(recinto.nombre, `<strong>${recinto.nombre}</strong>`)} || ''}></p>
-            <div className='d-flex justify-content-evenly m-4'>
-              <div style={{ maxWidth: '300px', maxHeight: '200px' }}>
-                <img src={recinto.imagen2} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
-              </div>
-              <div className='px-4 border-start border-end border-3' style={{ maxWidth: '400px', maxHeight: '200px' }}>
-                <img src={recinto.imagen3} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
-              </div>
-              <div style={{ maxWidth: '300px', maxHeight: '200px' }}>
-                <img src={recinto.imagen4} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
-              </div>
-            </div>
+        <hr />
+        <p className='py-3' dangerouslySetInnerHTML={{__html: recinto.info.replace(recinto.nombre, `<strong>${recinto.nombre}</strong>`)} || ''}></p>
+        <div className='row d-flex justify-content-evenly m-4'>
+          <div className='col-md-4' style={{ maxWidth: '300px', maxHeight: '200px' }}>
+            <img src={recinto.imagen2} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
+          </div>
+          <div className='col-md-4 px-4 border-start border-end border-3' style={{ maxWidth: '400px', maxHeight: '200px' }}>
+            <img src={recinto.imagen3} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
+          </div>
+          <div className='col-md-4' style={{ maxWidth: '300px', maxHeight: '200px' }}>
+            <img src={recinto.imagen4} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
+          </div>
         </div>
+      </div>
+      
       )}
 
     </div>
