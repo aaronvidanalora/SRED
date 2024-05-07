@@ -60,11 +60,11 @@ function Header() {
             
               <Link className="navbar-brand d-flex mt-2 me-lg-auto" to="/"> {/* Alinea el logo y el título a la izquierda en pantallas grandes */}
                 <img
-                  src="/logo.jpg"
+                  src="/logo-header.png" // cambiar el color de este icono a blanco??
                   alt=""
-                  width="50"
-                  height="30"
-                  className="d-inline-block align-text-top"
+                  width="30"
+                  height="35"
+                  className=""
                 />
                 <p className="mx-3 text-bg-dark d-none d-lg-block ">SRED - Sistema Reserva Espacios Deportivos</p>
               </Link>
