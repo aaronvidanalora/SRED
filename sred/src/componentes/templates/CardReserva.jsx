@@ -65,7 +65,7 @@ function Reserva({ reserva, deleteReservas }) {
 
     return (
         <>
-            <div className="row rounded-2 d-flex align-items-center justify-content-center text-center bg-white my-4 mx-3 pb-3 p-lg-0">
+            <div className="row rounded-2 d-flex align-items-center justify-content-center text-center bg-white  my-4 mx-3 pb-3 p-lg-0">
                 <div className="col-lg-3 col-12 p-0">
                     <img 
                         src={reserva.recintoImagen}

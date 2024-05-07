@@ -176,11 +176,11 @@ function Reservar() {
         <div className='mt-5 container mx-auto'>
         <hr />
         <p className='py-3' dangerouslySetInnerHTML={{__html: recinto.info.replace(recinto.nombre, `<strong>${recinto.nombre}</strong>`)} || ''}></p>
-        <div className='row d-flex justify-content-evenly m-4'>
+        <div className='row d-flex justify-content-evenly p-4'>
           <div className='col-md-4' style={{ maxWidth: '300px', maxHeight: '200px' }}>
             <img src={recinto.imagen2} alt={recinto.nombre} className="img-fluid rounded-3" style={{ width: '100%', height: '100%' }}/>
           </div>
-          <div className='col-md-4 px-4 border-start border-end border-3' style={{ maxWidth: '400px', maxHeight: '200px' }}>
+          <div className='col-md-4 p-4 py-md-0 border-3' style={{ maxWidth: '400px', maxHeight: '200px' }}>
             <img src={recinto.imagen3} alt={recinto.nombre} className="img-fluid rounded-3" style={{ width: '100%', height: '100%' }}/>
           </div>
           <div className='col-md-4' style={{ maxWidth: '300px', maxHeight: '200px' }}>

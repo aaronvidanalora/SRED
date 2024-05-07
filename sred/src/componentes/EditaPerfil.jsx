@@ -107,7 +107,7 @@ function EditaPerfil() {
             </div>
             <div className="mb-3">
               <button type="submit" className="btn btn-success bg-gradient me-2">Actualizar</button>
-              <button type="button" onClick={() => window.history.back()} className="btn btn-dark bg-gradient">Volver</button>
+              <button type="button" onClick={() => window.history.back()} className="btn btn-secondary bg-gradient">Volver</button>
             </div>
           </form>
         </div>

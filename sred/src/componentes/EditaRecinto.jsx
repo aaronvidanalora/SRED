@@ -88,7 +88,7 @@ function EditaRecinto() {
   };
   
   return (
-    <div className="container mb-4 text-light">
+    <div className="container pb-5 py-md-0 text-light">
       <h1 className="mt-lg-5 p">Edita Recinto</h1>
       <div className="d-flex justify-content-end">
         <Link to="/adminrecinto" className="btn btn-secondary bg-gradient">

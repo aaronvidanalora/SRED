@@ -90,7 +90,7 @@ function AdminRecinto() {
   );
 
   return (
-    <div className="container">
+    <div className="container ">
         <h1 className="mt-5">Panel de administración</h1>
         <div className="row mt-5">
           <div className="col-12">

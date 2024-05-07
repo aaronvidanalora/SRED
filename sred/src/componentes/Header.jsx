@@ -119,9 +119,9 @@ function Header() {
                       >
                         <img src={userData.imagen || ''} alt={userData.imagen || ''} width="45" height="45" className='rounded-circle me-2 ' />
                       </a>
-                      <ul className="dropdown-menu me-0">
-                        <li className="p-2 ps-3">{userData.name || ''} <span className='small fst-italic fw-light'>({userRole})</span></li>
-                        <li><hr className="dropdown-divider" /></li>
+                      <ul className="dropdown-menu border-0 me-0">
+                        <li className="dropdown-item p-2 ps-3">{userData.name || ''} <span className='small fst-italic fw-light'>({userRole})</span></li>
+                        <li><hr className="dropdown-divider border-white" /></li>
                         {userRole === 'admin' && (
                           <>
                             <li><Link to="/adminusuarios" className="dropdown-item">Administrador de Usuarios</Link></li>
