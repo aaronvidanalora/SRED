@@ -71,10 +71,10 @@ function SignIn() {
 
   return (
     <>
-      <div className="container">
+      <div className="container text-light">
         <h1 className="mt-5 text-center">Inicia sesión</h1>
         <div className="m-5 mx-auto" style={{ maxWidth: '400px' }}>
-          <form className="form border shadow-sm p-3">
+          <form className="form border rounded-3 shadow-sm p-3">
             <label htmlFor="email" className="form-label">
               Email:
             </label>

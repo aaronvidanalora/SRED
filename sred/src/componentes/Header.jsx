@@ -54,90 +54,90 @@ function Header() {
   return (
     <>
       <Router>
-      <header className='pb-5'>
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div className="container">
-     
-      <Link className="navbar-brand d-flex mt-2 me-lg-auto" to="/"> {/* Alinea el logo y el título a la izquierda en pantallas grandes */}
-        <img
-          src="/logo.jpg"
-          alt=""
-          width="50"
-          height="30"
-          className="d-inline-block align-text-top"
-        />
-        <p className="mx-3 text-bg-dark d-none d-lg-block ">SRED - Sistema Reserva Espacios Deportivos</p>
-      </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-        {userData === undefined && (
-          <ul className="navbar-nav mb-2 mb-lg-0">
-            <li>
-              <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
-            </li>
-            <li>
-              <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
-            </li>
-          </ul>
-        )}
-        {userRole == 'registrado' && (
-          <ul className="navbar-nav mb-2 mb-lg-0">
-            <li>
-              <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
-            </li>
-          </ul>
-        )}
-        {userRole === 'propietario' && (
-          <ul className="navbar-nav mb-2 mb-lg-0">
-            <li>
-              <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
-            </li>
-            <li>
-              <Link to="/nuevorecinto" className='nav-link text-bg-dark me-3'>Añadir Recinto</Link>
-            </li>
-          </ul>
-        )}
-        {userData !== undefined && (
-          <ul className="navbar-nav mb-2 mb-lg-0">
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="/perfil"
-                role="button"
-                data-bs-toggle="dropdown"
+        <header className='pb-5'>
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div className="container">
+            
+              <Link className="navbar-brand d-flex mt-2 me-lg-auto" to="/"> {/* Alinea el logo y el título a la izquierda en pantallas grandes */}
+                <img
+                  src="/logo.jpg"
+                  alt=""
+                  width="50"
+                  height="30"
+                  className="d-inline-block align-text-top"
+                />
+                <p className="mx-3 text-bg-dark d-none d-lg-block ">SRED - Sistema Reserva Espacios Deportivos</p>
+              </Link>
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
                 aria-expanded="false"
+                aria-label="Toggle navigation"
               >
-                <img src={userData.imagen || ''} alt={userData.imagen || ''} width="45" height="45" className='rounded-circle me-2 ' />
-              </a>
-              <ul className="dropdown-menu me-0">
-                <li className="p-2 ps-3">{userData.name || ''} <span className='small fst-italic fw-light'>({userRole})</span></li>
-                <li><hr className="dropdown-divider" /></li>
-                {userRole === 'admin' && (
-                  <>
-                    <li><Link to="/adminusuarios" className="dropdown-item">Administrador de Usuarios</Link></li>
-                    <li><Link to="/adminrecinto" className="dropdown-item">Administrador de Recintos</Link></li>
-                  </>
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                {userData === undefined && (
+                  <ul className="navbar-nav mb-2 mb-lg-0">
+                    <li>
+                      <Link to="/signin" className='nav-link text-bg-dark me-3'>Login</Link>
+                    </li>
+                    <li>
+                      <Link to="/signup" className='nav-link text-bg-dark '>Registrarse</Link>
+                    </li>
+                  </ul>
                 )}
-                <li><Link to={`/editarperfil/${userId}`} className="dropdown-item">Mi perfil</Link></li>
-                <li><Link to="/signin" onClick={handleLogout} className="dropdown-item">Cerrar sesión</Link></li>
-              </ul>
-            </li>
-          </ul>
-        )}
-      </div>
-    </div>
-  </nav>
-</header>
+                {userRole == 'registrado' && (
+                  <ul className="navbar-nav mb-2 mb-lg-0">
+                    <li>
+                      <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
+                    </li>
+                  </ul>
+                )}
+                {userRole === 'propietario' && (
+                  <ul className="navbar-nav mb-2 mb-lg-0">
+                    <li>
+                      <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
+                    </li>
+                    <li>
+                      <Link to="/nuevorecinto" className='nav-link text-bg-dark me-3'>Añadir Recinto</Link>
+                    </li>
+                  </ul>
+                )}
+                {userData !== undefined && (
+                  <ul className="navbar-nav mb-2 mb-lg-0">
+                    <li className="nav-item dropdown">
+                      <a
+                        className="nav-link dropdown-toggle"
+                        href="/perfil"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <img src={userData.imagen || ''} alt={userData.imagen || ''} width="45" height="45" className='rounded-circle me-2 ' />
+                      </a>
+                      <ul className="dropdown-menu border-0 me-0">
+                        <li className="dropdown-item p-2 ps-3">{userData.name || ''} <span className='small fst-italic fw-light'>({userRole})</span></li>
+                        <li><hr className="dropdown-divider border-white" /></li>
+                        {userRole === 'admin' && (
+                          <>
+                            <li><Link to="/adminusuarios" className="dropdown-item">Administrador de Usuarios</Link></li>
+                            <li><Link to="/adminrecinto" className="dropdown-item">Administrador de Recintos</Link></li>
+                          </>
+                        )}
+                        <li><Link to={`/editarperfil/${userId}`} className="dropdown-item">Mi perfil</Link></li>
+                        <li><Link to="/signin" onClick={handleLogout} className="dropdown-item">Cerrar sesión</Link></li>
+                      </ul>
+                    </li>
+                  </ul>
+                )}
+              </div>
+            </div>
+          </nav>
+        </header>
 
         <Routes>
         {userData !== undefined && (

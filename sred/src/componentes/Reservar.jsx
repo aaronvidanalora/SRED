@@ -101,9 +101,9 @@ function Reservar() {
   }
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto text-light">
       <div className="d-flex align-items-center">
-        <Link to={`/detalle-recinto/${id}`} className="shadow btn btn-outline-secondary mt-5">
+        <Link to={`/detalle-recinto/${id}`} className="shadow btn btn-secondary bg-gradient mt-5">
           <BiArrowBack style={{ fontSize: '1em', marginRight: '5px' }} />
           Volver
         </Link>
@@ -147,7 +147,7 @@ function Reservar() {
           </form>
 
           {recinto && (
-            <div className='col-lg-6 col-12'><img src={recinto.imagen} alt={recinto.nombre} className="img-fluid mt-3 rounded-4 border border-4 shadow"/></div>
+            <div className='col-lg-6 col-12'><img src={recinto.imagen} alt={recinto.nombre} className="img-fluid mt-3 rounded-4 shadow"/></div>
           )}
         </div>
 
@@ -176,15 +176,15 @@ function Reservar() {
         <div className='mt-5 container mx-auto'>
         <hr />
         <p className='py-3' dangerouslySetInnerHTML={{__html: recinto.info.replace(recinto.nombre, `<strong>${recinto.nombre}</strong>`)} || ''}></p>
-        <div className='row d-flex justify-content-evenly m-4'>
+        <div className='row d-flex justify-content-evenly p-4'>
           <div className='col-md-4' style={{ maxWidth: '300px', maxHeight: '200px' }}>
-            <img src={recinto.imagen2} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
+            <img src={recinto.imagen2} alt={recinto.nombre} className="img-fluid rounded-3" style={{ width: '100%', height: '100%' }}/>
           </div>
-          <div className='col-md-4 px-4 border-start border-end border-3' style={{ maxWidth: '400px', maxHeight: '200px' }}>
-            <img src={recinto.imagen3} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
+          <div className='col-md-4 p-4 py-md-0 border-3' style={{ maxWidth: '400px', maxHeight: '200px' }}>
+            <img src={recinto.imagen3} alt={recinto.nombre} className="img-fluid rounded-3" style={{ width: '100%', height: '100%' }}/>
           </div>
           <div className='col-md-4' style={{ maxWidth: '300px', maxHeight: '200px' }}>
-            <img src={recinto.imagen4} alt={recinto.nombre} className="img-fluid" style={{ width: '100%', height: '100%' }}/>
+            <img src={recinto.imagen4} alt={recinto.nombre} className="img-fluid rounded-3" style={{ width: '100%', height: '100%' }}/>
           </div>
         </div>
       </div>
