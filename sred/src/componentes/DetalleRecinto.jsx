@@ -71,7 +71,7 @@ function DetalleRecinto() {
           </div>
         </div>
       )}
-      <div className="container fixed-bottom d-flex justify-content-end" style={{ padding: '0px 4px 150px 0px' }}>
+      <div className="container d-flex justify-content-end">
 
         <Link to={`/reservarecinto/${id}`} className="shadow btn btn-success bg-gradient fs-5 shadow d-flex align-items-center">
           Reservar
