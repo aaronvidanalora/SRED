@@ -12,7 +12,6 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
   const handleSignIn = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -20,28 +19,21 @@ function SignIn() {
         password,
       });
 
-
       if (error) {
         console.error('Error al iniciar sesión:', error.message);
         alert('Usuario o contraseña incorrectos');
       } else {
         console.log(data)
-
         navigate('/recintos');
-
         localStorage.setItem('login', data.user.email);
-        
         const userRoleData = await fetchUserRole(data.user.email);
         const userIdData = await HandleId(data.user.email);
         const userId = userIdData[0].id || null
         console.log('ID', userId)
-
         const userRole = userRoleData?.rol || null;
         console.log('ROL', userRole)
-
         localStorage.setItem('rol', userRole);
         localStorage.setItem('id', userId);
-
         setUserRole(userRole);
         setUserId(userId) 
       }
@@ -66,6 +58,26 @@ function SignIn() {
     } catch (error) {
       console.error('Error al obtener el rol del usuario:', error.message);
       return null;
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    try {
+      await supabase.auth.resetPasswordForEmail(email);
+      alert('Se ha enviado un correo electrónico para restablecer tu contraseña. Por favor, revisa tu bandeja de entrada.');
+      // Después de restablecer la contraseña, puedes actualizar la información del usuario si es necesario
+      const { data: updateData, error: updateError } = await supabase.auth.updateUser({
+        email: email,
+        // Aquí puedes proporcionar cualquier otra información que desees actualizar
+        data: { lastPasswordReset: new Date().toISOString() }
+      });
+      if (updateError) {
+        console.error('Error al actualizar la información del usuario:', updateError.message);
+      } else {
+        console.log('Información del usuario actualizada exitosamente:', updateData);
+      }
+    } catch (error) {
+      console.error('Error al solicitar restablecimiento de contraseña:', error.message);
     }
   };
 
@@ -108,7 +120,7 @@ function SignIn() {
                 Recordar sesión
               </label>
             </div>
-            <a className="d-block text-end" href="#">
+            <a className="d-block text-end" href="#" onClick={handleForgotPassword}>
               ¿Has olvidado tu contraseña?
             </a>
             <button
