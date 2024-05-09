@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Asegúrate de importar Link desde react-router-dom
 import { supabase } from '../supabase/Supabase';
 
-function Recinto() {
+function Recinto({ id }) {
+  // esta funcion recibe un id, si es null, pinta todos los recintos y si es un numero pinta los recintos de ese id
   const [recintos, setRecintos] = useState([]);
 
   useEffect(() => {
