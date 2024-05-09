@@ -1,23 +1,44 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
+import { useUserId } from './Context';
 
 function AñadirRecinto() {
   const navigate = useNavigate();
+  const { userId } = useUserId();
   const [recinto, setRecinto] = useState({
     nombre: '',
     capacidad: '',
     ubicacion: '',
     deportes: '',
-    descripcion: '', // Cambiado de resumen a descripcion
-    info: '', // Cambiado de descripcionReservas a info
+    descripcion: '',
+    info: '',
     imagen: '',
     imagen2: '',
     imagen3: '',
     imagen4: ''
   });
+  const [userName, setUserName] = useState('');
   const supabase = createClient('https://sdyghacdmxuoytrtuntm.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const { data, error } = await supabase.from('usuarios').select('name').eq('id', userId);
+        if (error) {
+          console.error('Error al obtener el nombre del usuario:', error.message);
+          return;
+        }
+        if (data.length > 0) {
+          setUserName(data[0].name);
+        }
+      } catch (error) {
+        console.error('Error al obtener el nombre del usuario:', error.message);
+      }
+    };
+    fetchUserData();
+  }, [userId, supabase]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,10 +83,10 @@ function AñadirRecinto() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let imageUrl = ''; // Variable para almacenar la URL de la imagen principal
-      if (recinto.imagen) { // Verificar si recinto.imagen tiene valor asignado
-        const timestamp = new Date().getTime(); // Obtener el timestamp actual en milisegundos
-        const imageName = `${timestamp}_${recinto.imagen.name}`; // Concatenar timestamp con nombre de imagen
+      let imageUrl = '';
+      if (recinto.imagen) {
+        const timestamp = new Date().getTime();
+        const imageName = `${timestamp}_${recinto.imagen.name}`;
         const { data, error } = await supabase.storage.from('recintos').upload(imageName, recinto.imagen, {
           cacheControl: '3600',
         });
@@ -76,7 +97,6 @@ function AñadirRecinto() {
         imageUrl = `${supabase.storageUrl}/object/public/recintos/${imageName}`;
       }
 
-      // Subir imágenes adicionales
       const imageUrls = [];
       const uploadImages = async (imagen, columnName) => {
         if (imagen) {
@@ -98,24 +118,22 @@ function AñadirRecinto() {
       imageUrls.push(await uploadImages(recinto.imagen3, 'imagen3'));
       imageUrls.push(await uploadImages(recinto.imagen4, 'imagen4'));
 
-      const { data: recintoData, error: recintoError } = await supabase.from('recintos').insert([{ ...recinto, imagen: imageUrl, imagen2: imageUrls[0], imagen3: imageUrls[1], imagen4: imageUrls[2] }]);
+      const { data: recintoData, error: recintoError } = await supabase.from('recintos').insert([{ ...recinto, imagen: imageUrl, imagen2: imageUrls[0], imagen3: imageUrls[1], imagen4: imageUrls[2], propietario: userName, propietarioID: userId }]);
       if (recintoError) {
         console.error('Error al añadir recinto:', recintoError.message);
       } else {
         console.log('Recinto añadido exitosamente:', recintoData);
-        window.history.back(); // Volver atrás usando el historial del navegador
+        navigate(-1);
       }
     } catch (error) {
       console.error('Error al añadir recinto:', error.message);
     }
   };
-
   return (
     <div className="container pb-5">
       <h1 className="mt-0 mt-lg-5 ">Añadir Recinto</h1>
       <div className="d-flex justify-content-end">
-        <div onClick={() => window.history.back()} className="btn btn-secondary bg-gradient mt-2 text-light "> {/* Utilizar window.history.back() para volver atrás */}
-
+        <div onClick={() => navigate(-1)} className="btn btn-secondary bg-gradient mt-2 text-light "> 
           <FaArrowLeft style={{ fontSize: '1em', marginRight: '5px' }} />
           Volver
         </div>
@@ -207,10 +225,8 @@ function AñadirRecinto() {
               value={recinto.info}
               onChange={handleChange}
             />
-
-
             <input type="submit" className="btn btn-success bg-gradient mt-3 me-2" value="Añadir" />
-            <div onClick={() => window.history.back()} className="btn btn-warning bg-gradient mt-3 me-2">Cancelar</div>
+            <div onClick={() => navigate(-1)} className="btn btn-warning bg-gradient mt-3 me-2">Cancelar</div>
           </form>
         </div>
       </div>
