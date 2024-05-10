@@ -3,26 +3,36 @@ import { Link } from 'react-router-dom'; // Asegúrate de importar Link desde re
 import { supabase } from '../supabase/Supabase';
 
 function Recinto({ id }) {
-  // esta funcion recibe un id, si es null, pinta todos los recintos y si es un numero pinta los recintos de ese id
   const [recintos, setRecintos] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data, error } = await supabase.from('recintos').select();
-        if (error) {
-          console.error('Error fetching data:', error);
+        let response;
+        if (id > 0) {
+          response = await supabase
+          .from('recintos')
+          .select()
+          .eq('propietarioID', id)
         } else {
-          setRecintos(data || []);
+          response = await supabase
+          .from('recintos')
+          .select();
         }
+
+        if (response.error) {
+          console.error('Error fetching data:', response.error);
+        } else {
+          setRecintos(response.data || []);
+        }
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    // Llama a fetchData solo cuando el componente se monta
     fetchData();
-  }, []); // El array vacío asegura que se ejecute solo después del montaje inicial
+  }, [id]);
 
   return (
     <div id="recintos">
@@ -50,7 +60,7 @@ function Recinto({ id }) {
                     <button className="btn btn-sm btn-outline-primary">
                       Ver Más
                     </button>
-                </Link>
+                  </Link>
                 </div>
               </div>
             </div>

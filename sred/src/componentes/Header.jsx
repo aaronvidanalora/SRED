@@ -22,6 +22,7 @@ function Header() {
   const [role, setRole] = useState({});
   const { userRole } = useUserRole(); 
   const { userId } = useUserId()
+  
   useEffect(() => {
     const fetchData = async () => {
       const userResult = await MenuUsuario();
@@ -58,9 +59,9 @@ function Header() {
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div className="container">
             
-              <Link className="navbar-brand d-flex mt-2 me-lg-auto" to="/"> {/* Alinea el logo y el título a la izquierda en pantallas grandes */}
+              <Link className="navbar-brand d-flex mt-2 me-lg-auto" to="/">
                 <img
-                  src="/logo-blanco.png" // cambiar el color de este icono a blanco??
+                  src="/logo-blanco.png"
                   alt=""
                   width="30"
                   height="35"

@@ -161,7 +161,9 @@ function AdminRecinto() {
                 <tr key={recinto.id}>
                   <td className="text-center">
                     <div>
-                      <img width="80px" src={recinto.imagen} alt={recinto.imagen} />
+                      <Link to={`/detalle-recinto/${recinto.id}`}>
+                        <img width="80px" src={recinto.imagen} alt={recinto.imagen} />
+                      </Link>
                     </div>
                   </td>
                   <td>{recinto.nombre}</td>

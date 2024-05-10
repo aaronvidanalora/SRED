@@ -133,7 +133,7 @@ function AñadirRecinto() {
     <div className="container pb-5">
       <h1 className="mt-0 mt-lg-5 ">Añadir Recinto</h1>
       <div className="d-flex justify-content-end">
-        <div onClick={() => navigate(-1)} className="btn btn-secondary bg-gradient mt-2 text-light "> 
+        <div onClick={() => window.history.back()} className="btn btn-secondary bg-gradient mt-2 text-light "> 
           <FaArrowLeft style={{ fontSize: '1em', marginRight: '5px' }} />
           Volver
         </div>
