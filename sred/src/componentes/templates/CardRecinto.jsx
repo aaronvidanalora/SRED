@@ -56,11 +56,19 @@ function Recinto({ id }) {
                     Ubicación: {recinto.ubicacion}<br />
                     Descripción: {recinto.descripcion}
                   </p>
-                  <Link to={`/detalle-recinto/${recinto.id}`} className="d-lg-block d-flex justify-content-end text-decoration-none ">
-                    <button className="btn btn-sm btn-outline-primary">
-                      Ver Más
-                    </button>
-                  </Link>
+                  {id > 0 ? (
+                    <Link to={`/editarecinto/${recinto.id}`} className="d-lg-block d-flex justify-content-end text-decoration-none ">
+                      <button className="btn btn-sm btn-outline-primary">
+                        Ver Más
+                      </button>
+                    </Link>
+                  ) : (
+                    <Link to={`/detalle-recinto/${recinto.id}`} className="d-lg-block d-flex justify-content-end text-decoration-none ">
+                      <button className="btn btn-sm btn-outline-primary">
+                        Ver Más
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

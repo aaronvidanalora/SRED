@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 function EditaRecinto() {
@@ -59,8 +59,9 @@ function EditaRecinto() {
       } else {
         console.log('Recinto actualizado exitosamente:', data);
         // Redirige a /adminrecinto después de la actualización
-        navigate('/adminrecinto')
-        window.location.href = '/adminrecinto'; // Redirigir utilizando window.location.href
+        // navigate('/adminrecinto')
+        // window.location.href = '/adminrecinto';
+        window.history.back()
       }
     } catch (error) {
       console.error('Error actualizando recinto:', error.message);
@@ -79,7 +80,8 @@ function EditaRecinto() {
           console.error('Error al eliminar recinto:', error.message);
         } else {
           // Redirige a /adminrecinto después de eliminar el recinto
-          window.location.href = '/adminrecinto';
+          // window.location.href = '/adminrecinto';
+          window.history.back()
         }
       } catch (error) {
         console.error('Error al eliminar recinto:', error.message);
@@ -91,10 +93,10 @@ function EditaRecinto() {
     <div className="container pb-5 py-md-0 text-light">
       <h1 className="mt-lg-5 p">Edita Recinto</h1>
       <div className="d-flex justify-content-end">
-        <Link to="/adminrecinto" className="btn btn-secondary bg-gradient">
+        <div onClick={() => window.history.back()} className="btn btn-secondary bg-gradient">
           <FaArrowLeft style={{ fontSize: '1em', marginRight: '5px' }} />
-          Volver
-        </Link>
+            Volver
+        </div>
       </div>
 
       <div className="row mt-2">
