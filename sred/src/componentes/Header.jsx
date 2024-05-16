@@ -22,6 +22,7 @@ function Header() {
   const [role, setRole] = useState({});
   const { userRole } = useUserRole(); 
   const { userId } = useUserId()
+  
   useEffect(() => {
     const fetchData = async () => {
       const userResult = await MenuUsuario();
@@ -58,9 +59,9 @@ function Header() {
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div className="container">
             
-              <Link className="navbar-brand d-flex mt-2 me-lg-auto" to="/"> {/* Alinea el logo y el título a la izquierda en pantallas grandes */}
+              <Link className="navbar-brand d-flex mt-2 me-lg-auto" to="/">
                 <img
-                  src="/logo-header.png" // cambiar el color de este icono a blanco??
+                  src="/logo-blanco.png"
                   alt=""
                   width="30"
                   height="35"
@@ -101,6 +102,9 @@ function Header() {
                   <ul className="navbar-nav mb-2 mb-lg-0">
                     <li>
                       <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
+                    </li>
+                    <li>
+                      <Link to="/misrecintos" className='nav-link text-bg-dark me-3'>Mis Recintos</Link>
                     </li>
                     <li>
                       <Link to="/nuevorecinto" className='nav-link text-bg-dark me-3'>Añadir Recinto</Link>
@@ -150,6 +154,7 @@ function Header() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/adminrecinto" element={<AdminRecinto />} />
           <Route path="/adminusuarios" element={<AdminUsuario />} />
+          <Route path="/misrecintos" element={<Recintos />} />
           <Route path="/recintos" element={<Recintos />} />
           <Route path="/detalle-recinto/:id" element={<DetalleRecinto/>} />
           <Route path="/reservarecinto/:id" element={<Reservar />} />

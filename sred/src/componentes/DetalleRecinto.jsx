@@ -33,10 +33,10 @@ function DetalleRecinto() {
     <div className="container text-light ">
       <h1 className="mt-lg-5 mt-0">{recinto ? recinto.nombre : 'Cargando...'}</h1>
       <div className="d-flex justify-content-end">
-        <Link to="/recintos" className="btn btn-secondary bg-gradient mt-lg-5 mt-0 ">
+        <div onClick={() => window.history.back()} className="btn btn-secondary bg-gradient mt-lg-5 mt-0 ">
           <BiArrowBack style={{ fontSize: '1em', marginRight: '5px' }} />
           Volver
-        </Link>
+        </div>
       </div>
       {recinto && (
         <div className="row mt-2 align-items-center ">
