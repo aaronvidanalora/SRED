@@ -94,10 +94,16 @@ function Header() {
                     <li>
                       <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
                     </li>
+                    <li>
+                      <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
+                    </li>
                   </ul>
                 )}
                 {userRole === 'propietario' && (
                   <ul className="navbar-nav mb-2 mb-lg-0">
+                    <li>
+                      <Link to="/reservas" className='nav-link text-bg-dark me-3'>Reservas</Link>
+                    </li>
                     <li>
                       <Link to="/recintos" className='nav-link text-bg-dark me-3'>Recintos</Link>
                     </li>
@@ -107,6 +113,12 @@ function Header() {
                     <li>
                       <Link to="/nuevorecinto" className='nav-link text-bg-dark me-3'>Añadir Recinto</Link>
                     </li>
+                  </ul>
+                )}
+                {userRole === 'admin' && (
+                  <ul>
+                    <li><Link to="/adminusuarios" className="nav-link text-bg-dark me-3">Administrador de Usuarios</Link></li>
+                    <li><Link to="/adminrecinto" className="nav-link text-bg-dark me-3">Administrador de Recintos</Link></li>
                   </ul>
                 )}
                 {userData !== undefined && (
@@ -124,12 +136,6 @@ function Header() {
                       <ul className="dropdown-menu border-0 me-0">
                         <li className="dropdown-item p-2 ps-3">{userData.name || ''} <span className='small fst-italic fw-light'>({userRole})</span></li>
                         <li><hr className="dropdown-divider border-white" /></li>
-                        {userRole === 'admin' && (
-                          <>
-                            <li><Link to="/adminusuarios" className="dropdown-item">Administrador de Usuarios</Link></li>
-                            <li><Link to="/adminrecinto" className="dropdown-item">Administrador de Recintos</Link></li>
-                          </>
-                        )}
                         <li><Link to={`/editarperfil/${userId}`} className="dropdown-item">Mi perfil</Link></li>
                         <li><Link to="/signin" onClick={handleLogout} className="dropdown-item">Cerrar sesión</Link></li>
                       </ul>

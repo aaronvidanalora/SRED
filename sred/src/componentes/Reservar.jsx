@@ -48,7 +48,7 @@ function Reservar() {
       setFormData({
         ...formData,
         selectedEntrada: value,
-        selectedSalida: newSalida, // Actualiza la hora de salida
+        selectedSalida: newSalida,
       });
     } else {
       // Si no es la hora de entrada, simplemente actualiza el estado
@@ -160,9 +160,9 @@ function Reservar() {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={(e) => {modalSubmit(e)}}></button>
               </div>
               {recinto && (
-              <div className="modal-body">
-                Su reserva para {recinto.nombre || ''}, día {formData.selectedFecha.toLocaleDateString()}, de {formData.selectedEntrada} a {formData.selectedSalida} está confirmada
-              </div>
+                <div className="modal-body">
+                  Su reserva para {recinto.nombre || ''}, día {formData.selectedFecha.toLocaleDateString()}, de {formData.selectedEntrada} a {formData.selectedSalida} está confirmada
+                </div>
               )}
               <div className="modal-footer">
                 <button type="button" className="shadow btn btn-secondary bg-gradient" data-bs-dismiss="modal" onClick={(e) => {modalSubmit(e)}}>Ver mis reservas</button>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
+import { useUserRole } from './Context';
 
 function EditaRecinto() {
   const navigate = useNavigate()
@@ -9,7 +10,15 @@ function EditaRecinto() {
   const [recinto, setRecinto] = useState(null);
   const [supabase, setSupabase] = useState(null); // Variable de estado para supabase
 
+  const { userRole } = useUserRole()
+
   useEffect(() => {
+    if(userRole == 'propietario' || userRole == 'admin'){
+      fetchRecinto();  
+    } else {
+      navigate('*')
+    }
+
     const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
     const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
     const client = createClient(supabaseUrl, supabaseKey);
@@ -28,7 +37,6 @@ function EditaRecinto() {
       }
     }
 
-    fetchRecinto();
   }, [id]);
 
   const handleChange = (e) => {
