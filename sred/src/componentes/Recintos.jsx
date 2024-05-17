@@ -12,16 +12,12 @@ function Recintos() {
   const [id, setId] = useState(0)  
   
   useEffect(() => {
-    // function fetchRecintos() {
-      if (isMisRecintos) {
-        setId(userId)
-        console.log('ismirecintos');
-      } else {
-        setId(0)
-      }
-    // }
-
-    // fetchRecintos()
+    if (isMisRecintos) {
+      setId(userId)
+      console.log('ismirecintos');
+    } else {
+      setId(0)
+    }
   }, [isMisRecintos, userId]);
 
   return (
