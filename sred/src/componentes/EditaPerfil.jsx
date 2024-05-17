@@ -43,37 +43,38 @@ function EditaPerfil() {
     event.preventDefault();
     try {
       let imageUrl = usuario.imagen; // Conservar la imagen existente por defecto
-
+  
       if (imagenFile) {
         const timestamp = new Date().getTime();
         const imageName = `user_${id}_${timestamp}`;
-
+  
         const { data: fileData, error: fileError } = await supabase.storage.from('usuarios').upload(imageName, imagenFile, {
           cacheControl: '3600',
         });
-
+  
         if (fileError) {
           console.error('Error uploading image:', fileError);
           return;
         }
-
+  
         imageUrl = `${supabase.storageUrl}/object/public/usuarios/${imageName}`;
       }
-
+  
       const { error } = await supabase
         .from('usuarios')
         .update({ imagen: imageUrl, name: nombre, apellidos, dni, email, rol })
         .eq('id', id);
-
+  
       if (error) {
         console.error('Error updating usuario:', error);
       } else {
-        window.location.reload();
+        window.history.back(); // Volver a la página anterior
       }
     } catch (error) {
       console.error('Error updating usuario:', error);
     }
   };
+  
 
   if (!usuario) {
     return <div>No se encuentra el usuario</div>;
