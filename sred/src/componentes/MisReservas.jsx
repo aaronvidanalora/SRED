@@ -73,7 +73,7 @@ function MisReservas() {
                     {reservas.map(reserva => (
                         <Reserva key={reserva.id} reserva={reserva} deleteReservas={handleDeleteReserva}/>
                     ))}
-                    {reservas.length === 0 && <p>No tienes reservas</p>}
+                    {reservas.length === 0 && <p className='text-dark'>No tienes reservas</p>}
                 </div>
             </div>
         </div>

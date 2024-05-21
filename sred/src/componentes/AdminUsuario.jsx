@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { BiSearch, BiX, BiPencil, BiTrash, BiCaretDown, BiCaretUp } from 'react-icons/bi';
-import { createClient } from '@supabase/supabase-js';
-import { Link } from 'react-router-dom';
-
-const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { Link, useNavigate } from 'react-router-dom';
+import { useUserRole } from './Context';
+import { supabase } from './supabase/Supabase';
 
 function AdminUsuario() {
+  const { userRole } = useUserRole()
+  const navigate = useNavigate()
   const [usuarios, setUsuarios] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRoles, setSelectedRoles] = useState({});
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+  const rol = localStorage.getItem('rol')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,8 +26,12 @@ function AdminUsuario() {
         console.error('Error fetching usuarios:', error);
       }
     };
-
-    fetchData();
+    
+    if(rol == 'admin'){
+      fetchData();
+    } else {
+      navigate('*')
+    }
   }, [supabase]);
 
   const handleDelete = async (id) => {

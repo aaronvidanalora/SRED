@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useUserRole , useUserId} from './Context'; // Importar el contexto
 import { HandleId } from './menus/Menus';
@@ -11,6 +11,15 @@ function SignIn() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  const rol = localStorage.getItem('rol')
+
+  useEffect(() => {
+    if (rol != undefined || rol != null) {
+      navigate('*')
+    }
+  }, []);
+
 
   const handleSignIn = async () => {
     try {

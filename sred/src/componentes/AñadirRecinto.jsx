@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
-import { useUserId } from './Context';
+import { useUserId, useUserRole } from './Context';
 
 function AñadirRecinto() {
   const navigate = useNavigate();
   const { userId } = useUserId();
+  const { userRole } = useUserRole()
+  const rol = localStorage.getItem('rol')
   const [recinto, setRecinto] = useState({
     nombre: '',
     capacidad: '',
@@ -37,7 +39,12 @@ function AñadirRecinto() {
         console.error('Error al obtener el nombre del usuario:', error.message);
       }
     };
-    fetchUserData();
+    
+    if(rol == 'propietario'){
+      fetchUserData();
+    } else {
+      navigate('*')
+    }
   }, [userId, supabase]);
 
   const handleChange = (e) => {
@@ -123,7 +130,7 @@ function AñadirRecinto() {
         console.error('Error al añadir recinto:', recintoError.message);
       } else {
         console.log('Recinto añadido exitosamente:', recintoData);
-        navigate(-1);
+        window.history.back()
       }
     } catch (error) {
       console.error('Error al añadir recinto:', error.message);

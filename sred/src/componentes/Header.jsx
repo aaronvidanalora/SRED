@@ -116,7 +116,7 @@ function Header() {
                   </ul>
                 )}
                 {userRole === 'admin' && (
-                  <ul>
+                  <ul className="navbar-nav mb-2 mb-lg-0">
                     <li><Link to="/adminusuarios" className="nav-link text-bg-dark me-3">Administrador de Usuarios</Link></li>
                     <li><Link to="/adminrecinto" className="nav-link text-bg-dark me-3">Administrador de Recintos</Link></li>
                   </ul>

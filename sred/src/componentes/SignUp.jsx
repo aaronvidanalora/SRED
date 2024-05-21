@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from './supabase/Supabase';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -10,10 +10,13 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [dni, setDNI] = useState('');
   const [password, setPassword] = useState('');
+  const rol = localStorage.getItem('rol')
 
-  const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co'
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI'
-  const supabase = createClient(supabaseUrl, supabaseKey);
+  useEffect(() => {
+    if (rol != undefined || rol != null) {
+      navigate('*')
+    }
+  }, []);
 
   const handleSignUp = async () => {
     try {

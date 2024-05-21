@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { BiArrowBack, BiCalendarPlus  } from 'react-icons/bi'; 
+import { useUserRole } from './Context';
 
 function DetalleRecinto() {
   const { id } = useParams();
+  const { userRole } = useUserRole();
   const [recinto, setRecinto] = useState(null);
-
+  const navigate = useNavigate()
+  const rol = localStorage.getItem('rol')
+  
   useEffect(() => {
     const fetchData = async () => {
       const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
@@ -26,7 +30,11 @@ function DetalleRecinto() {
       }
     };
 
-    fetchData();
+    if(rol != undefined || rol != null){
+      fetchData();
+    } else {
+      navigate('*')
+    }
   }, [id]);
 
   return (
