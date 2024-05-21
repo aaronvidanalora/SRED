@@ -2,17 +2,20 @@ import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
-import { useUserRole } from './Context';
+import { useUserId, useUserRole } from './Context';
 
 function EditaRecinto() {
   const navigate = useNavigate()
-  const { id } = useParams(); // Obtener el ID del recinto de los parámetros de la URL
+  
+  const { id } = useParams(); // id parametros url
+  const { userId } = useUserId() // id usuario contexto
+  
   const [recinto, setRecinto] = useState(null);
   const [supabase, setSupabase] = useState(null); // Variable de estado para supabase
 
   const { userRole } = useUserRole()
   const rol = localStorage.getItem('rol')
-  
+
   useEffect(() => {
     const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
     const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
@@ -31,12 +34,19 @@ function EditaRecinto() {
         console.error('Error fetching recinto:', error);
       }
     }
+    
+    fetchRecinto();
 
-    if (rol == 'propietario' || rol == 'admin') {
-      fetchRecinto();  
-    } else {
-      navigate('*')
-    }
+    // if (rol == 'propietario' || rol == 'admin') {
+    //   console.log('recinto', recinto);
+    //   if (userId == recinto.propietarioID || rol == 'admin'){
+    //   } else {
+    //     console.log('Este no es tu recinto');
+    //     navigate('*')
+    //   }
+    // } else {
+    //   navigate('*')
+    // }
   }, [id]);
 
   const handleChange = (e) => {
@@ -99,6 +109,8 @@ function EditaRecinto() {
   
   return (
     <div className="container pb-5 py-md-0 text-light">
+    { (rol === 'propietario' || rol === 'admin') && (userId === recinto?.propietarioID || rol === 'admin') ? (
+    <>
       <h1 className="mt-lg-5 p">Edita Recinto</h1>
       <div className="d-flex justify-content-end">
         <div onClick={() => window.history.back()} className="btn btn-secondary bg-gradient">
@@ -182,6 +194,10 @@ function EditaRecinto() {
           </form>
         </div>
       </div>
+    </>
+    ) : (
+      navigate('*')
+    )}
     </div>
   );
 }

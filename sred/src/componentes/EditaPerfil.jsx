@@ -1,10 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useUserId } from './Context';
 import { supabase } from './supabase/Supabase';
 
 function EditaPerfil() {
-  const { id } = useParams();
+  const { id } = useParams(); // id parametros url
+  const { userId } = useUserId() // id usuario contexto
+  const rolLS = localStorage.getItem('rol')
+
+  const navigate = useNavigate()
 
   const [usuario, setUsuario] = useState(null);
   const [nombre, setNombre] = useState('');
@@ -33,7 +38,12 @@ function EditaPerfil() {
       }
     };
 
-    fetchUsuario();
+    if (userId == id || rolLS == 'admin'){
+      fetchUsuario();
+    } else {
+      console.log('Este no es tu perfil');
+      navigate('*')
+    }
   }, [id]);
 
   const handleImagenChange = (event) => {

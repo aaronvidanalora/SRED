@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
 import { BiArrowBack, BiCalendarPlus  } from 'react-icons/bi'; 
 import { useUserRole } from './Context';
+import { supabase } from './supabase/Supabase';
 
 function DetalleRecinto() {
   const { id } = useParams();
+
   const { userRole } = useUserRole();
-  const [recinto, setRecinto] = useState(null);
-  const navigate = useNavigate()
   const rol = localStorage.getItem('rol')
+
+  const navigate = useNavigate()
+
+  const [recinto, setRecinto] = useState(null);
   
   useEffect(() => {
     const fetchData = async () => {
-      const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-      const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-
-      const supabase = createClient(supabaseUrl, supabaseKey);
 
       try {
         const { data, error } = await supabase.from('recintos').select().eq('id', id).single();
