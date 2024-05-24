@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../componentes/supabase/Supabase';
-import { useUserRole } from './Context';
+import { useUserId, useUserRole } from './Context';
 
 function EditaRecinto() {
   const navigate = useNavigate();
@@ -10,7 +10,8 @@ function EditaRecinto() {
   const [recinto, setRecinto] = useState(null);
   const [reservas, setReservas] = useState([]);
 
-  const { userRole, userId } = useUserRole();
+  const { userRole } = useUserRole();
+  const { userId } = useUserId();
 
   useEffect(() => {
     if (userRole === 'propietario' || userRole === 'admin') {
