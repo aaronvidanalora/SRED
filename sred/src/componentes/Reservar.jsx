@@ -156,11 +156,11 @@ function Reservar() {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">Reserva realizada con éxito</h1>
+                <h1 className="modal-title fs-5 text-dark" id="exampleModalLabel">Reserva realizada con éxito</h1>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={(e) => {modalSubmit(e)}}></button>
               </div>
               {recinto && (
-                <div className="modal-body">
+                <div className="modal-body text-dark">
                   Su reserva para {recinto.nombre || ''}, día {formData.selectedFecha.toLocaleDateString()}, de {formData.selectedEntrada} a {formData.selectedSalida} está confirmada
                 </div>
               )}

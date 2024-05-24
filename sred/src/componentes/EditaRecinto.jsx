@@ -6,11 +6,11 @@ import { useUserRole } from './Context';
 
 function EditaRecinto() {
   const navigate = useNavigate();
-  const { id } = useParams(); // Obtener el ID del recinto de los parámetros de la URL
+  const { id } = useParams();
   const [recinto, setRecinto] = useState(null);
   const [reservas, setReservas] = useState([]);
 
-  const { userRole } = useUserRole();
+  const { userRole, userId } = useUserRole();
 
   useEffect(() => {
     if (userRole === 'propietario' || userRole === 'admin') {
@@ -39,18 +39,17 @@ function EditaRecinto() {
           .from('reservas')
           .select()
           .eq('recintoID', id);
-    
+
         if (reservasError) {
           console.error('Error fetching reservas:', reservasError);
         } else {
-          setReservas(reservasData);
           fetchNombresUsuarios(reservasData);
         }
       } catch (error) {
         console.error('Error fetching reservas:', error);
       }
     }
-    
+
     async function fetchNombresUsuarios(reservasData) {
       try {
         const userIDs = reservasData.map(reserva => reserva.userID);
@@ -58,25 +57,22 @@ function EditaRecinto() {
           .from('usuarios')
           .select('name, id')
           .in('id', userIDs);
-    
+
         if (usuariosError) {
           console.error('Error fetching usuarios:', usuariosError);
         } else {
-          console.log(usuariosData)
-          // Asociar nombres de usuarios con reservas
           const reservasActualizadas = reservasData.map(reserva => {
             const usuario = usuariosData.find(usuario => usuario.id === reserva.userID);
             return { ...reserva, nombreUsuario: usuario ? usuario.name : 'Usuario no encontrado' };
           });
-          
+
           setReservas(reservasActualizadas);
         }
       } catch (error) {
         console.error('Error fetching usuarios:', error);
       }
     }
-    
-    
+
   }, [id, userRole, navigate]);
 
   const handleChange = (e) => {
@@ -99,6 +95,7 @@ function EditaRecinto() {
           ubicacion: recinto.ubicacion,
           deportes: recinto.deportes,
           descripcion: recinto.descripcion,
+          imagen: recinto.imagen,
         })
         .eq('id', id);
 
@@ -132,6 +129,14 @@ function EditaRecinto() {
     }
   };
 
+  const handleCancel = () => {
+    window.history.back();
+  };
+
+  if (!recinto) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container pb-5 py-md-0 text-light">
       <h1 className="mt-lg-5 p">Edita Recinto</h1>
@@ -144,12 +149,12 @@ function EditaRecinto() {
 
       <div className="row mt-2">
         <div className="col-12 col-md-4 pt-2 mb-3">
-          <img src={recinto?.imagen} alt="" className="img-fluid d-block rounded-4" />
-          <label className="form-label mt-3" htmlFor="img"><strong>URL imagen: </strong></label>
+          <img src={recinto.imagen} alt="" className="img-fluid d-block rounded-4" />
+          <label className="form-label mt-3" htmlFor="imagen"><strong>URL imagen: </strong></label>
           <input
             type="text"
             name="imagen"
-            value={recinto?.imagen || ''}
+            value={recinto.imagen || ''}
             className="form-control mt-1"
             onChange={handleChange}
           />
@@ -161,7 +166,7 @@ function EditaRecinto() {
               id="nombre"
               type="text"
               name="nombre"
-              value={recinto?.nombre || ''}
+              value={recinto.nombre || ''}
               className="form-control"
               onChange={handleChange}
             />
@@ -170,34 +175,34 @@ function EditaRecinto() {
               id="propietario"
               type="text"
               name="propietario"
-              value={recinto?.propietario || ''}
+              value={recinto.propietario || ''}
               className="form-control"
               onChange={handleChange}
             />
-            <label className="form-label mt-2" htmlFor="cap"><strong>Capacidad: </strong></label>
+            <label className="form-label mt-2" htmlFor="capacidad"><strong>Capacidad: </strong></label>
             <input
-              id="cap"
+              id="capacidad"
               type="text"
               name="capacidad"
-              value={recinto?.capacidad || ''}
+              value={recinto.capacidad || ''}
               className="form-control"
               onChange={handleChange}
             />
-            <label className="form-label mt-2" htmlFor="ubi"><strong>Ubicación: </strong></label>
+            <label className="form-label mt-2" htmlFor="ubicacion"><strong>Ubicación: </strong></label>
             <input
-              id="ubi"
+              id="ubicacion"
               type="text"
               name="ubicacion"
-              value={recinto?.ubicacion || ''}
+              value={recinto.ubicacion || ''}
               className="form-control"
               onChange={handleChange}
             />
-            <label className="form-label mt-2" htmlFor="dep"><strong>Deportes: </strong></label>
+            <label className="form-label mt-2" htmlFor="deportes"><strong>Deportes: </strong></label>
             <input
-              id="dep"
+              id="deportes"
               type="text"
               name="deportes"
-              value={recinto?.deportes || ''}
+              value={recinto.deportes || ''}
               className="form-control"
               onChange={handleChange}
             />
@@ -207,12 +212,12 @@ function EditaRecinto() {
               name="descripcion"
               className="form-control"
               rows="4"
-              value={recinto?.descripcion || ''}
+              value={recinto.descripcion || ''}
               onChange={handleChange}
             />
 
             <input type="submit" className="shadow btn btn-success bg-gradient mt-3 me-2" value="Actualizar" />
-            <input type="submit" className="shadow btn btn-warning bg-gradient mt-3 me-2" value="Cancelar" />
+            <button type="button" className="shadow btn btn-warning bg-gradient mt-3 me-2" onClick={handleCancel}>Cancelar</button>
             <button type="button" className="shadow btn btn-danger bg-gradient mt-3" onClick={handleDelete}>Eliminar</button>
           </form>
         </div>
@@ -227,21 +232,19 @@ function EditaRecinto() {
                 <th>Fecha</th>
                 <th>Hora de Entrada</th>
                 <th>Hora de Salida</th>
-                <th>User ID</th>
+                <th>Usuario</th>
               </tr>
             </thead>
             <tbody>
-  {reservas.map((reserva) => (
-    <tr key={reserva.id}>
-      <td>{reserva.fechaReserva}</td>
-      <td>{reserva.entrada}</td>
-      <td>{reserva.salida}</td>
-      <td>{reserva.nombreUsuario}</td>
-    </tr>
-  ))}
-</tbody>
-
-
+              {reservas.map((reserva) => (
+                <tr key={reserva.id}>
+                  <td>{reserva.fechaReserva}</td>
+                  <td>{reserva.entrada}</td>
+                  <td>{reserva.salida}</td>
+                  <td>{reserva.nombreUsuario}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       )}

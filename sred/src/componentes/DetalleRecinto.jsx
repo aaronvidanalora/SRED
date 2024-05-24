@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiArrowBack, BiCalendarPlus  } from 'react-icons/bi'; 
+import { useUserRole } from './Context';
+import { supabase } from './supabase/Supabase';
 
 function DetalleRecinto() {
   const { id } = useParams();
-  const [recinto, setRecinto] = useState(null);
 
+  const { userRole } = useUserRole();
+
+  const navigate = useNavigate()
+
+  const [recinto, setRecinto] = useState(null);
+  
   useEffect(() => {
     const fetchData = async () => {
-      const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-      const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-
-      const supabase = createClient(supabaseUrl, supabaseKey);
 
       try {
         const { data, error } = await supabase.from('recintos').select().eq('id', id).single();
@@ -26,14 +28,22 @@ function DetalleRecinto() {
       }
     };
 
-    fetchData();
+    if(userRole != undefined || userRole != null){
+      fetchData();
+    } else {
+      navigate('*')
+    }
   }, [id]);
+
+  function goBack(){
+    navigate('/')
+  }
 
   return (
     <div className="container text-light ">
       <h1 className="mt-lg-5 mt-0">{recinto ? recinto.nombre : 'Cargando...'}</h1>
       <div className="d-flex justify-content-end">
-        <div onClick={() => window.history.back()} className="btn btn-secondary bg-gradient mt-lg-5 mt-0 ">
+        <div onClick={goBack} className="btn btn-secondary bg-gradient mt-lg-5 mt-0 ">
           <BiArrowBack style={{ fontSize: '1em', marginRight: '5px' }} />
           Volver
         </div>

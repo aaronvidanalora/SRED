@@ -7,7 +7,7 @@ import { supabase } from '../supabase/Supabase';
 
 function Reserva({ reserva, deleteReservas }) {
     const navigate = useNavigate()
-
+    
     const [modalData, setModalData] = useState({
         selectedEntrada: reserva.entrada,
         selectedSalida: reserva.salida,
@@ -62,6 +62,7 @@ function Reserva({ reserva, deleteReservas }) {
         }
     }
     
+    const isPastDate = new Date(reserva.fechaReserva) < new Date();
 
     return (
         <>
@@ -80,12 +81,20 @@ function Reserva({ reserva, deleteReservas }) {
                     <div className='fw-semibold '>{reserva.entrada} / {reserva.salida}</div>
                 </div>
                 <div className="col-lg-3 col-6 d-flex justify-content-evenly">
-                    <div>
-                        <button className="shadow btn btn-success bg-gradient" data-bs-toggle="modal" data-bs-target="#exampleModalEditar">Editar</button> 
-                    </div>
-                    <div>
-                        <button className="shadow btn btn-danger bg-gradient" onClick={() => deleteReservas(reserva.id)}><BiTrash /></button>
-                    </div>
+                    {isPastDate ? (
+                        <div className="text-dark p-5">
+                            Esperemos que hayas disfrutado de tu reserva.
+                        </div>
+                    ) : (
+                        <>
+                            <div>
+                                <button className="shadow btn btn-success bg-gradient" data-bs-toggle="modal" data-bs-target="#exampleModalEditar">Editar</button> 
+                            </div>
+                            <div>
+                                <button className="shadow btn btn-danger bg-gradient" onClick={() => deleteReservas(reserva.id)}><BiTrash /></button>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
             {/* MODAL EDITAR RESERVA */}
