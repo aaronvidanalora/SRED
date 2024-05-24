@@ -1,30 +1,28 @@
 import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
-import { useUserId, useUserRole } from './Context';
+import { supabase } from '../componentes/supabase/Supabase';
+import { useUserRole } from './Context';
 
 function EditaRecinto() {
-  const navigate = useNavigate()
-  
-  const { id } = useParams(); // id parametros url
-  const { userId } = useUserId() // id usuario contexto
-  
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [recinto, setRecinto] = useState(null);
-  const [supabase, setSupabase] = useState(null); // Variable de estado para supabase
+  const [reservas, setReservas] = useState([]);
 
-  const { userRole } = useUserRole()
-  const rol = localStorage.getItem('rol')
+  const { userRole, userId } = useUserRole();
 
   useEffect(() => {
-    const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-    const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-    const client = createClient(supabaseUrl, supabaseKey);
-    setSupabase(client); // Asignar supabase a la variable de estado
+    if (userRole === 'propietario' || userRole === 'admin') {
+      fetchRecinto();
+      fetchReservas();
+    } else {
+      navigate('*');
+    }
 
     async function fetchRecinto() {
       try {
-        const { data, error } = await client.from('recintos').select().eq('id', id).single();
+        const { data, error } = await supabase.from('recintos').select().eq('id', id).single();
         if (error) {
           console.error('Error fetching recinto:', error);
         } else {
@@ -34,26 +32,54 @@ function EditaRecinto() {
         console.error('Error fetching recinto:', error);
       }
     }
-    
-    fetchRecinto();
 
-    // if (rol == 'propietario' || rol == 'admin') {
-    //   console.log('recinto', recinto);
-    //   if (userId == recinto.propietarioID || rol == 'admin'){
-    //   } else {
-    //     console.log('Este no es tu recinto');
-    //     navigate('*')
-    //   }
-    // } else {
-    //   navigate('*')
-    // }
-  }, [id]);
+    async function fetchReservas() {
+      try {
+        const { data: reservasData, error: reservasError } = await supabase
+          .from('reservas')
+          .select()
+          .eq('recintoID', id);
+
+        if (reservasError) {
+          console.error('Error fetching reservas:', reservasError);
+        } else {
+          fetchNombresUsuarios(reservasData);
+        }
+      } catch (error) {
+        console.error('Error fetching reservas:', error);
+      }
+    }
+
+    async function fetchNombresUsuarios(reservasData) {
+      try {
+        const userIDs = reservasData.map(reserva => reserva.userID);
+        const { data: usuariosData, error: usuariosError } = await supabase
+          .from('usuarios')
+          .select('name, id')
+          .in('id', userIDs);
+
+        if (usuariosError) {
+          console.error('Error fetching usuarios:', usuariosError);
+        } else {
+          const reservasActualizadas = reservasData.map(reserva => {
+            const usuario = usuariosData.find(usuario => usuario.id === reserva.userID);
+            return { ...reserva, nombreUsuario: usuario ? usuario.name : 'Usuario no encontrado' };
+          });
+
+          setReservas(reservasActualizadas);
+        }
+      } catch (error) {
+        console.error('Error fetching usuarios:', error);
+      }
+    }
+
+  }, [id, userRole, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRecinto((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -69,17 +95,15 @@ function EditaRecinto() {
           ubicacion: recinto.ubicacion,
           deportes: recinto.deportes,
           descripcion: recinto.descripcion,
+          imagen: recinto.imagen,
         })
         .eq('id', id);
-  
+
       if (error) {
         console.error('Error actualizando recinto:', error.message);
       } else {
         console.log('Recinto actualizado exitosamente:', data);
-        // Redirige a /adminrecinto después de la actualización
-        // navigate('/adminrecinto')
-        // window.location.href = '/adminrecinto';
-        window.history.back()
+        window.history.back();
       }
     } catch (error) {
       console.error('Error actualizando recinto:', error.message);
@@ -97,36 +121,40 @@ function EditaRecinto() {
         if (error) {
           console.error('Error al eliminar recinto:', error.message);
         } else {
-          // Redirige a /adminrecinto después de eliminar el recinto
-          // window.location.href = '/adminrecinto';
-          window.history.back()
+          window.history.back();
         }
       } catch (error) {
         console.error('Error al eliminar recinto:', error.message);
       }
     }
   };
-  
+
+  const handleCancel = () => {
+    window.history.back();
+  };
+
+  if (!recinto) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container pb-5 py-md-0 text-light">
-    { (rol === 'admin' || userId === recinto?.propietarioID) ? (
-    <>
       <h1 className="mt-lg-5 p">Edita Recinto</h1>
       <div className="d-flex justify-content-end">
         <div onClick={() => window.history.back()} className="btn btn-secondary bg-gradient">
           <FaArrowLeft style={{ fontSize: '1em', marginRight: '5px' }} />
-            Volver
+          Volver
         </div>
       </div>
 
       <div className="row mt-2">
         <div className="col-12 col-md-4 pt-2 mb-3">
-          <img src={recinto?.imagen} alt="" className="img-fluid d-block rounded-4" />
-          <label className="form-label mt-3" htmlFor="img"><strong>URL imagen: </strong></label>
+          <img src={recinto.imagen} alt="" className="img-fluid d-block rounded-4" />
+          <label className="form-label mt-3" htmlFor="imagen"><strong>URL imagen: </strong></label>
           <input
             type="text"
             name="imagen"
-            value={recinto?.imagen || ''}
+            value={recinto.imagen || ''}
             className="form-control mt-1"
             onChange={handleChange}
           />
@@ -138,7 +166,7 @@ function EditaRecinto() {
               id="nombre"
               type="text"
               name="nombre"
-              value={recinto?.nombre || ''}
+              value={recinto.nombre || ''}
               className="form-control"
               onChange={handleChange}
             />
@@ -147,34 +175,34 @@ function EditaRecinto() {
               id="propietario"
               type="text"
               name="propietario"
-              value={recinto?.propietario || ''}
+              value={recinto.propietario || ''}
               className="form-control"
               onChange={handleChange}
             />
-            <label className="form-label mt-2" htmlFor="cap"><strong>Capacidad: </strong></label>
+            <label className="form-label mt-2" htmlFor="capacidad"><strong>Capacidad: </strong></label>
             <input
-              id="cap"
+              id="capacidad"
               type="text"
               name="capacidad"
-              value={recinto?.capacidad || ''}
+              value={recinto.capacidad || ''}
               className="form-control"
               onChange={handleChange}
             />
-            <label className="form-label mt-2" htmlFor="ubi"><strong>Ubicación: </strong></label>
+            <label className="form-label mt-2" htmlFor="ubicacion"><strong>Ubicación: </strong></label>
             <input
-              id="ubi"
+              id="ubicacion"
               type="text"
               name="ubicacion"
-              value={recinto?.ubicacion || ''}
+              value={recinto.ubicacion || ''}
               className="form-control"
               onChange={handleChange}
             />
-            <label className="form-label mt-2" htmlFor="dep"><strong>Deportes: </strong></label>
+            <label className="form-label mt-2" htmlFor="deportes"><strong>Deportes: </strong></label>
             <input
-              id="dep"
+              id="deportes"
               type="text"
               name="deportes"
-              value={recinto?.deportes || ''}
+              value={recinto.deportes || ''}
               className="form-control"
               onChange={handleChange}
             />
@@ -184,20 +212,42 @@ function EditaRecinto() {
               name="descripcion"
               className="form-control"
               rows="4"
-              value={recinto?.descripcion || ''}
+              value={recinto.descripcion || ''}
               onChange={handleChange}
             />
 
             <input type="submit" className="shadow btn btn-success bg-gradient mt-3 me-2" value="Actualizar" />
-            <input type="submit" className="shadow btn btn-warning bg-gradient mt-3 me-2" value="Cancelar" />
+            <button type="button" className="shadow btn btn-warning bg-gradient mt-3 me-2" onClick={handleCancel}>Cancelar</button>
             <button type="button" className="shadow btn btn-danger bg-gradient mt-3" onClick={handleDelete}>Eliminar</button>
           </form>
         </div>
       </div>
-    </>
-    ) : (
-      navigate('*')
-    )}
+
+      {reservas.length > 0 && (
+        <div className="mt-5">
+          <h2>Reservas</h2>
+          <table className="table table-bordered table-striped table-hover rounded">
+            <thead className="thead-dark rounded">
+              <tr>
+                <th>Fecha</th>
+                <th>Hora de Entrada</th>
+                <th>Hora de Salida</th>
+                <th>Usuario</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reservas.map((reserva) => (
+                <tr key={reserva.id}>
+                  <td>{reserva.fechaReserva}</td>
+                  <td>{reserva.entrada}</td>
+                  <td>{reserva.salida}</td>
+                  <td>{reserva.nombreUsuario}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

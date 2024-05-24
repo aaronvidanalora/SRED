@@ -11,7 +11,6 @@ function AdminRecinto() {
   const [recintos, setRecintos] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
-  const rol = localStorage.getItem('rol')
 
   useEffect(() => {
     async function fetchRecintos() {
@@ -26,7 +25,7 @@ function AdminRecinto() {
       }
     }
 
-    if(rol == 'admin'){
+    if(userRole == 'admin'){
       fetchRecintos();
     } else {
       navigate('*')

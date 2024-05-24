@@ -8,7 +8,6 @@ function DetalleRecinto() {
   const { id } = useParams();
 
   const { userRole } = useUserRole();
-  const rol = localStorage.getItem('rol')
 
   const navigate = useNavigate()
 
@@ -29,7 +28,7 @@ function DetalleRecinto() {
       }
     };
 
-    if(rol != undefined || rol != null){
+    if(userRole != undefined || userRole != null){
       fetchData();
     } else {
       navigate('*')

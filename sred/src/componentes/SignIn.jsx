@@ -6,16 +6,14 @@ import { supabase } from './supabase/Supabase';
 
 function SignIn() {
   const navigate = useNavigate();
-  const { setUserRole } = useUserRole(); // Obtener la función para establecer el rol del usuario desde el contexto
+  const { userRole, setUserRole } = useUserRole(); // Obtener la función para establecer el rol del usuario desde el contexto
   const { setUserId } = useUserId(); // Obtener la función para establecer el rol del usuario desde el contexto
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  const rol = localStorage.getItem('rol')
 
   useEffect(() => {
-    if (rol != undefined || rol != null) {
+    if (userRole != undefined || userRole != null) {
       navigate('*')
     }
   }, []);

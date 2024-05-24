@@ -8,7 +8,6 @@ function AñadirRecinto() {
   const navigate = useNavigate();
   const { userId } = useUserId();
   const { userRole } = useUserRole()
-  const rol = localStorage.getItem('rol')
   const [recinto, setRecinto] = useState({
     nombre: '',
     capacidad: '',
@@ -40,7 +39,7 @@ function AñadirRecinto() {
       }
     };
     
-    if(rol == 'propietario'){
+    if(userRole == 'propietario'){
       fetchUserData();
     } else {
       navigate('*')

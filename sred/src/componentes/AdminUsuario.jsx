@@ -11,7 +11,6 @@ function AdminUsuario() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRoles, setSelectedRoles] = useState({});
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
-  const rol = localStorage.getItem('rol')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +26,7 @@ function AdminUsuario() {
       }
     };
     
-    if(rol == 'admin'){
+    if(userRole == 'admin'){
       fetchData();
     } else {
       navigate('*')

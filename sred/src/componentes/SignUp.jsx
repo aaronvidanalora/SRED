@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserRole } from './Context';
 import { supabase } from './supabase/Supabase';
 
 function SignUp() {
   const navigate = useNavigate();
+  const { userRole } = useUserRole()
 
   const [nombre, setNombre] = useState('');
   const [apellidos, setApellidos] = useState('');
   const [email, setEmail] = useState('');
   const [dni, setDNI] = useState('');
   const [password, setPassword] = useState('');
-  const rol = localStorage.getItem('rol')
 
   useEffect(() => {
-    if (rol != undefined || rol != null) {
+    if (userRole != undefined || userRole != null) {
       navigate('*')
     }
   }, []);

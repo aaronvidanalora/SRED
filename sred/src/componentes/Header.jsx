@@ -19,9 +19,12 @@ import ErrorPage from './Error';
 
 function Header() {
   const [userData, setUserData] = useState({});
-  const [role, setRole] = useState({});
-  const { userRole } = useUserRole(); 
+  const { userRole, setUserRole } = useUserRole(); 
   const { userId } = useUserId();
+  
+  useEffect(() => {
+    console.log('User Role from context:', userRole); // Log the user role
+  }, [userRole]);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -29,17 +32,10 @@ function Header() {
       setUserData(userResult);
     };
 
-    const fetchRole = async () => {
-      const roleResult = await MenuRol();
-      setRole(roleResult);
-    };
-
     fetchData();
-    fetchRole();
 
     const interval = setInterval(() => {
       fetchData();
-      fetchRole();
     }, 1000); // Lanzar la función cada segundo
 
     return () => clearInterval(interval);
@@ -49,6 +45,7 @@ function Header() {
     localStorage.removeItem('login');
     localStorage.removeItem('rol');
     localStorage.removeItem('id');
+    setUserRole(undefined);
   };
 
   return (
@@ -166,8 +163,6 @@ function Header() {
           <Route path="/nuevorecinto" element={<AñadirRecinto />} />
           <Route path="/editarperfil/:id" element={<EditaPerfil />} />
           <Route path="/editarecinto/:id" element={<EditaRecinto />} />
-          
-          {/* Ruta para la página de error 404 */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
