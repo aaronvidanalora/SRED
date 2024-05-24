@@ -109,7 +109,7 @@ function EditaRecinto() {
   
   return (
     <div className="container pb-5 py-md-0 text-light">
-    { (rol === 'propietario' || rol === 'admin') && (userId === recinto?.propietarioID || rol === 'admin') ? (
+    { (rol === 'admin' || userId === recinto?.propietarioID) ? (
     <>
       <h1 className="mt-lg-5 p">Edita Recinto</h1>
       <div className="d-flex justify-content-end">

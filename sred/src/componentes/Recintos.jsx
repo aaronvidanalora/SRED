@@ -9,7 +9,7 @@ function Recintos() {
   const isMisRecintos = location.pathname === '/misrecintos';
   const { userId } = useUserId()
   
-  const [id, setId] = useState(0)  
+  const [id, setId] = useState(0)
   
   useEffect(() => {
     if (isMisRecintos) {
