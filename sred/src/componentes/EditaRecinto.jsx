@@ -35,17 +35,48 @@ function EditaRecinto() {
 
     async function fetchReservas() {
       try {
-        console.log(id)
-        const { data, error } = await supabase.from('reservas').select().eq('recintoID', id);
-        if (error) {
-          console.error('Error fetching reservas:', error);
+        const { data: reservasData, error: reservasError } = await supabase
+          .from('reservas')
+          .select()
+          .eq('recintoID', id);
+    
+        if (reservasError) {
+          console.error('Error fetching reservas:', reservasError);
         } else {
-          setReservas(data);
+          setReservas(reservasData);
+          fetchNombresUsuarios(reservasData);
         }
       } catch (error) {
         console.error('Error fetching reservas:', error);
       }
     }
+    
+    async function fetchNombresUsuarios(reservasData) {
+      try {
+        const userIDs = reservasData.map(reserva => reserva.userID);
+        const { data: usuariosData, error: usuariosError } = await supabase
+          .from('usuarios')
+          .select('name, id')
+          .in('id', userIDs);
+    
+        if (usuariosError) {
+          console.error('Error fetching usuarios:', usuariosError);
+        } else {
+          console.log(usuariosData)
+          // Asociar nombres de usuarios con reservas
+          const reservasActualizadas = reservasData.map(reserva => {
+            const usuario = usuariosData.find(usuario => usuario.id === reserva.userID);
+            return { ...reserva, nombreUsuario: usuario ? usuario.name : 'Usuario no encontrado' };
+          });
+          
+          setReservas(reservasActualizadas);
+        }
+      } catch (error) {
+        console.error('Error fetching usuarios:', error);
+      }
+    }
+    
+    
   }, [id, userRole, navigate]);
 
   const handleChange = (e) => {
@@ -200,15 +231,17 @@ function EditaRecinto() {
               </tr>
             </thead>
             <tbody>
-              {reservas.map((reserva) => (
-                <tr key={reserva.id}>
-                  <td>{reserva.fechaReserva}</td>
-                  <td>{reserva.entrada}</td>
-                  <td>{reserva.salida}</td>
-                  <td>{reserva.userID}</td>
-                </tr>
-              ))}
-            </tbody>
+  {reservas.map((reserva) => (
+    <tr key={reserva.id}>
+      <td>{reserva.fechaReserva}</td>
+      <td>{reserva.entrada}</td>
+      <td>{reserva.salida}</td>
+      <td>{reserva.nombreUsuario}</td>
+    </tr>
+  ))}
+</tbody>
+
+
           </table>
         </div>
       )}
