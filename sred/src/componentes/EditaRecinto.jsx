@@ -1,32 +1,28 @@
 import { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '../componentes/supabase/Supabase';
 import { useUserRole } from './Context';
 
 function EditaRecinto() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams(); // Obtener el ID del recinto de los parámetros de la URL
   const [recinto, setRecinto] = useState(null);
-  const [supabase, setSupabase] = useState(null); // Variable de estado para supabase
+  const [reservas, setReservas] = useState([]);
 
-  const { userRole } = useUserRole()
+  const { userRole } = useUserRole();
 
   useEffect(() => {
-    if(userRole == 'propietario' || userRole == 'admin'){
-      fetchRecinto();  
+    if (userRole === 'propietario' || userRole === 'admin') {
+      fetchRecinto();
+      fetchReservas();
     } else {
-      navigate('*')
+      navigate('*');
     }
-
-    const supabaseUrl = 'https://sdyghacdmxuoytrtuntm.supabase.co';
-    const supabaseKey ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkeWdoYWNkbXh1b3l0cnR1bnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkwNTkxNTksImV4cCI6MjAyNDYzNTE1OX0.dxlHJ9O4V2KZfC9yAGCLCHgKdVnLU41SWSXkzgohcvI';
-    const client = createClient(supabaseUrl, supabaseKey);
-    setSupabase(client); // Asignar supabase a la variable de estado
 
     async function fetchRecinto() {
       try {
-        const { data, error } = await client.from('recintos').select().eq('id', id).single();
+        const { data, error } = await supabase.from('recintos').select().eq('id', id).single();
         if (error) {
           console.error('Error fetching recinto:', error);
         } else {
@@ -37,13 +33,26 @@ function EditaRecinto() {
       }
     }
 
-  }, [id]);
+    async function fetchReservas() {
+      try {
+        console.log(id)
+        const { data, error } = await supabase.from('reservas').select().eq('recintoID', id);
+        if (error) {
+          console.error('Error fetching reservas:', error);
+        } else {
+          setReservas(data);
+        }
+      } catch (error) {
+        console.error('Error fetching reservas:', error);
+      }
+    }
+  }, [id, userRole, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRecinto((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -61,15 +70,12 @@ function EditaRecinto() {
           descripcion: recinto.descripcion,
         })
         .eq('id', id);
-  
+
       if (error) {
         console.error('Error actualizando recinto:', error.message);
       } else {
         console.log('Recinto actualizado exitosamente:', data);
-        // Redirige a /adminrecinto después de la actualización
-        // navigate('/adminrecinto')
-        // window.location.href = '/adminrecinto';
-        window.history.back()
+        window.history.back();
       }
     } catch (error) {
       console.error('Error actualizando recinto:', error.message);
@@ -87,23 +93,21 @@ function EditaRecinto() {
         if (error) {
           console.error('Error al eliminar recinto:', error.message);
         } else {
-          // Redirige a /adminrecinto después de eliminar el recinto
-          // window.location.href = '/adminrecinto';
-          window.history.back()
+          window.history.back();
         }
       } catch (error) {
         console.error('Error al eliminar recinto:', error.message);
       }
     }
   };
-  
+
   return (
     <div className="container pb-5 py-md-0 text-light">
       <h1 className="mt-lg-5 p">Edita Recinto</h1>
       <div className="d-flex justify-content-end">
         <div onClick={() => window.history.back()} className="btn btn-secondary bg-gradient">
           <FaArrowLeft style={{ fontSize: '1em', marginRight: '5px' }} />
-            Volver
+          Volver
         </div>
       </div>
 
@@ -182,6 +186,32 @@ function EditaRecinto() {
           </form>
         </div>
       </div>
+
+      {reservas.length > 0 && (
+        <div className="mt-5">
+          <h2>Reservas</h2>
+          <table className="table table-bordered table-striped table-hover rounded">
+            <thead className="thead-dark rounded">
+              <tr>
+                <th>Fecha</th>
+                <th>Hora de Entrada</th>
+                <th>Hora de Salida</th>
+                <th>User ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reservas.map((reserva) => (
+                <tr key={reserva.id}>
+                  <td>{reserva.fechaReserva}</td>
+                  <td>{reserva.entrada}</td>
+                  <td>{reserva.salida}</td>
+                  <td>{reserva.userID}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
