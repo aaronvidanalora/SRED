@@ -26,7 +26,7 @@ function AdminRecinto() {
     }
 
     fetchRecintos();
-  }, []); // El segundo argumento vacío asegura que esto solo se ejecute una vez al montar el componente
+  }, []); 
 
   const handleDeleteRecinto = async (recintoId) => {
     try {
