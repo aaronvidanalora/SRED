@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useUserId } from './Context';
+import { useUserId, useUserRole } from './Context';
 import { supabase } from './supabase/Supabase';
 
 function EditaPerfil() {
   const { id } = useParams(); // id parametros url
   const { userId } = useUserId() // id usuario contexto
-  const rolLS = localStorage.getItem('rol')
+  const { userRole } = useUserRole();
 
   const navigate = useNavigate()
 
@@ -38,7 +38,7 @@ function EditaPerfil() {
       }
     };
 
-    if (userId == id || rolLS == 'admin'){
+    if (userId == id || userRole == 'admin'){
       fetchUsuario();
     } else {
       console.log('Este no es tu perfil');
