@@ -80,11 +80,16 @@ function Reserva({ reserva, deleteReservas }) {
                     <div className='fs-5 pb-lg-3'>{reserva.fechaReserva}</div>
                     <div className='fw-semibold '>{reserva.entrada} / {reserva.salida}</div>
                 </div>
-                <div className="col-lg-3 col-6 d-flex justify-content-evenly">
+                <div className="col-lg-3 col-6 d-flex justify-content-evenly align-items-center">
                     {isPastDate ? (
-                        <div className="text-dark p-5">
-                            Esperemos que hayas disfrutado de tu reserva.
-                        </div>
+                        <>
+                            <div className="text-dark w-50">
+                                Esperemos que hayas disfrutado de tu reserva.
+                            </div>
+                            <div className='w-50'>
+                                <button className="shadow btn btn-danger bg-gradient" onClick={() => deleteReservas(reserva.id)}><BiTrash /></button>
+                            </div>
+                        </>
                     ) : (
                         <>
                             <div>
@@ -115,8 +120,8 @@ function Reserva({ reserva, deleteReservas }) {
                                         dateFormat="dd/MM/yyyy"
                                         onChange={(date) => handleChange("selectedFecha", date)}
                                     />
-                                    <div className='ms-5 border border-2 rounded-3 '>
-                                        <img src={reserva.recintoImagen} alt={reserva.recintoImagen} className='img-fluid shadow-lg rounded-2' />
+                                    <div className='ms-5 border border-2 rounded-3 d-none d-md-block'>
+                                        <img src={reserva.recintoImagen} alt={reserva.recintoImagen} className='img-fluid shadow-lg rounded-2 ' />
                                     </div>
                                 </div>
                                 <div className="col-12 d-flex">
