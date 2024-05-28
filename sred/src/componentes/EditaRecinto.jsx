@@ -14,7 +14,7 @@ function EditaRecinto() {
   const { userId } = useUserId();
 
   useEffect(() => {
-    if (userId == recinto?.propietarioID || userRole == 'admin') {
+    if (userRole == 'propietario' || userRole == 'admin') { // userId == recinto?.propietarioID
       fetchRecinto();
       fetchReservas();
     } else {
