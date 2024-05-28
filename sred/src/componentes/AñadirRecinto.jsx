@@ -147,7 +147,7 @@ function AñadirRecinto() {
 
       <div className="row mt-0 mt-lg-2">
         <div className="col-12 col-md-4 pt-2 mb-3">
-          <img src={recinto.imagen} alt={recinto.imagen} className="img-fluid rounded-3" />
+        
           <label className="form-label mt-3 d-block text-light" htmlFor="img"><strong>Seleccionar imagen: </strong></label>
           <input
             type="file"
